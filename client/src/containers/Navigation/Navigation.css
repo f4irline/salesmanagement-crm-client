@@ -1,0 +1,27 @@
+.Navigation {
+  display: flex; /** Use CSS flexbox for easy responsive stuff */
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 5vh;
+  background-color: #ccc;
+  border-bottom: 1px solid black;
+  z-index: 1000; /** Make sure that it's always on top of everything */
+}
+
+.navigation-wrapper {
+  display: flex;
+  justify-content: flex-start; /** Content automatically sticks to the left side of the container */
+  align-items: center; /** Align items vertically to center so they appear in the middle of the navigation bar */
+  width: 50%;
+}
+
+.action-wrapper {
+  display: flex;
+  justify-content: flex-end; /** Content automatically sticks to the right side of the container */
+  align-items: center; /** Align items vertically to center so they appear in the middle of the navigation bar */
+  width: 50%;
+}
