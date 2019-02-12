@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "user_id": 1001,
+      "user_name": "Foo Bar",
+      "last_login": "2008-11-11",
+      "role": "admin",
+      "password": "1245"
+    },
+    {
+      "user_id": 1002,
+      "user_name": "John Smith",
+      "last_login": "2008-11-12",
+      "role": "user",
+      "password": "12345"
+    },
+    {
+      "user_id": 1003,
+      "user_name": "Nicholas Cage",
+      "last_login": "2018-09-11",
+      "role": "user",
+      "password": "12345"
+    },
+    {
+      "user_id": 1004,
+      "user_name": "Elisabeth Taylor",
+      "last_login": "2017-06-12",
+      "role": "user",
+      "password": "12345"
+    },
+    {
+      "user_id": 1005,
+      "user_name": "Jim Carrey",
+      "last_login": "2019-01-11",
+      "role": "user",
+      "password": "12345"
+    },
+    {
+      "user_id": 1006,
+      "user_name": "Mila Kunis",
+      "last_login": "2019-02-07",
+      "role": "user",
+      "password": "12345"
+    }
+  ]
+}
