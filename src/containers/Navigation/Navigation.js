@@ -8,8 +8,8 @@ const Navigation = (props) => {
   return (
     <div className='Navigation'>
       <div className='navigation-wrapper'>
-        <NavItem />
-        <NavItem />
+        <NavItem url='/'>Dashboard</NavItem>
+        <NavItem url='/leaderboards'>Leaderboards</NavItem>
       </div>
       <div className='action-wrapper'>
         <ActionItem />
