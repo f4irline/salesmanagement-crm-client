@@ -5,6 +5,7 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Leaderboards from './containers/Leaderboards/Leaderboards';
+import Error from './containers/Error/Error';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Switch>
             <Route path="/" component={Dashboard} exact />
             <Route path="/leaderboards" component={Leaderboards} />
+            <Route component={Error} />
           </Switch>
         </BrowserRouter>
       </div>
