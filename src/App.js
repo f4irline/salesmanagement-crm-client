@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Navigation from './containers/Navigation/Navigation';
 import Footer from './containers/Footer/Footer';
 import './App.css';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Dashboard from './containers/Dashboard/Dashboard';
+import Leaderboards from './containers/Leaderboards/Leaderboards';
 
 class App extends Component {
   render() {
@@ -9,6 +12,12 @@ class App extends Component {
       <div className="App">
         <Navigation />
         <Footer />
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={Dashboard} exact />
+            <Route path="/leaderboards" component={Leaderboards} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
