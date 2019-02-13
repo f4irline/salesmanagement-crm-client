@@ -1,0 +1,31 @@
+.Button {
+    display: flex;
+    border: 1px solid black;
+    padding: 5px;
+    width: 5vw;
+    justify-content: center;
+}
+
+.Button p {
+    padding: 0;
+    margin: 0;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */}
+
+.danger {
+    background-color: #FF0000;
+}
+
+.success {
+    background-color: #00FF00;
+}
+
+.Button:active,
+.Button:focus {
+    background-color: blue;
+}
