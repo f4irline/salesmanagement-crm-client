@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import './Login.css';
 
 class Login extends Component {
@@ -12,13 +16,13 @@ class Login extends Component {
     this.props.onLogin(this.state.name);
   }
 
-  handleInputChange(e) {
-    switch (e.target.name) {
+  handleInputChange(event) {
+    switch (event.target.name) {
     case 'username':
-      this.setState({name: e.target.value});
+      this.setState({name: event.target.value});
       break;
     case 'password':
-      this.setState({password: e.target.value});
+      this.setState({password: event.target.value});
       break;
     default:
       break;
@@ -29,9 +33,29 @@ class Login extends Component {
     return (
       <div className='Login'>
         <div className='form-wrapper'>
-          <input onChange={this.handleInputChange.bind(this)} className='input name' type="text" name="username" placeholder="Name"></input>
-          <input onChange={this.handleInputChange.bind(this)} className='input password' type="text" name="password" placeholder="Password"></input>
-          <button className='input' onClick={this.handleButtonClick.bind(this)}>Submit</button>
+          <Typography variant="h5" gutterBottom>
+            USER LOGIN
+          </Typography>
+          <Divider />
+          <TextField
+            id="standard-name"
+            label="Name"
+            value={this.state.name}
+            onChange={this.handleInputChange.bind(this)}
+            margin="dense"
+            name="username"
+          />
+          <TextField
+            id="standard-name"
+            label="Password"
+            value={this.state.password}
+            onChange={this.handleInputChange.bind(this)}
+            margin="dense"
+            name="password"
+          />
+          <Button size="medium" onClick={this.handleButtonClick.bind(this)} variant="contained">
+            Submit
+          </Button>
         </div>
       </div>
     );

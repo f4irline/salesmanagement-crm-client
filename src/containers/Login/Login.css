@@ -8,14 +8,10 @@
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  height: 150px;
   width: 300px;
   box-shadow: 0 2px 3px #666;
   padding: 5vmin;
 }
 
 .input {
-  padding: 5px;
-  font-size: 24px;
-  margin: 5px 0;
 }
