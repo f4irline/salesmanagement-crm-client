@@ -11,6 +11,11 @@ class App extends Component {
     name: ''
   }
 
+  /**
+   * Handles logging user in
+   * 
+   * @param {String} name 
+   */
   handleLogin(name) {
     this.setState({loggedIn: true, name: name});
   }
