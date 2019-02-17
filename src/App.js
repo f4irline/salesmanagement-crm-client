@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   /**
-   * Handles logging the user
+   * Handles logging the user in
    * 
    * @param {String} name 
    */
