@@ -11,7 +11,7 @@ import './App.css';
 class App extends Component {
 
   state = {
-    loggedIn: false,
+    loggedIn: true,
     modalOpen: false,
     name: ''
   }
@@ -48,14 +48,8 @@ class App extends Component {
           <Fab size='large' color='primary'>
             <AddIcon onClick={this.modalOpen.bind(this)} />
           </Fab>
-        </div>
-        <Modal 
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"        
-          open={this.state.modalOpen} 
-          close={this.modalClose.bind(this)}>
           <ModalContent />
-        </Modal>
+        </div>
       </div>
     );
   }

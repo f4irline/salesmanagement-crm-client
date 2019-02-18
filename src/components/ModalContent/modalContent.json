@@ -1,0 +1,29 @@
+{
+    "content" : {
+
+        "global" : [
+
+            {
+                "id" : "type-selection",
+                "type" : "select",
+                "items" : [
+                    "Asiakas",
+                    "Kontakti",
+                    "Tapaaminen",
+                    "Myynti"
+                ]
+            }
+
+        ],
+
+        "addCustomer" : [
+
+            {
+                "id" : "input-name",
+                "type" : "input"
+            }
+
+        ]
+
+    }
+}
