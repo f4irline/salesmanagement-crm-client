@@ -1,0 +1,17 @@
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  box-shadow: 0 2px 3px #666;
+  padding: 5vmin;
+}
+
+.input {
+}
