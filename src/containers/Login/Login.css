@@ -1,0 +1,13 @@
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.MuiPaper-root-1 {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 5vmin;
+}
