@@ -4,6 +4,9 @@ import './Navigation.css';
 import NavItem from '../../components/NavItem/NavItem';
 import ActionItem from '../../components/ActionItem/ActionItem';
 
+import Settings from '@material-ui/icons/Settings';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+
 const Navigation = (props) => {
   return (
     <div className='Navigation'>
@@ -12,8 +15,8 @@ const Navigation = (props) => {
         <NavItem url='/leaderboards'>Leaderboards</NavItem>
       </div>
       <div className='action-wrapper'>
-        <ActionItem />
-        <ActionItem />
+        <ActionItem name = 'configuration' icon = {<Settings/>}/>
+        <ActionItem name = 'logout' icon = {<ExitToApp/>}/>
       </div>
     </div>
   );
