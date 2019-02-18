@@ -28,6 +28,10 @@ class App extends Component {
     this.setState({loggedIn: true, name: name});
   }
 
+  handleLogout() {
+    this.setState({loggedIn: false});
+  }
+
   modalClose() {
     this.setState({modalOpen: false});
   }
@@ -45,7 +49,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <Navigation />
+        <Navigation onLogout = {this.handleLogout.bind(this)}/>
         <Switch>
           <Route path="/" component={Dashboard} exact />
           <Route path="/leaderboards" component={Leaderboards} />
