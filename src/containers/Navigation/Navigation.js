@@ -15,8 +15,8 @@ const Navigation = (props) => {
         <NavItem url='/leaderboards'>Leaderboards</NavItem>
       </div>
       <div className='action-wrapper'>
-        <ActionItem name = 'configuration' icon = {<Settings/>}/>
-        <ActionItem name = 'logout' icon = {<ExitToApp/>} onLogout = {props.onLogout}/>
+        <ActionItem name = 'configuration' icon = {<Settings/>} onClick = {props.handleConfiguration}/>
+        <ActionItem name = 'logout' icon = {<ExitToApp/>} onClick = {props.handleLogout}/>
       </div>
     </div>
   );
