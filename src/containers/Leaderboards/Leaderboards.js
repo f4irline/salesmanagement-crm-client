@@ -2,25 +2,28 @@ import React from 'react';
 import { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import users from '../../placeholders/users.json'; 
+import leaderboards from '../../placeholders/leaderboards.json'; 
 import './Leaderboards.css';
 
 class Leaderboards extends Component {
   
   render() {
-    const data = users.users;
+    const data = leaderboards.leaderboards;
     const columns = [{
       Header: 'Name',
-      accessor: 'user_name'
+      accessor: 'user_first'
     },{
-      Header: 'Role',
-      accessor: 'role'
+      Header: 'Hit rate %',
+      accessor: 'hit_rate'
     },{
-      Header: 'User ID',
-      accessor: 'user_id'
+      Header: 'Average sales',
+      accessor: 'avg_sales'
     },{
-      Header: 'Last Login',
-      accessor: 'last_login'
+      Header: 'Total sales',
+      accessor: 'total_sales'
+    },{
+      Header: 'Deals',
+      accessor: 'deals_amount'
     }];
 
     return (
