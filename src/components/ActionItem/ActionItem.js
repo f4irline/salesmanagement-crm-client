@@ -5,7 +5,8 @@ import './ActionItem.css';
 const ActionItem = (props) => {
   return (
     <div className='ActionItem'>
-      <p className='item'>ActionItem</p>
+      {props.icon}
+      <p className='item'>{props.name}</p>
     </div>
   );
 };
