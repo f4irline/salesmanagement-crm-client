@@ -1,0 +1,70 @@
+{
+    "leaderboards": [
+        {
+            "user_first": "Foo",
+            "user_last": "Bar",
+            "hit_rate": "28%",
+            "avg_sales": 10589,
+            "total_sales": 83900,
+            "contacts_amount": 47,
+            "meetings_amount": 12,
+            "offers_amount": 7,
+            "deals_amount": 8
+        },
+        {
+            "user_first": "John",
+            "user_last": "Smith",
+            "hit_rate": "25%",
+            "avg_sales": 10589,
+            "total_sales": 83900,
+            "contacts_amount": 47,
+            "meetings_amount": 12,
+            "offers_amount": 7,
+            "deals_amount": 8
+        },
+        {
+            "user_first": "Nicholas",
+            "user_last": "Cage",
+            "hit_rate": "28%",
+            "avg_sales": 10589,
+            "total_sales": 83900,
+            "contacts_amount": 47,
+            "meetings_amount": 12,
+            "offers_amount": 7,
+            "deals_amount": 8
+        },
+        {
+            "user_first": "Elisabeth",
+            "user_last": "Taylor",
+            "hit_rate": "28%",
+            "avg_sales": 10589,
+            "total_sales": 83900,
+            "contacts_amount": 47,
+            "meetings_amount": 12,
+            "offers_amount": 7,
+            "deals_amount": 8
+        },
+        {
+            "user_first": "Jim",
+            "user_last": "Carrey",
+            "hit_rate": "28%",
+            "avg_sales": 10589,
+            "total_sales": 83900,
+            "contacts_amount": 47,
+            "meetings_amount": 12,
+            "offers_amount": 7,
+            "deals_amount": 8
+        },
+        {
+            "user_first": "Milas",
+            "user_last": "Kunis",
+            "hit_rate": "28%",
+            "avg_sales": 10589,
+            "total_sales": 83900,
+            "contacts_amount": 47,
+            "meetings_amount": 12,
+            "offers_amount": 7,
+            "deals_amount": 8
+        }
+    ]
+}
