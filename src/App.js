@@ -37,16 +37,12 @@ class App extends Component {
     return (
       <div className='App'>
         <Navigation />
-<<<<<<< HEAD
-        <Footer />
         <Switch>
           <Route path="/" component={Dashboard} exact />
           <Route path="/leaderboards" component={Leaderboards} />
           <Route component={Error} />
         </Switch>
-=======
         <Footer name={this.state.name}/>
->>>>>>> 3212c3469d231004f22582080d39b4eddf84d7b6
       </div>
     );
   }
