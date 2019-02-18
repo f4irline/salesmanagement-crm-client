@@ -8,3 +8,9 @@
   bottom: 10vh;
   right: 10vh;
 }
+
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
