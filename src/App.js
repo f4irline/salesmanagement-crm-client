@@ -11,7 +11,7 @@ import Error from './containers/Error/Error';
 class App extends Component {
 
   state = {
-    loggedIn: false,
+    loggedIn: true,
     name: ''
   }
 
