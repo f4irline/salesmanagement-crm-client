@@ -1,1 +1,10 @@
+.content {
+  position: relative;
+  top: 5vh;
+}
 
+.add-wrapper {
+  position: absolute;
+  bottom: 10vh;
+  right: 10vh;
+}
