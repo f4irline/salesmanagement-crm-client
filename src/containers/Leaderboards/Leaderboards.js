@@ -6,7 +6,7 @@ import './Leaderboards.css';
 
 class Leaderboards extends Component {
 
-  convertData(data) {
+  convertData(data) {  
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -28,6 +28,7 @@ class Leaderboards extends Component {
   }
   
   render() {
+
     const data = leaderboards.leaderboards;   
     const newData = this.convertData(data); 
     console.log(newData);
@@ -44,61 +45,61 @@ class Leaderboards extends Component {
         name: 'Hit rate %',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Average sales',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Total sales',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Contact amount',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Meeting amount',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Offer amount',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Deal amount',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       },
       {
         name: 'Date',
         options: {
           filter: true,
-          sort: false,
+          sort: true,
         }
       }
     ];
     const options = {
-      filtertype: 'dropdown'
+      filtertype: 'multiselect'
     };
     return (
       <div className="content" id="table">
