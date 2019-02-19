@@ -14,7 +14,7 @@ import './App.css';
 class App extends Component {
 
   state = {
-    loggedIn: true,
+    loggedIn: false,
     modalOpen: false,
     name: ''
   }
