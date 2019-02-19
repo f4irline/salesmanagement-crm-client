@@ -14,7 +14,7 @@ import './App.css';
 class App extends Component {
 
   state = {
-    loggedIn: true,
+    loggedIn: false,
     modalOpen: false,
     name: ''
   }
@@ -30,6 +30,10 @@ class App extends Component {
 
   handleLogout() {
     this.setState({loggedIn: false});
+  }
+
+  handleConfiguration () {
+    console.log('handleConfiguration');
   }
 
   modalClose() {
@@ -49,7 +53,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <Navigation onLogout = {this.handleLogout.bind(this)}/>
+        <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
           <Route path="/" component={Dashboard} exact />
           <Route path="/leaderboards" component={Leaderboards} />
