@@ -3,7 +3,29 @@
   padding: 0;
 }
 
+.NavItem > a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.NavItem > a > p {
+  margin-left: 3px;
+  display: none;
+}
+
+.NavItem > a.active {
+  color: red;
+}
+
 .item {
   margin: 0;
   padding: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .NavItem > a > p {
+    display: block;
+  }
 }

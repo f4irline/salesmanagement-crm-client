@@ -1,4 +1,20 @@
 .ActionItem {
   margin: 0 5vw;
   display: flex;
+  align-items: center;
+}
+
+.ActionItem > p {
+  margin-left: 3px;
+  display: none;
+}
+
+.ActionItem:hover {
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  .ActionItem > p {
+    display: block;
+  }
 }
