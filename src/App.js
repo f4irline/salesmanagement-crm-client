@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {Switch, Route} from 'react-router-dom';
+import Dashboard from './containers/Dashboard/Dashboard';
+import Leaderboards from './containers/Leaderboards/Leaderboards';
 import Navigation from './containers/Navigation/Navigation';
 import Footer from './containers/Footer/Footer';
 import Login from './containers/Login/Login';
@@ -25,6 +28,10 @@ class App extends Component {
     this.setState({loggedIn: true, name: name});
   }
 
+  handleLogout() {
+    this.setState({loggedIn: false});
+  }
+
   modalClose() {
     this.setState({modalOpen: false});
   }
@@ -42,7 +49,12 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <Navigation />
+        <Navigation onLogout = {this.handleLogout.bind(this)}/>
+        <Switch>
+          <Route path="/" component={Dashboard} exact />
+          <Route path="/leaderboards" component={Leaderboards} />
+          <Route component={Error} />
+        </Switch>
         <Footer name={this.state.name}/>
         <div className='add-wrapper'>
           <Fab size='large' color='primary'>
