@@ -1,38 +1,72 @@
 import React, {Component} from 'react';
 import Typography from '@material-ui/core/Typography';
-import modalContent from './modalContent.json';
+import './ModalContent.css';
+import Paper from '@material-ui/core/Paper';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import Button from '@material-ui/core/Button';
+import CustomerContent from './CustomerContent';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ContactContent from './ContactContent';
+import LeadContent from './LeadContent';
+import MeetingContent from './MeetingContent';
+import SalesContent from './SalesContent';
 
 class ModalContent extends Component {
 
-  createElement(type) {
+  state = {
+    selectedValue: '',
+  };
 
-    let elem;
-
-    switch(type) {
-      case 'input':
-        break;
-    }
-
-  }
-
-  buildContent() {
-    let jsonObject = modalContent.content;
-    
-    let globalElements = jsonObject.global;
-
-
-
-    let myModal = <div>
-      
-    </div>;
-
-    return myModal;
-  }
+  handleChange = event => {
+    this.setState({ selectedValue: event.target.value });
+  };
 
   render() {
+
+    let content = null;
+
+    if (this.state.selectedValue === 'customer')
+      content = <CustomerContent />;
+    else if (this.state.selectedValue === 'contact')
+      content = <ContactContent />;
+    else if (this.state.selectedValue === 'lead')
+      content = <LeadContent />;
+    else if (this.state.selectedValue === 'meeting')
+      content = <MeetingContent />;
+    else if (this.state.selectedValue === 'sales')
+      content = <SalesContent />;
+
     return (
-      <div>
-        {this.buildContent()}
+      <div className='ModalContent' tabIndex={-1}>
+        <Paper className='.MuiPaper-root-1'>
+          <div>
+            <Typography variant='h5' gutterBottom>
+              Lisää:
+            </Typography>
+            
+            <RadioGroup row
+              name="radioGroup"
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              <FormControlLabel value="customer" control={<Radio />} label="Asiakas" />
+              <FormControlLabel value="contact" control={<Radio />} label="Kontakti" />
+              <FormControlLabel value="lead" control={<Radio />} label="Liidi" />
+              <FormControlLabel value="meeting" control={<Radio />} label="Tapaaminen" />
+              <FormControlLabel value="sales" control={<Radio />} label="Myynti" />
+            </RadioGroup>
+          </div>
+
+          {content}
+
+          <div>
+            <Button variant='contained'>
+              Tallenna
+            </Button>
+          </div>
+
+        </Paper>
       </div>
     );
   }

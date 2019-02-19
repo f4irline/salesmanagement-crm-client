@@ -48,8 +48,14 @@ class App extends Component {
           <Fab size='large' color='primary'>
             <AddIcon onClick={this.modalOpen.bind(this)} />
           </Fab>
-          <ModalContent />
         </div>
+        <Modal 
+          open={this.state.modalOpen} 
+          onClose={this.modalClose.bind(this)}
+          className='modal-wrapper'
+          onEscapeKeyDown={this.modalClose.bind(this)}>
+          <ModalContent />
+        </Modal>
       </div>
     );
   }
