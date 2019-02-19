@@ -1,35 +1,113 @@
 import React from 'react';
 import { Component } from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import users from '../../placeholders/users.json'; 
+import MUIDataTable from 'mui-datatables';
+import leaderboards from '../../placeholders/leaderboards.json'; 
 import './Leaderboards.css';
 
 class Leaderboards extends Component {
+
+  convertData(data) {  
+    let newData = [];
+    newData = data.map((object) => {
+      let rowData = [];
+      let fullName = '';
+      for (let data in object) {
+        if (data === 'user_first') {
+          fullName += object[data]+' ';
+        } else if (data === 'user_last') {
+          fullName += object[data];
+          rowData.push(fullName);
+        } else {
+          rowData.push(object[data]);
+        }
+      }
+      return rowData;
+    });
+
+    return newData;
+  }
   
   render() {
-    const data = users.users;
-    const columns = [{
-      Header: 'Name',
-      accessor: 'user_name'
-    },{
-      Header: 'Role',
-      accessor: 'role'
-    },{
-      Header: 'User ID',
-      accessor: 'user_id'
-    },{
-      Header: 'Last Login',
-      accessor: 'last_login'
-    }];
 
+    const data = leaderboards.leaderboards;   
+    const newData = this.convertData(data); 
+    console.log(newData);
+    const columns = [
+
+      {
+        name: 'Name',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Hit rate %',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Average sales',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Total sales',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Contact amount',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Meeting amount',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Offer amount',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Deal amount',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      },
+      {
+        name: 'Date',
+        options: {
+          filter: true,
+          sort: true,
+        }
+      }
+    ];
+    const options = {
+      filtertype: 'multiselect'
+    };
     return (
       <div className="content" id="table">
-        <ReactTable
-          data={data}
+        <MUIDataTable
+          title={'Leaderboards'}
+          data={newData}
           columns={columns}
-          defaultPageSize = {10}
-          pageSizeOptions = {[10, 20]}
+          options={options}
         />
       </div>      
     );
