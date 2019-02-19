@@ -2,9 +2,14 @@ import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import leaderboards from '../../placeholders/leaderboards.json'; 
+import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
 class Leaderboards extends Component {
+
+  state = {
+
+  }
 
   convertData(data) {  
     let newData = [];
@@ -104,14 +109,35 @@ class Leaderboards extends Component {
       selectableRows: false,
     };
     return (
-      <div className="content" id="table">
-        <MUIDataTable
-          title={'Leaderboards'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
-      </div>      
+      <div className="content Leaderboards">
+        <form className="datePicker">
+          <TextField className="date"
+            id="date"
+            label="Start Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField className="date"
+            id="date"
+            label="End Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </form>
+        <div id="table">
+          <MUIDataTable
+            title={'Leaderboards'}
+            data={newData}
+            columns={columns}
+            options={options}
+          />
+        </div>  
+      </div>
+     
     );
 
   }
