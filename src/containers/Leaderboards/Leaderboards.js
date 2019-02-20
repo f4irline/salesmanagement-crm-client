@@ -9,6 +9,7 @@ class Leaderboards extends Component {
 
   constructor(props) {
     super(props);
+    this.onChange=this.onChange.bind(this);
     this.state = {
       startDate:null,
       endDate:null
@@ -16,8 +17,22 @@ class Leaderboards extends Component {
   }
 
   onChange(event) {
-    console.log(event.target.value);
-    console.log(event.target.id);
+    let value = event.target.value;
+    let id = event.target.id;
+    switch(id) {
+    case 'startDate':
+      this.setState({startDate: value},() => {
+        console.log(this.state);
+      });
+      break;
+    case 'endDate':
+      this.setState({endDate: value},() => {
+        console.log(this.state);
+      });
+      break;
+    default:
+      break;
+    }
   }
 
   convertData(data) {  
