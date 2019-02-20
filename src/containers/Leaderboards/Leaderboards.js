@@ -7,8 +7,16 @@ import './Leaderboards.css';
 
 class Leaderboards extends Component {
 
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate:null,
+      endDate:null
+    };
+  }
 
+  onChange(event) {
+    console.log('changed');
   }
 
   convertData(data) {  
@@ -118,6 +126,7 @@ class Leaderboards extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={this.onChange}
           />
           <TextField className="date"
             id="date"
@@ -126,6 +135,7 @@ class Leaderboards extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={this.onChange}
           />
         </form>
         <div id="table">
