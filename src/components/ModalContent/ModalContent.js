@@ -4,7 +4,6 @@ import './ModalContent.css';
 import Paper from '@material-ui/core/Paper';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import Button from '@material-ui/core/Button';
 import LeadContent from './LeadContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ContactContent from './ContactContent';
@@ -17,6 +16,16 @@ class ModalContent extends Component {
     selectedValue: '',
   };
 
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick = data => event => {
+    console.log(data);
+  }
+
   handleChange = event => {
     this.setState({ selectedValue: event.target.value });
   };
@@ -26,13 +35,13 @@ class ModalContent extends Component {
     let content = null;
 
     if (this.state.selectedValue === 'lead')
-      content = <LeadContent />;
+      content = <LeadContent handleClick={this.handleClick} />;
     else if (this.state.selectedValue === 'contact')
-      content = <ContactContent />;
+      content = <ContactContent handleClick={this.handleClick} />;
     else if (this.state.selectedValue === 'meeting')
-      content = <MeetingContent />;
+      content = <MeetingContent handleClick={this.handleClick} />;
     else if (this.state.selectedValue === 'sales')
-      content = <SalesContent />;
+      content = <SalesContent handleClick={this.handleClick} />;
 
     return (
       <div className='ModalContent' tabIndex={-1}>
@@ -55,12 +64,6 @@ class ModalContent extends Component {
           </div>
 
           {content}
-
-          <div>
-            <Button variant='contained'>
-              Tallenna
-            </Button>
-          </div>
 
         </Paper>
       </div>
