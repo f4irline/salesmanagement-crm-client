@@ -40,8 +40,10 @@ class Leaderboards extends Component {
     let filterData = [];
     
     filterData = data.filter((object) => {
-      let objectDate = new Date(object.date);  
+      let objectDate = new Date(object.date);
       if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
+        return object;
+      } else if (objectDate >= this.state.startDate || objectDate <= this.state.endDate) {
         return object;
       }
     });
@@ -73,7 +75,7 @@ class Leaderboards extends Component {
   convertData(data) {
     let dataToMap = [];
     let filterData = [];
-    if(this.state.startDate.toString() !== 'Invalid Date' &&
+    if(this.state.startDate.toString() !== 'Invalid Date' ||
       this.state.endDate.toString() !== 'Invalid Date') {
       filterData = this.filterData(data);
       dataToMap = filterData;
