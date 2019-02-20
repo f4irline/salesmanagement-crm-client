@@ -5,10 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import Button from '@material-ui/core/Button';
-import CustomerContent from './CustomerContent';
+import LeadContent from './LeadContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ContactContent from './ContactContent';
-import LeadContent from './LeadContent';
 import MeetingContent from './MeetingContent';
 import SalesContent from './SalesContent';
 
@@ -26,12 +25,10 @@ class ModalContent extends Component {
 
     let content = null;
 
-    if (this.state.selectedValue === 'customer')
-      content = <CustomerContent />;
+    if (this.state.selectedValue === 'lead')
+      content = <LeadContent />;
     else if (this.state.selectedValue === 'contact')
       content = <ContactContent />;
-    else if (this.state.selectedValue === 'lead')
-      content = <LeadContent />;
     else if (this.state.selectedValue === 'meeting')
       content = <MeetingContent />;
     else if (this.state.selectedValue === 'sales')
@@ -50,9 +47,8 @@ class ModalContent extends Component {
               value={this.state.value}
               onChange={this.handleChange}
             >
-              <FormControlLabel value="customer" control={<Radio />} label="Asiakas" />
-              <FormControlLabel value="contact" control={<Radio />} label="Kontakti" />
               <FormControlLabel value="lead" control={<Radio />} label="Liidi" />
+              <FormControlLabel value="contact" control={<Radio />} label="Kontakti" />
               <FormControlLabel value="meeting" control={<Radio />} label="Tapaaminen" />
               <FormControlLabel value="sales" control={<Radio />} label="Myynti" />
             </RadioGroup>

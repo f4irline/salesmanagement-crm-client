@@ -4,7 +4,27 @@ import TextField from '@material-ui/core/TextField';
 
 class LeadContent extends Component {
 
+  
+
+  state = {
+    date: {
+      
+    }
+  }
+
+  /*function handleChange(event) {
+    switch(event.target.id) {
+      case standard-name:
+        this.setState({standard-name: event.target.value})
+    }
+  }*/
+
   render() {
+    /*data = {
+      name: 'ossi',
+      branch: 'ossi'
+    }*/
+    
     return(
       <div>
         <Typography variant="h5" gutterBottom>
@@ -15,6 +35,7 @@ class LeadContent extends Component {
           id="standard-name"
           label="Yrityksen nimi"
           margin="normal"
+          onChange='handleChange()'
         />
         <br />
         <TextField
