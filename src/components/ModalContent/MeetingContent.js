@@ -31,7 +31,7 @@ class MeetingContent extends Component {
           id='date'
           name='date'
           label='Päivämäärä'
-          type='date'
+          type='datetime-local'
           InputLabelProps={{
             shrink: true,
           }}
