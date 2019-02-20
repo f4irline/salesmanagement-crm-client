@@ -1,3 +1,9 @@
+.App {
+  min-height: 100vh;
+  background: rgb(204,215,216);
+  background: linear-gradient(90deg, rgba(204,215,216,1) 0%, rgba(255,255,255,1) 19%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 81%, rgba(204,215,216,1) 100%);
+  }
+
 .content {
   position: relative;
   top: 5vh;
@@ -13,4 +19,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.MuiFab-primary-168 {
+  background-color: #222C35 !important; 
+}
+
+.MuiFab-primary-168:hover {
+  background-color: rgb(65, 89, 109) !important; 
 }
