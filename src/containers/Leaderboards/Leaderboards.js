@@ -11,8 +11,8 @@ class Leaderboards extends Component {
     super(props);
     this.onChange=this.onChange.bind(this);
     this.state = {
-      startDate:null,
-      endDate:null
+      startDate:new Date('foo'),
+      endDate:new Date('foo')
     };
   }
 
@@ -22,18 +22,24 @@ class Leaderboards extends Component {
     switch(id) {
     case 'startDate':
       this.setState({startDate: new Date(value)},() => {
-        console.log(this.state);
+        this.checkDates();
       });
       break;
     case 'endDate':
       this.setState({endDate: new Date(value)},() => {
-        console.log(this.state);
+        this.checkDates();
       });
       break;
     default:
       break;
     }
-    console.log(typeof this.state.startDate);
+  }
+
+  checkDates() {
+    if(this.state.startDate.toString() !== 'Invalid Date' &&
+     this.state.endDate.toString() !== 'Invalid Date') {
+      console.log('validdi');
+    }
   }
 
   convertData(data) {  
