@@ -7,7 +7,8 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: black;
+  color: #fff;
+  transition: 0.2s ease;
 }
 
 .NavItem > a > p {
@@ -15,17 +16,35 @@
   display: none;
 }
 
-.NavItem > a.active {
-  color: red;
+.NavItem > a.active,
+.NavItem > a:hover {
+  color: #D72322;
 }
 
-.item {
-  margin: 0;
-  padding: 0;
+  .active .item:after {
+  left: 0;       
+  width: 100%; 
 }
+
+.item:after {
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: relative;
+  background: #D72322;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;      
+}
+
 
 @media only screen and (min-width: 768px) {
   .NavItem > a > p {
-    display: block;
+    display: inline-block;
+  }
+
+  .linkWrapper:hover .item:after {
+    width: 100%; 
+    left: 0;       
   }
 }

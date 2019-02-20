@@ -2,3 +2,12 @@
   margin-right: 5%;;
   margin-left: 5%;
 }
+
+.datePicker {
+  display: flex;
+  justify-content: center;
+}
+
+.date {
+  margin: 3vh 10vw !important;
+}

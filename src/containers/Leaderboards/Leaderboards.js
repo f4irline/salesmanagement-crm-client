@@ -2,9 +2,38 @@ import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import leaderboards from '../../placeholders/leaderboards.json'; 
+import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
 class Leaderboards extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onChange=this.onChange.bind(this);
+    this.state = {
+      startDate:null,
+      endDate:null
+    };
+  }
+
+  onChange(event) {
+    let value = event.target.value;
+    let id = event.target.id;
+    switch(id) {
+    case 'startDate':
+      this.setState({startDate: value},() => {
+        console.log(this.state);
+      });
+      break;
+    case 'endDate':
+      this.setState({endDate: value},() => {
+        console.log(this.state);
+      });
+      break;
+    default:
+      break;
+    }
+  }
 
   convertData(data) {  
     let newData = [];
@@ -30,63 +59,64 @@ class Leaderboards extends Component {
   render() {
 
     const data = leaderboards.leaderboards;   
-    const newData = this.convertData(data); 
-    console.log(newData);
+    const newData = this.convertData(data);
     const columns = [
-
       {
         name: 'Name',
         options: {
           filter: true,
           sort: true,
+          filterOptions: newData.map((key) => {
+            return key[0];
+          })
         }
       },
       {
         name: 'Hit rate %',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
       {
         name: 'Average sales',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
       {
         name: 'Total sales',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
       {
         name: 'Contact amount',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
       {
         name: 'Meeting amount',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
       {
         name: 'Offer amount',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
       {
         name: 'Deal amount',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       },
@@ -99,17 +129,41 @@ class Leaderboards extends Component {
       }
     ];
     const options = {
-      filtertype: 'multiselect'
+      filterType: 'multiselect',
+      selectableRows: false,
     };
     return (
-      <div className="content" id="table">
-        <MUIDataTable
-          title={'Leaderboards'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
-      </div>      
+      <div className="content Leaderboards">
+        <form className="datePicker">
+          <TextField className="date"
+            id="startDate"
+            label="Start Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.onChange}
+          />
+          <TextField className="date"
+            id="endDate"
+            label="End Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.onChange}
+          />
+        </form>
+        <div id="table">
+          <MUIDataTable
+            title={'Leaderboards'}
+            data={newData}
+            columns={columns}
+            options={options}
+          />
+        </div>  
+      </div>
+     
     );
 
   }
