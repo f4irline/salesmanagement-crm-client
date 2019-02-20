@@ -16,7 +16,8 @@ class Leaderboards extends Component {
   }
 
   onChange(event) {
-    console.log('changed');
+    console.log(event.target.value);
+    console.log(event.target.id);
   }
 
   convertData(data) {  
@@ -120,7 +121,7 @@ class Leaderboards extends Component {
       <div className="content Leaderboards">
         <form className="datePicker">
           <TextField className="date"
-            id="date"
+            id="startDate"
             label="Start Date"
             type="date"
             InputLabelProps={{
@@ -129,7 +130,7 @@ class Leaderboards extends Component {
             onChange={this.onChange}
           />
           <TextField className="date"
-            id="date"
+            id="endDate"
             label="End Date"
             type="date"
             InputLabelProps={{
