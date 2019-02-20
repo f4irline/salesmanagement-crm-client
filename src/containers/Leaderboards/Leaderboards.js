@@ -55,6 +55,10 @@ class Leaderboards extends Component {
 
     return newData;
   }
+
+  loadedHandler() {
+    this.setState({loading: false});
+  }
   
   render() {
 
@@ -65,7 +69,7 @@ class Leaderboards extends Component {
         name: 'Name',
         options: {
           filter: true,
-          sort: true,
+          sort: false,
           filterOptions: newData.map((key) => {
             return key[0];
           })
@@ -123,7 +127,7 @@ class Leaderboards extends Component {
       {
         name: 'Date',
         options: {
-          filter: true,
+          filter: false,
           sort: true,
         }
       }
@@ -132,6 +136,7 @@ class Leaderboards extends Component {
       filterType: 'multiselect',
       selectableRows: false,
     };
+
     return (
       <div className="Leaderboards">
         <form className="datePicker">

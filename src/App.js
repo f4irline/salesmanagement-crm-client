@@ -14,7 +14,7 @@ import './App.css';
 class App extends Component {
 
   state = {
-    loggedIn: true,
+    loggedIn: false,
     modalOpen: false,
     name: ''
   }
@@ -59,7 +59,6 @@ class App extends Component {
           <Route path="/leaderboards" component={Leaderboards} />
           <Route component={Error} />
         </Switch>
-        <Footer name={this.state.name}/>
         <div className='add-wrapper'>
           <Fab className='add-icon' onClick={this.modalOpen.bind(this)} size='large' color='primary'>
             <AddIcon />
@@ -72,6 +71,7 @@ class App extends Component {
           onEscapeKeyDown={this.modalClose.bind(this)}>
           <ModalContent />
         </Modal>
+        <Footer name={this.state.name}/>  
       </div>
     );
   }

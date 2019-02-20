@@ -1,19 +1,13 @@
-.Leaderboards {
-  min-height: 88vh;
-  position: relative;
-}
-
 #table {
   margin-right: 5%;;
   margin-left: 5%;
+  margin-bottom: 5vh;
+  box-sizing: border-box;
+  max-width: 90%;
 }
 
 #table button {
   color: #222C35;
-}
-
-#table button:hover {
-  color: #D72322;
 }
 
 #table h6 {
@@ -27,8 +21,14 @@
   transition: 0.2s ease;
 }
 
+#table button:hover,
 #table th:hover {
   color: #D72322;
+}
+
+.Leaderboards {
+  min-height: 83vh;
+  position: relative;
 }
 
 .datePicker {
@@ -38,4 +38,10 @@
 
 .date {
   margin: 3vh 10vw !important;
+}
+
+#table th,
+#table td {
+  padding-left:10px;
+  padding-right: 10px;
 }
