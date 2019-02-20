@@ -23,71 +23,34 @@ class Leaderboards extends Component {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      this.setState({startDate: new Date(value)},() => {
-        this.checkDates();
-      });
+      this.setState({startDate: new Date(value)});
       break;
     case 'endDate':
-      this.setState({endDate: new Date(value)},() => {
-        this.checkDates();
-      });
+      this.setState({endDate: new Date(value)});
       break;
     default:
       break;
     }
   }
 
-  checkDates() {
-    if(this.state.startDate.toString() !== 'Invalid Date' &&
-     this.state.endDate.toString() !== 'Invalid Date') {
-      console.log('validdi');
-    }
-  }
-
   filterData(data) {
 
     data.map((object) => console.log(object.date));
-
-
-    // function isAutobot(transformer) {
-    //   return transformer.team === ‘Autobot’;
-    // }
-     
-    // var autobots = transformers.filter(isAutobot);
-
-    function filterDate(object, startDate, endDate) {
-      console.log(startDate);
-      let date = new Date(object.date);
-      console.log(date);
-    
-      if (date >= startDate && date <= endDate) {
-        console.log('found!');
-        return object;
-      } 
-    }
     
     let filterData = [];
     
-    // filterData = data.filter(filterDate, this.state.startDate, this.state.endDate);
-    // console.log(filterData);
-
-    
-    console.log(this.state.startDate); // null
-    filterData = data.map((object) => {
-      let date = new Date(object.date);
-      if (date >= this.state.startDate && date <= this.state.endDate) {
-        console.log('found!' + this.state.startDate); // ok
-      } else {
-        console.log('not found' + this.state.startDate);// null
+    filterData = data.filter((object) => {
+      let objectDate = new Date(object.date);  
+      if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
+        return object;
       }
     });
+
+    return filterData;
   }
 
-  convertData(data) {
+  mapData(data) {
     let newData = [];
-    // newData = filterData(data);
-    this.filterData(data);
-
     newData = data.map((object) => {
       let rowData = [];
       let fullName = '';
@@ -105,6 +68,20 @@ class Leaderboards extends Component {
     });
 
     return newData;
+  }
+
+  convertData(data) {
+    let dataToMap = [];
+    let filterData = [];
+    if(this.state.startDate.toString() !== 'Invalid Date' &&
+      this.state.endDate.toString() !== 'Invalid Date') {
+      filterData = this.filterData(data);
+      dataToMap = filterData;
+    } else {
+      dataToMap = data;
+    }
+    return this.mapData(dataToMap);
+
   }
   
   render() {
