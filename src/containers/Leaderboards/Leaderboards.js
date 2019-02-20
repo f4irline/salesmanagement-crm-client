@@ -21,18 +21,19 @@ class Leaderboards extends Component {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      this.setState({startDate: value},() => {
+      this.setState({startDate: new Date(value)},() => {
         console.log(this.state);
       });
       break;
     case 'endDate':
-      this.setState({endDate: value},() => {
+      this.setState({endDate: new Date(value)},() => {
         console.log(this.state);
       });
       break;
     default:
       break;
     }
+    console.log(typeof this.state.startDate);
   }
 
   convertData(data) {  
