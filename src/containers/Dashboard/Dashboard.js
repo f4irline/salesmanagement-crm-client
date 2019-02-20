@@ -1,9 +1,9 @@
 import React from 'react';
+import './Dashboard.css';
 
 const Dashboard = () => {
   return (
-    <div className='content'>
-      <p>Dashboard</p>
+    <div className='Dashboard'>
     </div>
   );
 };

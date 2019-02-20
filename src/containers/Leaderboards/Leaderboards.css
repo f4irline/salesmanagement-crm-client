@@ -1,6 +1,34 @@
+.Leaderboards {
+  min-height: 88vh;
+  position: relative;
+}
+
 #table {
   margin-right: 5%;;
   margin-left: 5%;
+}
+
+#table button {
+  color: #222C35;
+}
+
+#table button:hover {
+  color: #D72322;
+}
+
+#table h6 {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #222C35;
+}
+
+#table th {
+  text-transform: uppercase;
+  transition: 0.2s ease;
+}
+
+#table th:hover {
+  color: #D72322;
 }
 
 .datePicker {

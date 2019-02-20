@@ -1,14 +1,16 @@
 .Footer {
   display: flex;
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  top: 100%;
   left: 0;
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 4vh;
+  height: 7vh;
   background-color: #222C35;
   color: #fff;
+  z-index: 1000;
+  align-items: center;
 }
 
 .logo,
@@ -19,6 +21,10 @@
 .logo {
   flex: 1;
   justify-self: flex-start;
+}
+
+.logo img {
+  max-height: 5vh;
 }
 
 .user {

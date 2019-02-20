@@ -3,11 +3,6 @@
   background: linear-gradient(90deg, rgba(204,215,216,1) 0%, rgba(255,255,255,1) 19%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 81%, rgba(204,215,216,1) 100%);
 }
 
-.content {
-  min-height: 91vh;
-  position: relative;
-}
-
 .add-wrapper {
   position: absolute;
   bottom: 10vh;

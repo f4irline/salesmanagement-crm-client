@@ -133,7 +133,7 @@ class Leaderboards extends Component {
       selectableRows: false,
     };
     return (
-      <div className="content Leaderboards">
+      <div className="Leaderboards">
         <form className="datePicker">
           <TextField className="date"
             id="startDate"
