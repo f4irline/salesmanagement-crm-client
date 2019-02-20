@@ -33,17 +33,14 @@ class Leaderboards extends Component {
     }
   }
 
-  filterData(data) {
-
-    data.map((object) => console.log(object.date));
-    
+  filterData(data) {    
     let filterData = [];
-    
     filterData = data.filter((object) => {
       let objectDate = new Date(object.date);
       if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
         return object;
-      } else if (objectDate >= this.state.startDate || objectDate <= this.state.endDate) {
+      } else if ((objectDate >= this.state.startDate && this.state.endDate.toString() === 'Invalid Date')
+        || (objectDate <= this.state.endDate && this.state.startDate.toString() === 'Invalid Date')) {
         return object;
       }
     });
