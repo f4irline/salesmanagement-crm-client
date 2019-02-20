@@ -7,8 +7,32 @@ import './Leaderboards.css';
 
 class Leaderboards extends Component {
 
-  state = {
+  constructor(props) {
+    super(props);
+    this.onChange=this.onChange.bind(this);
+    this.state = {
+      startDate:null,
+      endDate:null
+    };
+  }
 
+  onChange(event) {
+    let value = event.target.value;
+    let id = event.target.id;
+    switch(id) {
+    case 'startDate':
+      this.setState({startDate: value},() => {
+        console.log(this.state);
+      });
+      break;
+    case 'endDate':
+      this.setState({endDate: value},() => {
+        console.log(this.state);
+      });
+      break;
+    default:
+      break;
+    }
   }
 
   convertData(data) {  
@@ -112,20 +136,22 @@ class Leaderboards extends Component {
       <div className="content Leaderboards">
         <form className="datePicker">
           <TextField className="date"
-            id="date"
+            id="startDate"
             label="Start Date"
             type="date"
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={this.onChange}
           />
           <TextField className="date"
-            id="date"
+            id="endDate"
             label="End Date"
             type="date"
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={this.onChange}
           />
         </form>
         <div id="table">
