@@ -10,9 +10,11 @@ class Leaderboards extends Component {
   constructor(props) {
     super(props);
     this.onChange=this.onChange.bind(this);
+    this.convertData=this.convertData.bind(this);
+    this.filterData=this.filterData.bind(this);
     this.state = {
-      startDate:null,
-      endDate:null
+      startDate:new Date('foo'),
+      endDate:new Date('foo')
     };
   }
 
@@ -21,21 +23,33 @@ class Leaderboards extends Component {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      this.setState({startDate: value},() => {
-        console.log(this.state);
-      });
+      this.setState({startDate: new Date(value)});
       break;
     case 'endDate':
-      this.setState({endDate: value},() => {
-        console.log(this.state);
-      });
+      this.setState({endDate: new Date(value)});
       break;
     default:
       break;
     }
   }
 
-  convertData(data) {  
+  filterData(data) {
+
+    data.map((object) => console.log(object.date));
+    
+    let filterData = [];
+    
+    filterData = data.filter((object) => {
+      let objectDate = new Date(object.date);  
+      if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
+        return object;
+      }
+    });
+
+    return filterData;
+  }
+
+  mapData(data) {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -56,8 +70,18 @@ class Leaderboards extends Component {
     return newData;
   }
 
-  loadedHandler() {
-    this.setState({loading: false});
+  convertData(data) {
+    let dataToMap = [];
+    let filterData = [];
+    if(this.state.startDate.toString() !== 'Invalid Date' &&
+      this.state.endDate.toString() !== 'Invalid Date') {
+      filterData = this.filterData(data);
+      dataToMap = filterData;
+    } else {
+      dataToMap = data;
+    }
+    return this.mapData(dataToMap);
+
   }
   
   render() {

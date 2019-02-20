@@ -10,7 +10,7 @@
             "meetings_amount": 12,
             "offers_amount": 7,
             "deals_amount": 8,
-            "date":"2017-11-20"
+            "date":"2017-12-20"
         },
         {
             "user_first": "John",
@@ -34,7 +34,7 @@
             "meetings_amount": 12,
             "offers_amount": 7,
             "deals_amount": 8,
-            "date":"2017-11-20"
+            "date":"2017-10-20"
         },
         {
             "user_first": "Elisabeth",
@@ -46,7 +46,7 @@
             "meetings_amount": 12,
             "offers_amount": 7,
             "deals_amount": 8,
-            "date":"2017-11-20"
+            "date":"2017-09-20"
         },
         {
             "user_first": "Jim",
@@ -58,7 +58,7 @@
             "meetings_amount": 12,
             "offers_amount": 7,
             "deals_amount": 8,
-            "date":"2017-11-20"
+            "date":"2017-08-20"
         },
         {
             "user_first": "Milas",
@@ -70,7 +70,7 @@
             "meetings_amount": 12,
             "offers_amount": 7,
             "deals_amount": 8,
-            "date":"2017-11-20"
+            "date":"2017-08-18"
         }
     ]
 }
