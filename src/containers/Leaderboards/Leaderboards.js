@@ -10,6 +10,8 @@ class Leaderboards extends Component {
   constructor(props) {
     super(props);
     this.onChange=this.onChange.bind(this);
+    this.convertData=this.convertData.bind(this);
+    this.filterData=this.filterData.bind(this);
     this.state = {
       startDate:null,
       endDate:null
@@ -36,8 +38,50 @@ class Leaderboards extends Component {
     console.log(typeof this.state.startDate);
   }
 
-  convertData(data) {  
+  filterData(data) {
+
+    data.map((object) => console.log(object.date));
+
+
+    // function isAutobot(transformer) {
+    //   return transformer.team === ‘Autobot’;
+    // }
+     
+    // var autobots = transformers.filter(isAutobot);
+
+    function filterDate(object, startDate, endDate) {
+      console.log(startDate);
+      let date = new Date(object.date);
+      console.log(date);
+    
+      if (date >= startDate && date <= endDate) {
+        console.log('found!');
+        return object;
+      } 
+    }
+    
+    let filterData = [];
+    
+    // filterData = data.filter(filterDate, this.state.startDate, this.state.endDate);
+    // console.log(filterData);
+
+    
+    console.log(this.state.startDate); // null
+    filterData = data.map((object) => {
+      let date = new Date(object.date);
+      if (date >= this.state.startDate && date <= this.state.endDate) {
+        console.log('found!' + this.state.startDate); // ok
+      } else {
+        console.log('not found' + this.state.startDate);// null
+      }
+    });
+  }
+
+  convertData(data) {
     let newData = [];
+    // newData = filterData(data);
+    this.filterData(data);
+
     newData = data.map((object) => {
       let rowData = [];
       let fullName = '';
