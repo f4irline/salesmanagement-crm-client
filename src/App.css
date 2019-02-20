@@ -21,10 +21,10 @@
   align-items: center;
 }
 
-.MuiFab-primary-168 {
+.add-icon {
   background-color: #222C35 !important; 
 }
 
-.MuiFab-primary-168:hover {
+.add-icon:hover {
   background-color: rgb(65, 89, 109) !important; 
 }

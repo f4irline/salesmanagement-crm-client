@@ -61,8 +61,8 @@ class App extends Component {
         </Switch>
         <Footer name={this.state.name}/>
         <div className='add-wrapper'>
-          <Fab size='large' color='primary'>
-            <AddIcon onClick={this.modalOpen.bind(this)} />
+          <Fab className='add-icon' onClick={this.modalOpen.bind(this)} size='large' color='primary'>
+            <AddIcon />
           </Fab>
         </div>
         <Modal 
