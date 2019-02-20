@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import './Login.css';
 
 class Login extends Component {
@@ -32,31 +33,38 @@ class Login extends Component {
   render() {
     return (
       <div className='Login'>
-        <div className='form-wrapper'>
+        <Paper className='MuiPaper-root-1' elevation={5}>
           <Typography variant="h5" gutterBottom>
             USER LOGIN
           </Typography>
           <Divider />
           <TextField
+            className='login-item'
             id="standard-name"
             label="Name"
             value={this.state.name}
             onChange={this.handleInputChange.bind(this)}
-            margin="dense"
+            margin="normal"
             name="username"
           />
           <TextField
+            className='login-item'
             id="standard-name"
             label="Password"
             value={this.state.password}
             onChange={this.handleInputChange.bind(this)}
-            margin="dense"
+            margin="normal"
             name="password"
           />
-          <Button size="medium" onClick={this.handleButtonClick.bind(this)} variant="contained">
+          <Button             
+            className='login-item'
+            size="medium" 
+            disabled={false}
+            onClick={this.handleButtonClick.bind(this)} 
+            variant="contained">
             Submit
           </Button>
-        </div>
+        </Paper>      
       </div>
     );
   }
