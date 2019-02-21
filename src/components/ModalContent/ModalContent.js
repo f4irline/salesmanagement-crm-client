@@ -46,10 +46,10 @@ class ModalContent extends Component {
     return (
       <div className='ModalContent' tabIndex={-1}>
         <Paper>
+          <Typography variant='h5' gutterBottom className='controls-header'>
+            Lisää:
+          </Typography>
           <div className='controls-wrapper'>
-            <Typography variant='h5' gutterBottom>
-              Lisää:
-            </Typography>
             <RadioGroup row
               name="radioGroup"
               value={this.state.value}

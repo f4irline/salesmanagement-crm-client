@@ -8,11 +8,19 @@
 }
 
 .controls-wrapper {
-    padding: 15px;
+    display: flex;
+    padding: 0px 15px 15px 15px;
+    justify-content: center;
+}
+
+.controls-header {
+    text-align: center;
+    padding-top: 15px;
 }
 
 .content-wrapper {
-    padding: 15px;
+    padding: 0 15px 15px 15px;
     display: flex;
     justify-content: center;
+    flex-direction: row;
 }
