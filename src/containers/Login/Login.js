@@ -33,7 +33,7 @@ class Login extends Component {
   render() {
     return (
       <div className='Login'>
-        <Paper className='.MuiPaper-root-1' elevation={5}>
+        <Paper className='MuiPaper-root-1' elevation={5}>
           <Typography variant="h5" gutterBottom>
             USER LOGIN
           </Typography>
