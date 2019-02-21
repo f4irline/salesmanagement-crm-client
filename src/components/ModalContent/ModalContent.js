@@ -4,11 +4,11 @@ import './ModalContent.css';
 import Paper from '@material-ui/core/Paper';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import LeadContent from './LeadContent';
+import LeadContent from './Content/LeadContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ContactContent from './ContactContent';
-import MeetingContent from './MeetingContent';
-import SalesContent from './SalesContent';
+import ContactContent from './Content/ContactContent';
+import MeetingContent from './Content/MeetingContent';
+import SalesContent from './Content/SalesContent';
 
 class ModalContent extends Component {
 
@@ -45,12 +45,11 @@ class ModalContent extends Component {
 
     return (
       <div className='ModalContent' tabIndex={-1}>
-        <Paper className='.MuiPaper-root-1'>
-          <div>
+        <Paper>
+          <div className='controls-wrapper'>
             <Typography variant='h5' gutterBottom>
               Lisää:
             </Typography>
-            
             <RadioGroup row
               name="radioGroup"
               value={this.state.value}
@@ -63,8 +62,9 @@ class ModalContent extends Component {
             </RadioGroup>
           </div>
 
-          {content}
-
+          <div className='content-wrapper'>
+            {content}
+          </div>
         </Paper>
       </div>
     );

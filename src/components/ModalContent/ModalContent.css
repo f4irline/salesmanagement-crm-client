@@ -6,3 +6,13 @@
     height: 70vh;
     width: 60vw;
 }
+
+.controls-wrapper {
+    padding: 15px;
+}
+
+.content-wrapper {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+}

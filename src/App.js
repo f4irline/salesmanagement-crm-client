@@ -12,7 +12,7 @@ class App extends Component {
 
   state = {
     loggedIn: true,
-    modalOpen: false,
+    modalOpen: true,
     name: ''
   }
 
