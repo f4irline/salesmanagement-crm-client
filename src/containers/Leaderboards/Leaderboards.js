@@ -35,6 +35,8 @@ class Leaderboards extends Component {
 
   filterData(data) {    
     let filterData = [];
+    
+    // eslint-disable-next-line
     filterData = data.filter((object) => {
       let objectDate = new Date(object.date);
       if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {

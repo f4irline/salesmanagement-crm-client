@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Leaderboards from './containers/Leaderboards/Leaderboards';
 import Navigation from './containers/Navigation/Navigation';
@@ -44,10 +44,17 @@ class App extends Component {
     this.setState({modalOpen: true});
   }
 
+  redirect() {
+    this.context.router.push('/');
+  }
+
   render() {
     if (!this.state.loggedIn) {
       return (
-        <Login onLogin={this.handleLogin.bind(this)} />
+        <div>
+          <Redirect to='/' />
+          <Login onLogin={this.handleLogin.bind(this)} />
+        </div>
       );
     }
 
