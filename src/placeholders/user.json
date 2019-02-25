@@ -8,5 +8,6 @@
     "contacts_amount": 47,
     "meetings_amount": 12,
     "offers_amount": 7,
-    "deals_amount": 8
+    "deals_amount": 8,
+    "goal": 10000
 }
