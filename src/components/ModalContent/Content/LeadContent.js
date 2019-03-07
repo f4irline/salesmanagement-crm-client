@@ -4,18 +4,16 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 class LeadContent extends Component {
-
-  
-
   state = {
-    date : null,
-    companyname : '',
-    businessarea : '',
-    website : '',
-    salesperson : '',
-    personname : '',
-    personrole : '',
-    personemail : ''
+    date: null,
+    companyname: '',
+    businessarea: '',
+    website: '',
+    salesperson: '',
+    personname: '',
+    personrole: '',
+    personemail: '',
+    personphone: ''
   }
 
   constructor() {
@@ -28,92 +26,121 @@ class LeadContent extends Component {
   }
 
   render() {
-    /*data = {
-      name: 'ossi',
-      branch: 'ossi'
-    }*/
-    
     return(
-      <div>
-        <Typography variant="h5" gutterBottom>
+      <div className='content-all'>
+      
+        <Typography variant='h5' className='event-header'>
             Liidi
         </Typography>
 
-        <TextField
-          id='date'
-          name='date'
-          label='Päivämäärä'
-          type='date'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={this.handleChange}
-        />
-        <br />
-
-        <TextField
-          id="standard-name"
-          name='companyname'
-          label="Yrityksen nimi"
-          margin="normal"
-          onChange={this.handleChange}
-        />
-        <br />
-        <TextField
-          id="standard-name"
-          name='businessarea'
-          label="Yrityksen toimiala"
-          margin="normal"
-          onChange={this.handleChange}
-        />
-        <br />
-        <TextField
-          id="standard-name"
-          name='website'
-          label="Yrityksen kotisivu"
-          margin="normal"
-          onChange={this.handleChange}
-        />
-        <br />
-        <TextField
-          id="standard-name"
-          name='salesperson'
-          label="Myyjän nimi"
-          margin="normal"
-          onChange={this.handleChange}
-        />
-        <br />
-        
-        <Typography variant="h6" gutterBottom>
+        <div className='content-fields'>
+          <TextField
+            name='date'
+            label='Päivämäärä'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+            value={new Date().toISOString().split('T')[0]}
+            style={{flexBasis: '45%'}}
+          />
+          
+          <TextField
+            name='companyname'
+            label='Yrityksen nimi'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+            style={{flexBasis: '45%'}}
+          />
+          <TextField
+            name='businessarea'
+            label='Yrityksen toimiala'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            style={{flexBasis: '45%'}}
+          />
+          <TextField
+            name='website'
+            label='Yrityksen kotisivu'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            style={{flexBasis: '45%'}}
+          />
+        </div>
+      
+        <Typography variant='h5' className='event-header'>
             Yhteyshenkilö:
         </Typography>
-
-        <TextField
-          id="standard-name"
-          name='personname'
-          label="Nimi"
-          margin="normal"
-          onChange={this.handleChange}
-        />
         
-        <TextField
-          id="standard-name"
-          name='personrole'
-          label="Rooli"
-          margin="normal"
-          onChange={this.handleChange}
-        />
-        
-        <TextField
-          id="standard-name"
-          name='personemail'
-          label="Sähköposti"
-          margin="normal"
-          onChange={this.handleChange}
-        />
-        <br />
+        <div className='secondary-content-fields'>
+          <TextField
+            name='personname'
+            label='Nimi'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+            style={{flexBasis: '45%'}}
+          />
+          
+          <TextField
+            name='personrole'
+            label='Rooli'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+            style={{flexBasis: '45%'}}
+          />
+          
+          <TextField
+            name='personemail'
+            label='Sähköposti'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            style={{flexBasis: '45%'}}
+          />
+          <TextField
+            name='personphone'
+            label='Puhelinnumero'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            style={{flexBasis: '45%'}}
+          />
+        </div>
 
-        <Button variant='contained' onClick={this.props.handleClick(this.state)}>Tallenna</Button>
+        <Typography variant='h5' className='event-header'>
+            Lisätiedot:
+        </Typography>
+
+        <div className='info-container'>
+          <TextField
+            name='info'
+            label='Lisätiedot'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            multiline={true}
+            fullWidth={true}
+          />
+        </div>
+
+        <Button 
+          variant='contained' 
+          color='primary' 
+          onClick={this.props.handleClick(this.state)}
+          size='large'
+          className='button-save'>Tallenna</Button>
 
       </div>
     );

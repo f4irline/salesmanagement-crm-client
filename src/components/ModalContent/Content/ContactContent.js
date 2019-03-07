@@ -24,61 +24,84 @@ class ContactContent extends Component {
 
   render() {
     return(
-      <div>
+      <div className='content-all'>
         
-        <Typography variant='h5' gutterBottom>
-          Kontakti
+        <Typography variant='h5' className='event-header'>
+          Yhteydenotto
         </Typography>
 
-        <TextField
-          id='date'
-          name='date'
-          label='Päivämäärä'
-          type='date'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={this.handleChange}
-        />
-        <br />
+        <div className='content-fields'>
+          <TextField
+            name='date'
+            label='Päivämäärä'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+            value={new Date().toISOString().split('T')[0]}
+          />
 
-        <TextField
-          id='standard-name'
-          name='company'
-          label='Yrityksen nimi'
-          margin='normal'
-          onChange={this.handleChange}
-        />
-        <br />
+          <TextField
+            name='company'
+            label='Yritys'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+          />
 
-        <TextField
-          id='standard-name'
-          name='person'
-          label='Yhteyshenkilö'
-          margin='normal'
-          onChange={this.handleChange}
-        />
-        <br />
+          <TextField
+            name='person'
+            label='Yhteyshenkilö'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+          />
 
-        <TextField
-          id='standard-name'
-          name='phonenumber'
-          label='Puhelinnumero'
-          margin='normal'
-          onChange={this.handleChange}
-        />
-        <br />
+          <TextField
+            name='phonenumber'
+            label='Puhelinnumero'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+          />
 
-        <TextField
-          id='standard-name'
-          name='email'
-          label='Sähköposti'
-          margin='normal'
-          onChange={this.handleChange}
-        />
-        <br />
+          <TextField
+            name='email'
+            label='Sähköposti'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+          />
+        </div>
+
+        <Typography variant="h5" className='event-header'>
+            Lisätiedot:
+        </Typography>
+
+        <div className='info-container'>
+          <TextField
+            name='info'
+            label='Lisätiedot'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            multiline={true}
+            fullWidth={true}
+          />
+        </div>
         
-        <Button variant='contained' onClick={this.props.handleClick(this.state)}>Tallenna</Button>
+        <Button 
+          variant='contained'
+          onClick={this.props.handleClick(this.state)}
+          color='primary'
+          size='large'
+          className='button-save'>Tallenna</Button>
 
       </div>
     );

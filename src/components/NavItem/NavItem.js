@@ -6,7 +6,7 @@ import './NavItem.css';
 const NavItem = (props) => {
   return (
     <div className='NavItem'>
-      <NavLink to={props.url}><p className='item'>{props.children}</p></NavLink>
+      <NavLink className='linkWrapper' to={props.url} exact>{props.icon}<p className='item'>{props.children}</p></NavLink>
     </div>
   );
 };

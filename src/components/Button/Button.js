@@ -10,7 +10,7 @@ const Button = (props) => {
     <div className={classes}>
       <p>{props.children}</p>
     </div>
-  )
-}
+  );
+};
 
 export default Button;

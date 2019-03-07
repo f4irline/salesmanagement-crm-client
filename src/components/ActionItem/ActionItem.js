@@ -2,10 +2,11 @@ import React from 'react';
 
 import './ActionItem.css';
 
+
 const ActionItem = (props) => {
   return (
-    <div className='ActionItem'>
-      <p className='item'>ActionItem</p>
+    <div onClick = {props.onClick} className='ActionItem'>
+      {props.icon}<p className='item'>{props.children}</p>
     </div>
   );
 };

@@ -22,42 +22,67 @@ class MeetingContent extends Component {
 
   render() {
     return(
-      <div>
-        <Typography variant='h5' gutterBottom>
+      <div className='content-all'>
+        <Typography variant='h5' className='event-header'>
             Tapaaminen
         </Typography>
 
-        <TextField
-          id='date'
-          name='date'
-          label='Päivämäärä'
-          type='datetime-local'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={this.handleChange}
-        />
-        <br />
+        <div className='secondary-content-fields'>
+          <TextField
+            name='date'
+            label='Päivämäärä'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+            value={new Date().toISOString().split('T')[0]}
+          />
 
-        <TextField
-          id='standard-name'
-          name='companyname'
-          label='Tavattava'
-          margin='normal'
-          onChange={this.handleChange}
-        />
-        <br />
+          <TextField
+            name='companyname'
+            label='Tavattava'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+          />
 
-        <TextField
-          id='standard-name'
-          name='place'
-          label='Paikka'
-          margin='normal'
-          onChange={this.handleChange}
-        />
-        <br />
+          <TextField
+            name='place'
+            label='Paikka'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            required
+          />
+        </div>
 
-        <Button variant='contained' onClick={this.props.handleClick(this.state)}>Tallenna</Button>
+        <Typography variant='h5' className='event-header'>
+            Lisätiedot:
+        </Typography>
+
+        <div className='info-container'>
+          <TextField
+            name='info'
+            label='Lisätiedot'
+            onChange={this.handleChange}
+            className='content-item'
+            variant='outlined'
+            multiline={true}
+            fullWidth={true}
+          />
+        </div>
+
+        <Button 
+          variant='contained' 
+          onClick={this.props.handleClick(this.state)}
+          size='large'
+          className='button-save'
+          color='primary'>Tallenna</Button>
       </div>
     );
   }

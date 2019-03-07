@@ -2,7 +2,7 @@ import React from 'react';
 
 const Error = () => {
   return (
-    <div className="content">
+    <div className='content'>
       <p>Error</p>
     </div>
   );

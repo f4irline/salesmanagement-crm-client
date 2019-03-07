@@ -1,3 +1,22 @@
 .ActionItem {
   margin: 0 5vw;
+  display: flex;
+  align-items: center;
+  transition: 0.2s ease;
+}
+
+.ActionItem > p {
+  margin-left: 3px;
+  display: none;
+}
+
+.ActionItem:hover {
+  cursor: pointer;
+  color: #D72322;
+}
+
+@media only screen and (min-width: 768px) {
+  .ActionItem > p {
+    display: block;
+  }
 }

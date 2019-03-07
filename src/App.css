@@ -1,16 +1,25 @@
-.content {
-  position: relative;
-  top: 5vh;
+.App {
+  background: rgb(204,215,216);
+  background: linear-gradient(90deg, rgba(204,215,216,1) 0%, rgba(255,255,255,1) 19%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 81%, rgba(204,215,216,1) 100%);
 }
 
 .add-wrapper {
-  position: absolute;
+  position: fixed;
   bottom: 10vh;
   right: 10vh;
+  z-index: 1001;
 }
 
 .modal-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.add-icon {
+  background-color: #222C35 !important; 
+}
+
+.add-icon:hover {
+  background-color: rgb(65, 89, 109) !important; 
 }

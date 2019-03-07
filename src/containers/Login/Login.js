@@ -34,34 +34,33 @@ class Login extends Component {
     return (
       <div className='Login'>
         <Paper className='MuiPaper-root-1' elevation={5}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant='h5' gutterBottom>
             USER LOGIN
           </Typography>
           <Divider />
           <TextField
             className='login-item'
-            id="standard-name"
-            label="Name"
+            label='Name'
             value={this.state.name}
             onChange={this.handleInputChange.bind(this)}
-            margin="normal"
-            name="username"
+            margin='normal'
+            name='username'
           />
           <TextField
             className='login-item'
-            id="standard-name"
-            label="Password"
+            label='Password'
             value={this.state.password}
             onChange={this.handleInputChange.bind(this)}
-            margin="normal"
-            name="password"
+            name='password'
+            margin='normal'
+            type='password'
           />
           <Button             
             className='login-item'
-            size="medium" 
+            size='medium' 
             disabled={false}
             onClick={this.handleButtonClick.bind(this)} 
-            variant="contained">
+            variant='contained'>
             Submit
           </Button>
         </Paper>      

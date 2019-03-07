@@ -3,17 +3,13 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-class SalesContent extends Component {
+class OfferContent extends Component {
 
   state = {
-    date : null,
-    company : '',
-    businessarea : '',
-    website : '',
-    salesperson : '',
-    personname : '',
-    personrole : '',
-    personemail : ''
+    date: null,
+    company: '',
+    sum: 0,
+    info: ''
   };
 
   constructor() {
@@ -26,11 +22,10 @@ class SalesContent extends Component {
   }
 
   render() {
-  
     return(
       <div className='content-all'>
         <Typography variant='h5' className='event-header'>
-            Myynti
+            Tarjous
         </Typography>
 
         <div className='content-fields'>
@@ -66,7 +61,7 @@ class SalesContent extends Component {
           />
         </div>
 
-        <Typography variant='h5' className='event-header'>
+        <Typography variant="h5" className='event-header'>
             Lisätiedot:
         </Typography>
 
@@ -94,4 +89,4 @@ class SalesContent extends Component {
 
 }
 
-export default SalesContent;
+export default OfferContent;

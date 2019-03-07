@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ContactContent from './Content/ContactContent';
 import MeetingContent from './Content/MeetingContent';
 import SalesContent from './Content/SalesContent';
+import OfferContent from './Content/OfferContent';
 
 class ModalContent extends Component {
 
@@ -42,23 +43,26 @@ class ModalContent extends Component {
       content = <MeetingContent handleClick={this.handleClick} />;
     else if (this.state.selectedValue === 'sales')
       content = <SalesContent handleClick={this.handleClick} />;
+    else if (this.state.selectedValue === 'offer')
+      content = <OfferContent handleClick={this.handleClick} />;
 
     return (
       <div className='ModalContent' tabIndex={-1}>
         <Paper>
-          <Typography variant='h5' gutterBottom className='controls-header'>
+          <Typography variant='h4' gutterBottom className='controls-header'>
             Lisää:
           </Typography>
           <div className='controls-wrapper'>
             <RadioGroup row
-              name="radioGroup"
+              name='radioGroup'
               value={this.state.value}
               onChange={this.handleChange}
             >
-              <FormControlLabel value="lead" control={<Radio />} label="Liidi" />
-              <FormControlLabel value="contact" control={<Radio />} label="Kontakti" />
-              <FormControlLabel value="meeting" control={<Radio />} label="Tapaaminen" />
-              <FormControlLabel value="sales" control={<Radio />} label="Myynti" />
+              <FormControlLabel value='lead' control={<Radio />} label='Liidi' />
+              <FormControlLabel value='contact' control={<Radio />} label='Yhteydenotto' />
+              <FormControlLabel value='meeting' control={<Radio />} label='Tapaaminen' />
+              <FormControlLabel value='offer' control={<Radio />} label='Tarjous' />
+              <FormControlLabel value='sales' control={<Radio />} label='Myynti' />
             </RadioGroup>
           </div>
 
