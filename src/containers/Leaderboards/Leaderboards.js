@@ -91,7 +91,7 @@ class Leaderboards extends Component {
     const newData = this.convertData(data);
     const columns = [
       {
-        name: 'Name',
+        name: 'Nimi',
         options: {
           filter: true,
           sort: false,
@@ -108,49 +108,49 @@ class Leaderboards extends Component {
         }
       },
       {
-        name: 'Average sales',
+        name: 'Keskim. myynti',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Total sales',
+        name: 'Kokonaismyynti',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Contact amount',
+        name: 'Yhteydenotot',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Meeting amount',
+        name: 'Tapaamiset',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Offer amount',
+        name: 'Tarjoukset',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Deal amount',
+        name: 'Sopimukset',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Date',
+        name: 'Pvm',
         options: {
           filter: false,
           sort: true,
@@ -167,7 +167,7 @@ class Leaderboards extends Component {
         <form className='datePicker'>
           <TextField className='date'
             id='startDate'
-            label='Start Date'
+            label='Aloitus päivämäärä'
             type='date'
             InputLabelProps={{
               shrink: true,
@@ -176,7 +176,7 @@ class Leaderboards extends Component {
           />
           <TextField className='date'
             id='endDate'
-            label='End Date'
+            label='Lopetus päivämäärä'
             type='date'
             InputLabelProps={{
               shrink: true,
