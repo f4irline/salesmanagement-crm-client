@@ -186,7 +186,7 @@ class Leaderboards extends Component {
         </form>
         <div id='table'>
           <MUIDataTable
-            title={'Leaderboards'}
+            title={'Sijoitukset'}
             data={newData}
             columns={columns}
             options={options}
