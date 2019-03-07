@@ -160,6 +160,41 @@ class Leaderboards extends Component {
     const options = {
       filterType: 'multiselect',
       selectableRows: false,
+      search: false,
+      textLabels: {
+        body: {
+          noMatch: 'Ei tuloksia',
+          toolTip: 'Järjestä',
+        },
+        pagination: {
+          next: 'Seuraava sivu',
+          previous: 'Edellinen sivu',
+          rowsPerPage: 'Rivejä / sivu:',
+          displayRows: '-',
+        },
+        toolbar: {
+          search: 'Etsi',
+          downloadCsv: 'Lataa CSV',
+          print: 'Tulosta',
+          viewColumns: 'Sarakkeet',
+          filterTable: 'Suodata',
+        },
+        filter: {
+          all: 'Kaikki',
+          title: 'SUODATTIMET',
+          reset: 'RESETOI',
+        },
+        viewColumns: {
+          title: 'Näytetyt Sarakkeet',
+          titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+        },
+        selectedRows: {
+          text: 'rivejä valittu',
+          delete: 'Poista',
+          deleteAria: 'Poista Valitut Rivit',
+        },
+      }
+    
     };
 
     return (
