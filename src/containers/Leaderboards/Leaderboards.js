@@ -35,6 +35,8 @@ class Leaderboards extends Component {
 
   filterData(data) {    
     let filterData = [];
+    
+    // eslint-disable-next-line
     filterData = data.filter((object) => {
       let objectDate = new Date(object.date);
       if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
@@ -161,28 +163,28 @@ class Leaderboards extends Component {
     };
 
     return (
-      <div className="Leaderboards">
-        <form className="datePicker">
-          <TextField className="date"
-            id="startDate"
-            label="Start Date"
-            type="date"
+      <div className='Leaderboards'>
+        <form className='datePicker'>
+          <TextField className='date'
+            id='startDate'
+            label='Start Date'
+            type='date'
             InputLabelProps={{
               shrink: true,
             }}
             onChange={this.onChange}
           />
-          <TextField className="date"
-            id="endDate"
-            label="End Date"
-            type="date"
+          <TextField className='date'
+            id='endDate'
+            label='End Date'
+            type='date'
             InputLabelProps={{
               shrink: true,
             }}
             onChange={this.onChange}
           />
         </form>
-        <div id="table">
+        <div id='table'>
           <MUIDataTable
             title={'Leaderboards'}
             data={newData}
