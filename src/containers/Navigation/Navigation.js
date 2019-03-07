@@ -12,12 +12,12 @@ const Navigation = (props) => {
   return (
     <div className='Navigation'>
       <div className='navigation-wrapper'>
-        <NavItem url='/' icon={<Dashboard />}>Dashboard</NavItem>
-        <NavItem url='/leaderboards' icon={<TableChart />}>Leaderboards</NavItem>
+        <NavItem url='/' icon={<Dashboard />}>Oma sivu</NavItem>
+        <NavItem url='/leaderboards' icon={<TableChart />}>Sijoitukset</NavItem>
       </div>
       <div className='action-wrapper'>
-        <ActionItem icon = {<Settings/>} onClick = {props.handleConfiguration}>Configuration</ActionItem>
-        <ActionItem icon = {<ExitToApp/>} onClick = {props.handleLogout}>Logout</ActionItem>
+        <ActionItem icon = {<Settings/>} onClick = {props.handleConfiguration}>Hallinta</ActionItem>
+        <ActionItem icon = {<ExitToApp/>} onClick = {props.handleLogout}>Kirjaudu ulos</ActionItem>
       </div>
     </div>
   );

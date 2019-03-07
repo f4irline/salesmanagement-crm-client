@@ -28,7 +28,7 @@ class OfferContent extends Component {
             Tarjous
         </Typography>
 
-        <div className='content-fields'>
+        <div className='secondary-content-fields'>
           <TextField
             name='date'
             label='Päivämäärä'

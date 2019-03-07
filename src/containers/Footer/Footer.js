@@ -10,7 +10,7 @@ const Footer = (props) => {
       <div className='logo'>
         <img src={logo} alt='Value Creative'/>
       </div>
-      <p className='user'>Logged in as: {props.name}</p>
+      <p className='user'>Kirjautunut sisään käyttäjänä: {props.name}</p>
     </div>
   );
 };

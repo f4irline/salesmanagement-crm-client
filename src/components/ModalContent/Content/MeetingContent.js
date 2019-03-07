@@ -44,7 +44,7 @@ class MeetingContent extends Component {
 
           <TextField
             name='companyname'
-            label='Tavattava'
+            label='Yritys'
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'

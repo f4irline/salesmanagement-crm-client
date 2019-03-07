@@ -91,7 +91,7 @@ class Leaderboards extends Component {
     const newData = this.convertData(data);
     const columns = [
       {
-        name: 'Name',
+        name: 'Nimi',
         options: {
           filter: true,
           sort: false,
@@ -108,49 +108,49 @@ class Leaderboards extends Component {
         }
       },
       {
-        name: 'Average sales',
+        name: 'Keskim. myynti',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Total sales',
+        name: 'Kokonaismyynti',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Contact amount',
+        name: 'Yhteydenotot',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Meeting amount',
+        name: 'Tapaamiset',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Offer amount',
+        name: 'Tarjoukset',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Deal amount',
+        name: 'Sopimukset',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Date',
+        name: 'Pvm',
         options: {
           filter: false,
           sort: true,
@@ -160,6 +160,41 @@ class Leaderboards extends Component {
     const options = {
       filterType: 'multiselect',
       selectableRows: false,
+      search: false,
+      textLabels: {
+        body: {
+          noMatch: 'Ei tuloksia',
+          toolTip: 'Järjestä',
+        },
+        pagination: {
+          next: 'Seuraava sivu',
+          previous: 'Edellinen sivu',
+          rowsPerPage: 'Rivejä / sivu:',
+          displayRows: '-',
+        },
+        toolbar: {
+          search: 'Etsi',
+          downloadCsv: 'Lataa CSV',
+          print: 'Tulosta',
+          viewColumns: 'Sarakkeet',
+          filterTable: 'Suodata',
+        },
+        filter: {
+          all: 'Kaikki',
+          title: 'SUODATTIMET',
+          reset: 'RESETOI',
+        },
+        viewColumns: {
+          title: 'Näytetyt Sarakkeet',
+          titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+        },
+        selectedRows: {
+          text: 'rivejä valittu',
+          delete: 'Poista',
+          deleteAria: 'Poista Valitut Rivit',
+        },
+      }
+    
     };
 
     return (
@@ -167,7 +202,7 @@ class Leaderboards extends Component {
         <form className='datePicker'>
           <TextField className='date'
             id='startDate'
-            label='Start Date'
+            label='Aloitus päivämäärä'
             type='date'
             InputLabelProps={{
               shrink: true,
@@ -176,7 +211,7 @@ class Leaderboards extends Component {
           />
           <TextField className='date'
             id='endDate'
-            label='End Date'
+            label='Lopetus päivämäärä'
             type='date'
             InputLabelProps={{
               shrink: true,
@@ -186,7 +221,7 @@ class Leaderboards extends Component {
         </form>
         <div id='table'>
           <MUIDataTable
-            title={'Leaderboards'}
+            title={'Sijoitukset'}
             data={newData}
             columns={columns}
             options={options}
