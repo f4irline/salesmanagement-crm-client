@@ -33,7 +33,7 @@ class SalesContent extends Component {
             Myynti
         </Typography>
 
-        <div className='content-fields'>
+        <div className='secondary-content-fields'>
           <TextField
             name='date'
             label='Päivämäärä'

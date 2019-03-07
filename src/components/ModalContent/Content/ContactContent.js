@@ -43,7 +43,6 @@ class ContactContent extends Component {
             variant='outlined'
             required
             value={new Date().toISOString().split('T')[0]}
-            style={{flexBasis: '45%'}}
           />
 
           <TextField
@@ -53,7 +52,6 @@ class ContactContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            style={{flexBasis: '45%'}}
           />
 
           <TextField
@@ -63,7 +61,6 @@ class ContactContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            style={{flexBasis: '45%'}}
           />
 
           <TextField
@@ -72,7 +69,6 @@ class ContactContent extends Component {
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
-            style={{flexBasis: '45%'}}
           />
 
           <TextField
@@ -81,7 +77,6 @@ class ContactContent extends Component {
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
-            style={{flexBasis: '50%'}}
           />
         </div>
 

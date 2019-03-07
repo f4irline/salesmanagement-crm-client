@@ -46,7 +46,6 @@ class LeadContent extends Component {
             variant='outlined'
             required
             value={new Date().toISOString().split('T')[0]}
-            style={{flexBasis: '45%'}}
           />
           
           <TextField
@@ -56,7 +55,6 @@ class LeadContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            style={{flexBasis: '45%'}}
           />
           <TextField
             name='businessarea'
@@ -64,7 +62,6 @@ class LeadContent extends Component {
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
-            style={{flexBasis: '45%'}}
           />
           <TextField
             name='website'
@@ -72,7 +69,6 @@ class LeadContent extends Component {
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
-            style={{flexBasis: '45%'}}
           />
         </div>
       
@@ -80,7 +76,7 @@ class LeadContent extends Component {
             Yhteyshenkilö:
         </Typography>
         
-        <div className='secondary-content-fields'>
+        <div className='content-fields'>
           <TextField
             name='personname'
             label='Nimi'
@@ -88,7 +84,6 @@ class LeadContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            style={{flexBasis: '45%'}}
           />
           
           <TextField
@@ -98,7 +93,6 @@ class LeadContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            style={{flexBasis: '45%'}}
           />
           
           <TextField
@@ -107,7 +101,6 @@ class LeadContent extends Component {
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
-            style={{flexBasis: '45%'}}
           />
           <TextField
             name='personphone'
@@ -115,7 +108,6 @@ class LeadContent extends Component {
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
-            style={{flexBasis: '45%'}}
           />
         </div>
 
