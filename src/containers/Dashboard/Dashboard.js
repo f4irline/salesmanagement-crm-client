@@ -19,7 +19,7 @@ class Dashboard extends Component {
       console.log(user);
       let stateObj = {user: user};
       this.setState(stateObj);
-    });
+    }).catch((e) => console.log(e));
   }
 
   render() {
