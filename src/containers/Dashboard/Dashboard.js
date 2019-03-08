@@ -7,7 +7,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     console.log('Dashboard constructor');
-    let user = '';
+    let user = {};
     this.state = {name: props.name, user: user};
   }
 
@@ -26,7 +26,7 @@ class Dashboard extends Component {
     console.log('Dashboard render');
     return (
       <div className='Dashboard'>
-      hellurei {this.state.name}{this.state.user}
+      hellurei {this.state.name}{this.state.user.name}
       </div>
     );
   }
