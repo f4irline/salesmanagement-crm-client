@@ -1,5 +1,16 @@
 .Dashboard {
+    display: flex;
+    flex-direction: column;
     min-height: 88vh;
+    width: 100vw;
     position: relative;
+}
+
+.user-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 44vh;
+    flex-wrap: wrap;
 }
   
