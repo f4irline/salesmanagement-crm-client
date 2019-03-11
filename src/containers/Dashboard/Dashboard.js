@@ -7,7 +7,7 @@ import UserGraph from './UserGraph/UserGraph';
 import CompanyGraph from './CompanyGraph/CompanyGraph';
 
 class Dashboard extends Component {
-  BASE_URL = 'https://vc-system-server.herokuapp.com/user/';
+  BASE_URL = 'https://vc-system-server.herokuapp.com/';
   constructor(props) {
     super(props);
     console.log('Dashboard constructor');
@@ -17,9 +17,9 @@ class Dashboard extends Component {
   }
   
   componentDidMount() {
-    let url = `${this.BASE_URL}${this.state.name}`;
-    console.log(url);
-    fetch(url).then(
+    let url_user = `${this.BASE_URL}user/${this.state.name}`;
+    console.log(url_user);
+    fetch(url_user).then(
       (resp) => resp.json()).then((user) => {
       console.log(user);
       this.setState({user: user}, () => {
