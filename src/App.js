@@ -9,14 +9,20 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ModalContent from './components/ModalContent/ModalContent';
 import Modal from '@material-ui/core/Modal';
+import leads from './placeholders/leads.json'; 
 import './App.css';
 
 class App extends Component {
 
   state = {
-    loggedIn: false,
+    loggedIn: true,
     modalOpen: false,
-    name: ''
+    name: '',
+    leads: []
+  }
+
+  componentDidMount() {
+    this.setState({leads: leads.leads});
   }
 
   /**
@@ -76,7 +82,7 @@ class App extends Component {
           onClose={this.modalClose.bind(this)}
           className='modal-wrapper'
           onEscapeKeyDown={this.modalClose.bind(this)}>
-          <ModalContent />
+          <ModalContent leads={this.state.leads}/>
         </Modal>
         <Footer name={this.state.name}/>  
       </div>

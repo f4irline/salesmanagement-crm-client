@@ -3,7 +3,7 @@ import { Component } from 'react';
 import './Dashboard.css';
 
 class Dashboard extends Component {
-  BASE_URL = "http://localhost:8080/user/";
+  BASE_URL = 'http://localhost:8080/user/';
   constructor(props) {
     super(props);
     console.log('Dashboard constructor');

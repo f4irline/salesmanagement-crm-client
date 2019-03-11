@@ -10,17 +10,30 @@ import ContactContent from './Content/ContactContent';
 import MeetingContent from './Content/MeetingContent';
 import SalesContent from './Content/SalesContent';
 import OfferContent from './Content/OfferContent';
+import MenuItem from '@material-ui/core/MenuItem';
 
 class ModalContent extends Component {
 
   state = {
     selectedValue: '',
+    leads: [],
+    leadNames: [],
+    labelWidth: 0
   };
 
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({leads: this.props.leads}, () => {
+      const leadNames = this.state.leads.map(lead => {
+        return <MenuItem key={lead.companyname} value={lead.companyname}>{lead.companyname}</MenuItem>;
+      });
+      this.setState({leadNames: leadNames});
+    });
   }
 
   handleClick = data => event => {
@@ -38,13 +51,13 @@ class ModalContent extends Component {
     if (this.state.selectedValue === 'lead')
       content = <LeadContent handleClick={this.handleClick} />;
     else if (this.state.selectedValue === 'contact')
-      content = <ContactContent handleClick={this.handleClick} />;
+      content = <ContactContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'meeting')
-      content = <MeetingContent handleClick={this.handleClick} />;
+      content = <MeetingContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'sales')
-      content = <SalesContent handleClick={this.handleClick} />;
+      content = <SalesContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'offer')
-      content = <OfferContent handleClick={this.handleClick} />;
+      content = <OfferContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
 
     return (
       <div className='ModalContent' tabIndex={-1}>
@@ -52,11 +65,12 @@ class ModalContent extends Component {
           <Typography variant='h4' gutterBottom className='controls-header'>
             Lisää:
           </Typography>
-          <div className='controls-wrapper'>
+          <div>
             <RadioGroup row
               name='radioGroup'
               value={this.state.value}
               onChange={this.handleChange}
+              className='controls-wrapper'
             >
               <FormControlLabel value='lead' control={<Radio />} label='Liidi' />
               <FormControlLabel value='contact' control={<Radio />} label='Yhteydenotto' />
