@@ -2,18 +2,16 @@ import React, {Component} from 'react';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 class SalesContent extends Component {
 
   state = {
-    date : null,
-    company : '',
-    businessarea : '',
-    website : '',
-    salesperson : '',
-    personname : '',
-    personrole : '',
-    personemail : ''
+    date: new Date().toISOString().split('T')[0],
+    companyname: '',
+    sum: 0,
+    info: ''
   };
 
   constructor() {
@@ -45,16 +43,25 @@ class SalesContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            value={new Date().toISOString().split('T')[0]}
+            value={this.state.date}
           />
-          <TextField
-            name='company'
+
+          <Select
+            name='companyname'
             label='Yritys'
+            value={this.state.companyname}
             onChange={this.handleChange}
             className='content-item'
-            variant='outlined'
-            required
-          />
+            input={
+              <OutlinedInput
+                name="company"
+                labelWidth={0}
+              />
+            }
+            required>
+            {this.props.leadNames}
+          </Select>
+          
           <TextField
             name='sum'
             label='Summa'

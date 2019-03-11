@@ -2,15 +2,19 @@ import React, {Component} from 'react';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FormControl from '@material-ui/core/FormControl';
 
 class ContactContent extends Component {
 
   state = {
-    date : null,
-    company : '',
-    person : '',
-    phonenumber : '',
-    email : ''
+    date: new Date().toISOString().split('T')[0],
+    companyname: 'Yritys',
+    person: '',
+    phonenumber: '',
+    email: '',
+    info: ''
   };
 
   constructor(props) {
@@ -42,17 +46,25 @@ class ContactContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            value={new Date().toISOString().split('T')[0]}
+            value={this.state.date}
           />
 
-          <TextField
-            name='company'
-            label='Yritys'
-            onChange={this.handleChange}
-            className='content-item'
-            variant='outlined'
-            required
-          />
+          <FormControl className='content-item'>
+            <Select
+              name='companyname'
+              displayEmpty
+              value={this.state.companyname}
+              onChange={this.handleChange}
+              input={
+                <OutlinedInput
+                  name="company"
+                  labelWidth={0}
+                />
+              }
+              required>
+              {this.props.leadNames}
+            </Select>
+          </FormControl>
 
           <TextField
             name='person'
