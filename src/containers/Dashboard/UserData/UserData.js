@@ -2,8 +2,10 @@ import React from 'react';
 import { Component } from 'react';
 import './UserData.css';
 
+import Typography from '@material-ui/core/Typography';
+
 class UserData extends Component {
-  BASE_URL = "https://vc-system-server.herokuapp.com/user/";
+  BASE_URL = 'https://vc-system-server.herokuapp.com/user/';
   constructor(props) {
     super(props);
     console.log('UserData constructor');
@@ -26,7 +28,12 @@ class UserData extends Component {
     console.log('UserData render');
     return (
       <div className='UserData'>
-      hellurei {this.state.user.name}, lastLogin: {this.state.user.lastLogin}
+        <Typography variant="h2">
+            hellurei {this.state.user.name}
+        </Typography>
+        <Typography variant="h3" gutterBottom>
+            lastLogin: {this.state.user.lastLogin}
+        </Typography>
       </div>
     );
   }
