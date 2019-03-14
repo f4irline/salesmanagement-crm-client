@@ -59,7 +59,7 @@ class UserGraph extends PureComponent {
       padding = 0;
     }
 
-    const COLORS = ['#222C35', '#D72322'];
+    const COLORS = ['#D72322', '#222C35'];
 
     return (
       <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '100%'}}>
