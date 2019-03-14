@@ -43,8 +43,6 @@ class UserGraph extends PureComponent {
   }
 
   render() {
-    console.log('UserData render');
-
     const data = [
       { name: 'Group A', value: (this.state.userData.goal - this.state.userData.total_sales) },
       { name: 'Group B', value: this.state.userData.total_sales },
