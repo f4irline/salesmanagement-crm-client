@@ -37,9 +37,13 @@ class Dashboard extends Component {
 
     if (this.state.loading) {
       return (
-        <div>
-          <p>Loading...</p>
-        </div>
+        <Grid container justify='center' direction='row' className='Dashboard'>
+          <Grid container item justify='center' xs={12}>
+            <Grid item>
+              <p>Loading...</p>
+            </Grid>
+          </Grid>
+        </Grid>
       );
     }
 
