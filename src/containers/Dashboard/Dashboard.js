@@ -70,11 +70,11 @@ class Dashboard extends Component {
     print ('Dashboard', 'return');
     return (
       <Grid container justify='center' direction='row' className='Dashboard'>
-        <Grid container item xs={12} className='user-wrapper' style={{minHeight: '46vh'}}>
+        <Grid container item xs={12} className='user-wrapper'>
           <UserData user={this.state.user} userData={this.state.userData}/>
           <UserGraph sales={this.state.userData.total_sales} goal={this.state.userData.goal}/>
         </Grid>
-        <Grid container item xs={12} className='company-wrapper' style={{minHeight: '46vh'}}>
+        <Grid container item xs={12} className='company-wrapper'>
           <CompanyGraph />
         </Grid>
       </Grid>

@@ -48,7 +48,7 @@ class UserData extends Component {
     const { classes } = this.props;
 
     return (
-      <Grid item xs={12} lg={6} className='UserData' style={{minHeight: '100%'}}>
+      <Grid item xs={12} lg={6} className='UserData' style={{minHeight: '46vh'}}>
         <Typography variant='h2' classes={{root: classes.header}}>
           Hei, {this.state.user.name}
         </Typography>

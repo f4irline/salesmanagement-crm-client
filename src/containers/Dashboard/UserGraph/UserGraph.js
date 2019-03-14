@@ -20,7 +20,16 @@ class UserGraph extends PureComponent {
     const height = this.divElement.clientHeight;
     const width = this.divElement.clientWidth;
     this.setState({height: height, width: width});
+    window.addEventListener('resize', this.checkWindowSize.bind(this));
     print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
+  }
+
+  checkWindowSize() {
+    const height = this.divElement.clientHeight;
+    const width = this.divElement.clientWidth;
+    if (height !== this.state.height || width !== this.state.width) {
+      this.setState({height: height, width: width});
+    }
   }
 
   render() {
@@ -43,7 +52,7 @@ class UserGraph extends PureComponent {
     const COLORS = ['#D72322', '#222C35'];
 
     return (
-      <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '100%'}}>
+      <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '46vh'}}>
         <div className='chart-wrapper' ref={(divElement) => this.divElement = divElement}>
           <PieChart width={this.state.width} height={this.state.height} onMouseEnter={this.onPieEnter}>
             <Pie
