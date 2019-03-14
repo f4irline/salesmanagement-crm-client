@@ -2,32 +2,57 @@ import React from 'react';
 import { Component } from 'react';
 import './Dashboard.css';
 
+import Grid from '@material-ui/core/Grid';
+
+import UserData from './UserData/UserData';
+import UserGraph from './UserGraph/UserGraph';
+import CompanyGraph from './CompanyGraph/CompanyGraph';
+
+import userData from '../../placeholders/user.json';
+
 class Dashboard extends Component {
-  BASE_URL = 'http://localhost:8080/user/';
+  BASE_URL = 'https://vc-system-server.herokuapp.com/';
   constructor(props) {
     super(props);
     console.log('Dashboard constructor');
+    
     let user = {};
-    this.state = {name: props.name, user: user};
+    this.state = {name: props.name, user: user, userData: userData, loading: true};
   }
-
+  
   componentDidMount() {
-    let url = `${this.BASE_URL}${this.state.name}`;
-    console.log(url);
-    fetch(url).then(
+    let url_user = `${this.BASE_URL}user/${this.state.name}`;
+    console.log(url_user);
+    fetch(url_user).then(
       (resp) => resp.json()).then((user) => {
       console.log(user);
-      let stateObj = {user: user};
-      this.setState(stateObj);
+      this.setState({user: user}, () => {
+        this.setState({loading: false});
+      });
     }).catch((e) => console.log(e));
   }
 
   render() {
-    console.log('Dashboard render');
+    console.log('Dashboard render ');
+
+    if (this.state.loading) {
+      return (
+        <div>
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
     return (
-      <div className='Dashboard'>
-      hellurei {this.state.name}{this.state.user.name}
-      </div>
+      <Grid container justify='center' direction='row' className='Dashboard'>
+        <Grid container item xs={12} className='user-wrapper'>
+          <UserData user={this.state.user} userData={this.state.userData}/>
+          <UserGraph />
+        </Grid>
+        <Grid container item xs={12} className='company-wrapper'>
+          <CompanyGraph />
+        </Grid>
+      </Grid>
     );
   }
 }

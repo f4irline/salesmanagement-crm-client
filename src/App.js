@@ -3,7 +3,6 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Leaderboards from './containers/Leaderboards/Leaderboards';
 import Navigation from './containers/Navigation/Navigation';
-import Footer from './containers/Footer/Footer';
 import Login from './containers/Login/Login';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -84,7 +83,6 @@ class App extends Component {
           onEscapeKeyDown={this.modalClose.bind(this)}>
           <ModalContent leads={this.state.leads}/>
         </Modal>
-        <Footer name={this.state.name}/>  
       </div>
     );
   }

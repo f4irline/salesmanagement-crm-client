@@ -1,7 +1,4 @@
 {
-    "user_id": 1001,
-    "user_first": "Foo",
-    "user_last": "Bar",
     "hit_rate": "28%",
     "avg_sales": 10589,
     "total_sales": 83900,
