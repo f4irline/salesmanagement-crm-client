@@ -27,7 +27,7 @@
 }
 
 .Leaderboards {
-  min-height: 83vh;
+  min-height: 94.9vh;
   position: relative;
 }
 
@@ -40,8 +40,10 @@
   margin: 3vh 10vw !important;
 }
 
-#table th,
-#table td {
-  padding-left:10px;
-  padding-right: 10px;
+@media only screen and (min-width: 960px) {
+  #table th,
+  #table td {
+    padding-left:10px;
+    padding-right: 10px;
+  }
 }

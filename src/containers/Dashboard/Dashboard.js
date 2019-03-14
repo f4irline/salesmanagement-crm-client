@@ -2,6 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import './Dashboard.css';
 
+import Grid from '@material-ui/core/Grid';
+
 import UserData from './UserData/UserData';
 import UserGraph from './UserGraph/UserGraph';
 import CompanyGraph from './CompanyGraph/CompanyGraph';
@@ -42,15 +44,15 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className='Dashboard'>
-        <div className='user-wrapper'>
+      <Grid container justify='center' direction='row' className='Dashboard'>
+        <Grid container item xs={12} className='user-wrapper'>
           <UserData user={this.state.user} userData={this.state.userData}/>
           <UserGraph />
-        </div>
-        <div className='company-wrapper'>
+        </Grid>
+        <Grid container item xs={12} className='company-wrapper'>
           <CompanyGraph />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }

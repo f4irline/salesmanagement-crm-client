@@ -2,6 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import './CompanyGraph.css';
 
+import Grid from '@material-ui/core/Grid';
+
 class CompanyGraph extends Component {
   constructor(props) {
     super(props);
@@ -13,9 +15,9 @@ class CompanyGraph extends Component {
   render() {
     console.log('UserData render');
     return (
-      <div className='CompanyGraph'>
+      <Grid item xs={12} className='CompanyGraph'>
         <p>CompanyGraph</p>
-      </div>
+      </Grid>
     );
   }
 }

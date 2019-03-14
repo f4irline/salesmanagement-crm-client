@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import './UserData.css';
 
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { List, ListItemText, ListItem } from '@material-ui/core';
@@ -17,7 +18,7 @@ class UserData extends Component {
   render() {
     console.log('UserData render');
     return (
-      <div className='UserData'>
+      <Grid item xs={12} lg={6} className='UserData'>
         <Typography variant="h2">
           Hello, {this.state.user.name}
         </Typography>
@@ -53,9 +54,8 @@ class UserData extends Component {
               </ListItem>
             </List>
           </div>
-
         </Paper>
-      </div>
+      </Grid>
     );
   }
 }

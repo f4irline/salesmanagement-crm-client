@@ -1,5 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
+
+import Grid from '@material-ui/core/Grid';
+
 import './UserGraph.css';
 
 class UserGraph extends Component {
@@ -13,9 +16,9 @@ class UserGraph extends Component {
   render() {
     console.log('UserData render');
     return (
-      <div className='UserGraph'>
+      <Grid item xs={12} lg={6} className='UserGraph'>
         <p>Usergraph</p>
-      </div>
+      </Grid>
     );
   }
 }

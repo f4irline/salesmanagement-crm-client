@@ -5,15 +5,15 @@ import Button from '@material-ui/core/Button';
 
 class LeadContent extends Component {
   state = {
-    date: null,
+    date: new Date().toISOString().split('T')[0],
     companyname: '',
     businessarea: '',
     website: '',
-    salesperson: '',
     personname: '',
     personrole: '',
     personemail: '',
-    personphone: ''
+    personphone: '',
+    info: ''
   }
 
   constructor() {
@@ -45,7 +45,7 @@ class LeadContent extends Component {
             className='content-item'
             variant='outlined'
             required
-            value={new Date().toISOString().split('T')[0]}
+            value={this.state.date}
           />
           
           <TextField
@@ -56,6 +56,7 @@ class LeadContent extends Component {
             variant='outlined'
             required
           />
+          
           <TextField
             name='businessarea'
             label='Yrityksen toimiala'
