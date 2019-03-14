@@ -43,10 +43,22 @@ class UserGraph extends PureComponent {
   }
 
   render() {
+    console.log('UserData render');
+
+    let padding = 5;
+    let toGoal = this.state.userData.goal - this.state.userData.total_sales;
+
     const data = [
-      { name: 'Group A', value: (this.state.userData.goal - this.state.userData.total_sales) },
-      { name: 'Group B', value: this.state.userData.total_sales },
+      { name: 'Group A', value: this.state.userData.total_sales }
     ];
+
+    if (toGoal > 0) {
+      data.push({ name: 'Group B', value: toGoal });
+    } else {
+      toGoal = 0;
+      padding = 0;
+    }
+
     const COLORS = ['#222C35', '#D72322'];
 
     return (
@@ -57,7 +69,7 @@ class UserGraph extends PureComponent {
               data={data}
               innerRadius={'70%'}
               outerRadius={'90%'}
-              paddingAngle={5}
+              paddingAngle={padding}
               dataKey="value"
               label>
               {
