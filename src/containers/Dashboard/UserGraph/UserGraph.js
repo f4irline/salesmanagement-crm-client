@@ -4,52 +4,33 @@ import Grid from '@material-ui/core/Grid';
 
 import './UserGraph.css';
 
+import {print} from '../../../utils/Debug';
+
 import {
   PieChart, Pie, Cell,
 } from 'recharts';
 
 class UserGraph extends PureComponent {
-  constructor(props) {
-    super(props);
-    console.log('UserData constructor');
-    this.state = {
-      user: props.user, 
-      name: props.name, 
-      userData: props.userData, 
-      height: 0, 
-      width: 0
-    };
+  state = {
+    height: 0, 
+    width: 0
   }
 
   componentDidMount() {
     const height = this.divElement.clientHeight;
     const width = this.divElement.clientWidth;
-    this.setState({height: height, wiidth: width});
-    window.addEventListener('resize', this.checkWindowSize.bind(this));
-  }
-  
-  componentDidUpdate() {
-    if (this.divElement.clientHeight !== this.state.height) {
-      this.setState({height: this.divElement.clientHeight});
-    } else if (this.divElement.clientWidth !== this.state.width) {
-      this.setState({width: this.divElement.clientWidth});
-    }
-  }
-
-  checkWindowSize() {
-    const height = this.divElement.clientHeight;
-    const width = this.divElement.clientWidth;
-    this.setState({height: height, wiidth: width});
+    this.setState({height: height, width: width});
+    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
   render() {
-    console.log('UserData render');
-
+    print('UserGraph', 'render');
+    
     let padding = 5;
-    let toGoal = this.state.userData.goal - this.state.userData.total_sales;
+    let toGoal = this.props.goal - this.props.sales;
 
     const data = [
-      { name: 'Group A', value: this.state.userData.total_sales }
+      { name: 'Group A', value: this.props.sales }
     ];
 
     if (toGoal > 0) {

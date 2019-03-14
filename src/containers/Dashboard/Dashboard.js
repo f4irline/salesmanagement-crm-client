@@ -10,32 +10,53 @@ import CompanyGraph from './CompanyGraph/CompanyGraph';
 
 import userData from '../../placeholders/user.json';
 
+import axios from 'axios';
+
+import {print} from '../../utils/Debug';
+
 class Dashboard extends Component {
   BASE_URL = 'https://vc-system-server.herokuapp.com/';
-  constructor(props) {
-    super(props);
-    console.log('Dashboard constructor');
-    
-    let user = {};
-    this.state = {name: props.name, user: user, userData: userData, loading: true};
+
+  state = {
+    name: this.props.name,
+    user: {},
+    userData: userData,
+    loading: true
   }
   
   componentDidMount() {
-    let url_user = `${this.BASE_URL}user/${this.state.name}`;
-    console.log(url_user);
-    fetch(url_user).then(
-      (resp) => resp.json()).then((user) => {
-      console.log(user);
-      this.setState({user: user}, () => {
+    print('Dashboard', 'componentDidMount');
+    let url_user = `${this.BASE_URL}users/${this.state.name}`;
+    axios.get(url_user)
+      .then(user => this.setState({user: user.data}, () => {
         this.setState({loading: false});
-      });
-    }).catch((e) => console.log(e));
+      }))
+      .catch(err => console.log(err));
+  }
+
+  componentWillUnmount() {
+    print('Dashboard', 'componentWillUnmount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.name !== this.state.name) {
+      return true;
+    } else if (nextState.user !== this.state.user) {
+      return true;
+    } else if (nextState.userData !== this.state.userData) {
+      return true;
+    } else if (nextState.loading !== this.state.loading) {
+      return true;
+    }
+    
+    return false;
   }
 
   render() {
-    console.log('Dashboard render ');
-
+    print('Dashboard', 'render');
+    
     if (this.state.loading) {
+      print('Dashboard', 'return loading');
       return (
         <Grid container justify='center' direction='row' className='Dashboard'>
           <Grid container item justify='center' xs={12}>
@@ -46,12 +67,12 @@ class Dashboard extends Component {
         </Grid>
       );
     }
-
+    print ('Dashboard', 'return');
     return (
       <Grid container justify='center' direction='row' className='Dashboard'>
         <Grid container item xs={12} className='user-wrapper' style={{minHeight: '46vh'}}>
           <UserData user={this.state.user} userData={this.state.userData}/>
-          <UserGraph user={this.state.user} userData={this.state.userData}/>
+          <UserGraph sales={this.state.userData.total_sales} goal={this.state.userData.goal}/>
         </Grid>
         <Grid container item xs={12} className='company-wrapper' style={{minHeight: '46vh'}}>
           <CompanyGraph />
