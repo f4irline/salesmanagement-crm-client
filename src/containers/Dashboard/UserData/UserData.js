@@ -10,12 +10,15 @@ import { List, ListItemText, ListItem } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 const styles = {
+  itemContainer: {
+    height: '100%'
+  },
   listItem: {
     padding: '0.5vh 1vw'
   },
   paper: {
     margin: '1vw',
-    padding: '1vw'
+    padding: '0.5vw'
   },
   header: {
     margin: '1vh 0.5vw 0 0.5vw',
@@ -43,7 +46,7 @@ class UserData extends Component {
 
     console.log('UserData render');
     return (
-      <Grid item xs={12} lg={6} className='UserData'>
+      <Grid item xs={12} lg={6} className='UserData' style={{minHeight: '100%'}}>
         <Typography variant='h2' classes={{root: classes.header}}>
           Hello, {this.state.user.name}
         </Typography>

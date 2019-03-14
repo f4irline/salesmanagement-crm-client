@@ -16,7 +16,7 @@ class UserGraph extends Component {
   render() {
     console.log('UserData render');
     return (
-      <Grid item xs={12} lg={6} className='UserGraph'>
+      <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '100%'}}>
         <p>Usergraph</p>
       </Grid>
     );

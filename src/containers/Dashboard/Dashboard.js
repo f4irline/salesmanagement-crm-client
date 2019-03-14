@@ -49,11 +49,11 @@ class Dashboard extends Component {
 
     return (
       <Grid container justify='center' direction='row' className='Dashboard'>
-        <Grid container item xs={12} className='user-wrapper'>
+        <Grid container item xs={12} className='user-wrapper' style={{minHeight: '46vh'}}>
           <UserData user={this.state.user} userData={this.state.userData}/>
           <UserGraph />
         </Grid>
-        <Grid container item xs={12} className='company-wrapper'>
+        <Grid container item xs={12} className='company-wrapper' style={{minHeight: '46vh'}}>
           <CompanyGraph />
         </Grid>
       </Grid>
