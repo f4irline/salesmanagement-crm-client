@@ -51,7 +51,7 @@ class Dashboard extends Component {
       <Grid container justify='center' direction='row' className='Dashboard'>
         <Grid container item xs={12} className='user-wrapper'>
           <UserData user={this.state.user} userData={this.state.userData}/>
-          <UserGraph />
+          <UserGraph user={this.state.user} userData={this.state.userData}/>
         </Grid>
         <Grid container item xs={12} className='company-wrapper'>
           <CompanyGraph />
