@@ -3,6 +3,7 @@ import { Component } from 'react';
 import './Dashboard.css';
 
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 import UserData from './UserData/UserData';
 import UserGraph from './UserGraph/UserGraph';
@@ -69,12 +70,13 @@ class Dashboard extends Component {
     }
     print ('Dashboard', 'return');
     return (
-      <Grid container justify='center' direction='row' className='Dashboard'>
-        <Grid container item xs={12} className='user-wrapper'>
+      <Grid container justify='space-between' direction='row' className='Dashboard'>
+        <Grid container justify='space-around' item className='user-wrapper'>
           <UserData user={this.state.user} userData={this.state.userData}/>
           <UserGraph sales={this.state.userData.total_sales} goal={this.state.userData.goal}/>
         </Grid>
-        <Grid container item xs={12} className='company-wrapper'>
+        <Divider variant='middle' />
+        <Grid container justify='space-around' item className='company-wrapper'>
           <CompanyGraph />
         </Grid>
       </Grid>
