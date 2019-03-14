@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import './UserGraph.css';
 
@@ -17,16 +18,16 @@ class UserGraph extends PureComponent {
   }
 
   componentDidMount() {
-    const height = this.divElement.clientHeight;
-    const width = this.divElement.clientWidth;
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
     this.setState({height: height, width: width});
     window.addEventListener('resize', this.checkWindowSize.bind(this));
     print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
   checkWindowSize() {
-    const height = this.divElement.clientHeight;
-    const width = this.divElement.clientWidth;
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
     if (height !== this.state.height || width !== this.state.width) {
       this.setState({height: height, width: width});
     }
@@ -53,7 +54,12 @@ class UserGraph extends PureComponent {
 
     return (
       <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '46vh'}}>
-        <div className='chart-wrapper' ref={(divElement) => this.divElement = divElement}>
+        <div className='chart-header'>
+          <Typography variant='h2' style={{fontWeight: 800}}>
+            YOUR GOAL
+          </Typography>
+        </div>
+        <div className='chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
           <PieChart width={this.state.width} height={this.state.height} onMouseEnter={this.onPieEnter}>
             <Pie
               data={data}
