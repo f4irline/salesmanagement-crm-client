@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -9,7 +8,7 @@ import {
   PieChart, Pie, Sector, Cell,
 } from 'recharts';
 
-class UserGraph extends Component {
+class UserGraph extends PureComponent {
   constructor(props) {
     super(props);
     console.log('UserData constructor');
