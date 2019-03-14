@@ -9,6 +9,8 @@ import {withStyles} from '@material-ui/core/styles';
 import { List, ListItemText, ListItem } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
+import {print} from '../../../utils/Debug';
+
 const styles = {
   itemContainer: {
     height: '100%'
@@ -33,18 +35,18 @@ const styles = {
 };
 
 class UserData extends Component {
-  constructor(props) {
-    super(props);
-    console.log('UserData constructor');
-
-    this.state = {user: props.user, name: props.name, userData: props.userData};
+  state = {
+    user: this.props.user,
+    name: this.props.name,
+    userData: this.props.userData
   }
 
   render() {
 
+    print('UserData', 'render');
+
     const { classes } = this.props;
 
-    console.log('UserData render');
     return (
       <Grid item xs={12} lg={6} className='UserData' style={{minHeight: '100%'}}>
         <Typography variant='h2' classes={{root: classes.header}}>

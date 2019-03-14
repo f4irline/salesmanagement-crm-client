@@ -5,20 +5,22 @@ import leaderboards from '../../placeholders/leaderboards.json';
 import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
-class Leaderboards extends Component {
+import {print} from '../../utils/Debug';
 
-  constructor(props) {
-    super(props);
-    this.onChange=this.onChange.bind(this);
-    this.convertData=this.convertData.bind(this);
-    this.filterData=this.filterData.bind(this);
-    this.state = {
-      startDate:new Date('foo'),
-      endDate:new Date('foo')
-    };
+class Leaderboards extends Component {
+  state = {
+    startDate: new Date('foo'),
+    endDate: new Date('foo')
   }
 
+  onChange = this.onChange.bind(this);
+  convertData=this.convertData.bind(this);
+  filterData=this.filterData.bind(this);
+
   onChange(event) {
+
+    print('Leaderboards', 'onChange');
+
     let value = event.target.value;
     let id = event.target.id;
     switch(id) {
@@ -34,6 +36,9 @@ class Leaderboards extends Component {
   }
 
   filterData(data) {    
+
+    print ('Leaderboards', 'filterData');
+    
     let filterData = [];
     
     // eslint-disable-next-line
@@ -51,6 +56,9 @@ class Leaderboards extends Component {
   }
 
   mapData(data) {
+
+    print ('Leaderboards', 'mapData');
+
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -72,6 +80,9 @@ class Leaderboards extends Component {
   }
 
   convertData(data) {
+
+    print ('Leaderboards', 'convertData');
+
     let dataToMap = [];
     let filterData = [];
     if(this.state.startDate.toString() !== 'Invalid Date' ||
@@ -86,6 +97,8 @@ class Leaderboards extends Component {
   }
   
   render() {
+
+    print ('Leaderboards', 'render');
 
     const data = leaderboards.leaderboards;   
     const newData = this.convertData(data);

@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import './Login.css';
 
+import {print} from '../../utils/Debug';
+
 class Login extends Component {
 
   state = {
@@ -14,10 +16,12 @@ class Login extends Component {
   }
 
   handleButtonClick() {
+    print('Login', 'handleButtonClick');
     this.props.onLogin(this.state.name);
   }
 
   handleInputChange(event) {
+    print('Login', 'handleInputChange');
     switch (event.target.name) {
     case 'username':
       this.setState({name: event.target.value});
@@ -31,6 +35,7 @@ class Login extends Component {
   }
 
   render() {
+    print('Login', 'render');
     return (
       <div className='Login'>
         <Paper className='MuiPaper-root-1' elevation={5}>
