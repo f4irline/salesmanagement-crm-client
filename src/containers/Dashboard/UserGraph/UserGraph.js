@@ -9,8 +9,7 @@ class UserGraph extends Component {
   constructor(props) {
     super(props);
     console.log('UserData constructor');
-    let user = {};
-    this.state = {name: props.name, user: user};
+    this.state = {user: props.user, name: props.name, userData: props.userData};
   }
 
   render() {
