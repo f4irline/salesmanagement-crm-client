@@ -38,7 +38,7 @@ class Dashboard extends Component {
         <div>
           <p>Loading...</p>
         </div>
-      )
+      );
     }
 
     return (
