@@ -10,12 +10,15 @@ import { List, ListItemText, ListItem } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 const styles = {
+  itemContainer: {
+    height: '100%'
+  },
   listItem: {
     padding: '0.5vh 1vw'
   },
   paper: {
     margin: '1vw',
-    padding: '1vw'
+    padding: '0.5vw'
   },
   header: {
     margin: '1vh 0.5vw 0 0.5vw',
@@ -43,19 +46,19 @@ class UserData extends Component {
 
     console.log('UserData render');
     return (
-      <Grid item xs={12} lg={6} className='UserData'>
+      <Grid item xs={12} lg={6} className='UserData' style={{minHeight: '100%'}}>
         <Typography variant='h2' classes={{root: classes.header}}>
-          Hello, {this.state.user.name}
+          Hei, {this.state.user.name}
         </Typography>
         <Typography variant="h5" classes={{root: classes.login}}>
-          Your last login: {this.state.user.lastLogin}
+          Sisäänkirjautunut viimeksi: {this.state.user.lastLogin}
         </Typography>
         <Paper elevation={5} classes={{root: classes.paper}}>
           <div>
             <List>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Hitrate:'}></ListItemText>
+                  <ListItemText primary={'Hit Rate %:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.hit_rate}></ListItemText>
@@ -64,7 +67,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Average sales:'}></ListItemText>
+                  <ListItemText primary={'Keskim. myynti:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.avg_sales}></ListItemText>
@@ -73,7 +76,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Total sales:'}></ListItemText>
+                  <ListItemText primary={'Kokonaismyynti:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.total_sales}></ListItemText>
@@ -82,7 +85,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Contacts amount:'}></ListItemText>
+                  <ListItemText primary={'Yhteydenotot:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.contacts_amount}></ListItemText>
@@ -91,7 +94,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Meetings amount:'}></ListItemText>
+                  <ListItemText primary={'Tapaamiset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.meetings_amount}></ListItemText>
@@ -100,7 +103,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Offers amount:'}></ListItemText>
+                  <ListItemText primary={'Tarjoukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.offers_amount}></ListItemText>
@@ -109,7 +112,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Deals amount:'}></ListItemText>
+                  <ListItemText primary={'Sopimukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.deals_amount}></ListItemText>
@@ -118,7 +121,7 @@ class UserData extends Component {
               <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
-                  <ListItemText primary={'Goal:'}></ListItemText>
+                  <ListItemText primary={'Myynnin tavoite:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
                   <ListItemText primary={this.state.userData.goal}></ListItemText>

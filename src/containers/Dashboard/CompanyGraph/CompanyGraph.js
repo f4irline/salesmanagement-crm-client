@@ -15,7 +15,7 @@ class CompanyGraph extends Component {
   render() {
     console.log('UserData render');
     return (
-      <Grid item xs={12} className='CompanyGraph'>
+      <Grid item xs={12} className='CompanyGraph' style={{minHeight: '100%'}}>
         <p>CompanyGraph</p>
       </Grid>
     );

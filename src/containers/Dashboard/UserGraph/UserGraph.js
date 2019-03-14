@@ -26,7 +26,7 @@ class UserGraph extends Component {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     return (
-      <Grid item xs={12} lg={6} className='UserGraph'>
+      <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '100%'}}>
         <p>Usergraph</p>
         <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
           <Pie
