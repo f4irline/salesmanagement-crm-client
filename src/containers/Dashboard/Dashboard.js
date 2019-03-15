@@ -9,35 +9,18 @@ import UserData from './UserData/UserData';
 import UserGraph from './UserGraph/UserGraph';
 import CompanyGraph from './CompanyGraph/CompanyGraph';
 
-
-import axios from '../../axios-options';
-
 import {print} from '../../utils/Debug';
 
 class Dashboard extends Component {
   state = {
     user_id: this.props.user_id,
-    user: {},
-    userData: {},
-    loading: true,
-    loading2: true
+    user: this.props.user,
+    userData: this.props.userData
   }
   
   componentDidMount() {
     print('Dashboard', 'componentDidMount');
-    let url_user = `/users/${this.state.user_id}`;
-    let url_userData = `/userData/${this.state.user_id}`;
-    axios.get(url_user)
-      .then(user => this.setState({user: user.data}, () => {
-        this.setState({loading: false});
-      }))
-      .catch(err => console.log(err));
-
-    axios.get(url_userData)
-      .then(userData => this.setState({userData: userData.data}, () => {
-        this.setState({loading2: false});
-      }))
-      .catch(err => console.log(err));
+    this.setState({user: this.props.user, userData: this.props.userData});
   }
 
   componentWillUnmount() {

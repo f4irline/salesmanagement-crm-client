@@ -4,23 +4,17 @@ import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
-import axios from '../../axios-options';
-
 import {print} from '../../utils/Debug';
 
 class Leaderboards extends Component {
   state = {
     startDate: new Date('foo'),
     endDate: new Date('foo'),
-    loading: true,
     data: []
   }
 
   componentDidMount() {
-    axios.get('userData/all')
-      .then(res => this.setState({data: res.data}, () => {
-        this.setState({loading: false});
-      }));
+    this.setState({data: this.props.data});
   }
 
   onChange = this.onChange.bind(this);

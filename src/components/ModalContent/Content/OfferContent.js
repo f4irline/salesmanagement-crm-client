@@ -9,7 +9,7 @@ class OfferContent extends Component {
 
   state = {
     date: new Date().toISOString().split('T')[0],
-    companyname: '',
+    companyName: '',
     sum: 0,
     notes: '',
     eventType: 2
