@@ -63,8 +63,8 @@ class UserGraph extends PureComponent {
           <PieChart width={this.state.width} height={this.state.height} onMouseEnter={this.onPieEnter}>
             <Pie
               data={data}
-              innerRadius={'70%'}
-              outerRadius={'90%'}
+              innerRadius={'60%'}
+              outerRadius={'80%'}
               paddingAngle={padding}
               dataKey="value"
               label>
