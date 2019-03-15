@@ -20,7 +20,6 @@ class Leaderboards extends Component {
     axios.get('userData/all')
       .then(res => this.setState({data: res.data}, () => {
         this.setState({loading: false});
-        console.log(this.state.data);
       }));
   }
 
