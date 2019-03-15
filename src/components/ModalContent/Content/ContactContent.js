@@ -14,7 +14,8 @@ class ContactContent extends Component {
     person: '',
     phonenumber: '',
     email: '',
-    info: ''
+    info: '',
+    type: 0
   };
 
   constructor(props) {

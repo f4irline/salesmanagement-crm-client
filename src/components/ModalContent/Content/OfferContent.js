@@ -11,7 +11,8 @@ class OfferContent extends Component {
     date: new Date().toISOString().split('T')[0],
     companyname: '',
     sum: 0,
-    info: ''
+    info: '',
+    type: 2
   };
 
   constructor() {
