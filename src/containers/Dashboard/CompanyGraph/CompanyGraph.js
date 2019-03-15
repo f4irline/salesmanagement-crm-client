@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import './CompanyGraph.css';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import {print} from '../../../utils/Debug';
 
@@ -23,7 +24,7 @@ class CustomizedLabel extends PureComponent {
 class CustomizedAxisTick extends PureComponent {
   render() {
     const {
-      x, y, stroke, payload,
+      x, y, payload,
     } = this.props;
 
     return (
@@ -37,7 +38,25 @@ class CustomizedAxisTick extends PureComponent {
 class CompanyGraph extends PureComponent {
   state = {
     name: this.props.name,
-    user: {}
+    user: {},
+    height: 0,
+    width: 0
+  }
+
+  componentDidMount() {
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
+    this.setState({height: height, width: width});
+    window.addEventListener('resize', this.checkWindowSize.bind(this));
+    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
+  }
+
+  checkWindowSize() {
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
+    if (height !== this.state.height || width !== this.state.width) {
+      this.setState({height: height, width: width});
+    }
   }
 
   render() {
@@ -68,24 +87,30 @@ class CompanyGraph extends PureComponent {
     ];
 
     return (
-      <Grid item xs={10} className='CompanyGraph' style={{minHeight: '46vh'}}>
-        <p>CompanyGraph</p>
-        <LineChart
-          width={1000}
-          height={300}
-          data={data}
-          margin={{
-            top: 20, right: 30, left: 20, bottom: 10,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" label={<CustomizedLabel />} />
-          <Line connectNulls type="monotone" dataKey="goal" stroke="red" />
-        </LineChart>
+      <Grid item xs={12} lg={10} className='CompanyGraph' style={{minHeight: '46vh'}}>
+        <div className='company-chart-header'>
+          <Typography variant='h2' style={{fontWeight: 800}}>
+            YRITYKSEN TAVOITE
+          </Typography>
+        </div>
+        <div className='company-chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
+          <LineChart
+            width={this.state.width}
+            height={this.state.height}
+            data={data}
+            margin={{
+              top: 20, right: 30, left: 20, bottom: 10,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="pv" stroke="#8884d8" label={<CustomizedLabel />} />
+            <Line connectNulls type="monotone" dataKey="goal" stroke="red" />
+          </LineChart>
+        </div>
       </Grid>
     );
   }
