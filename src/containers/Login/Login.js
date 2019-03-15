@@ -40,12 +40,12 @@ class Login extends Component {
       <div className='Login'>
         <Paper className='MuiPaper-root-1' elevation={5}>
           <Typography variant='h5' gutterBottom>
-            USER LOGIN
+            KIRJAUTUMINEN
           </Typography>
           <Divider />
           <TextField
             className='login-item'
-            label='Name'
+            label='Työntekijä id'
             value={this.state.name}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
@@ -53,7 +53,7 @@ class Login extends Component {
           />
           <TextField
             className='login-item'
-            label='Password'
+            label='Salasana'
             value={this.state.password}
             onChange={this.handleInputChange.bind(this)}
             name='password'
