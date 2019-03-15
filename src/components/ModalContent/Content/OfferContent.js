@@ -90,7 +90,7 @@ class OfferContent extends Component {
 
         <Button 
           variant='contained' 
-          onClick={this.props.handleClick(this.state)}
+          onClick={this.props.handleSend(this.state)}
           color='primary'
           size='large'
           className='button-save'>Tallenna</Button>

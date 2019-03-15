@@ -89,7 +89,7 @@ class MeetingContent extends Component {
 
         <Button 
           variant='contained' 
-          onClick={this.props.handleClick(this.state)}
+          onClick={this.props.handleSend(this.state)}
           size='large'
           className='button-save'
           color='primary'>Tallenna</Button>

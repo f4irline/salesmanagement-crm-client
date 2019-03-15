@@ -25,25 +25,25 @@ class ModalContent extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSend = this.handleSend.bind(this);
   }
 
   componentDidMount() {
     this.setState({leads: this.props.leads}, () => {
+      console.log(this.state.leads);
       const leadNames = this.state.leads.map(lead => {
-        return <MenuItem key={lead.companyname} value={lead.companyname}>{lead.companyname}</MenuItem>;
+        return <MenuItem key={lead.companyName} value={lead.companyName}>{lead.companyName}</MenuItem>;
       });
       this.setState({leadNames: leadNames});
     });
   }
 
-  handleClick = data => event => {
+  handleSend = data => event => {
     if (data.type === 4) {
       axios.post('/leads/add', data)
-        .then((res) => console.log(res));
+        .then((res) => console.log(res))
+        .then(this.props.updateLeads());
     }
-
-    this.props.closeModal();
   }
 
   handleChange = event => {
@@ -55,15 +55,15 @@ class ModalContent extends Component {
     let content = null;
 
     if (this.state.selectedValue === 'lead')
-      content = <LeadContent handleClick={this.handleClick} />;
+      content = <LeadContent handleSend={this.handleSend} />;
     else if (this.state.selectedValue === 'contact')
-      content = <ContactContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <ContactContent handleSend={this.handleSend} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'meeting')
-      content = <MeetingContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <MeetingContent handleSend={this.handleSend} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'sales')
-      content = <SalesContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <SalesContent handleSend={this.handleSend} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'offer')
-      content = <OfferContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <OfferContent handleSend={this.handleSend} leadNames={this.state.leadNames}/>;
 
     return (
       <div className='ModalContent' tabIndex={-1}>
