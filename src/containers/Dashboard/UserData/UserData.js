@@ -120,15 +120,15 @@ class UserData extends Component {
                   <ListItemText primary={this.state.userData.sales_amount}></ListItemText>
                 </Grid>
               </ListItem>
-              {/* <Divider variant='middle'/>
+              <Divider variant='middle'/>
               <ListItem classes={{root: classes.listItem}}>
                 <Grid item xs={6}>
                   <ListItemText primary={'Myynnin tavoite:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.goal}></ListItemText>
+                  <ListItemText primary={this.state.user.goal}></ListItemText>
                 </Grid>
-              </ListItem> */}
+              </ListItem>
             </List>
           </div>
         </Paper>
