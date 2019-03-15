@@ -90,7 +90,7 @@ class UserData extends Component {
                   <ListItemText primary={'Yhteydenotot:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.contact_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.contacts_amount}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -99,7 +99,7 @@ class UserData extends Component {
                   <ListItemText primary={'Tapaamiset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.meeting_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.meetings_amount}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -108,7 +108,7 @@ class UserData extends Component {
                   <ListItemText primary={'Tarjoukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.offer_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.offers_amount}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
