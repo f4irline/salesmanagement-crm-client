@@ -11,13 +11,11 @@ import CompanyGraph from './CompanyGraph/CompanyGraph';
 
 import userData from '../../placeholders/user.json';
 
-import axios from 'axios';
+import axios from '../../axios-options';
 
 import {print} from '../../utils/Debug';
 
 class Dashboard extends Component {
-  BASE_URL = 'http://localhost:8080/';
-
   state = {
     user_id: this.props.user_id,
     user: {},
@@ -27,7 +25,7 @@ class Dashboard extends Component {
   
   componentDidMount() {
     print('Dashboard', 'componentDidMount');
-    let url_user = `${this.BASE_URL}users/${this.state.user_id}`;
+    let url_user = `/users/${this.state.user_id}`;
     axios.get(url_user)
       .then(user => this.setState({user: user.data}, () => {
         this.setState({loading: false});
