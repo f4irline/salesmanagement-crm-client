@@ -44,8 +44,6 @@ class UserData extends Component {
 
     print('UserData', 'render');
 
-    console.log(this.state.user);
-
     const { classes } = this.props;
 
     return (
