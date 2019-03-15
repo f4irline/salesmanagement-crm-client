@@ -81,7 +81,7 @@ class UserData extends Component {
                   <ListItemText primary={'Kokonaismyynti:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.all_sales}></ListItemText>
+                  <ListItemText primary={this.state.userData.total_sales}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -90,7 +90,7 @@ class UserData extends Component {
                   <ListItemText primary={'Yhteydenotot:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.contact_count}></ListItemText>
+                  <ListItemText primary={this.state.userData.contact_amount}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -99,7 +99,7 @@ class UserData extends Component {
                   <ListItemText primary={'Tapaamiset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.meeting_count}></ListItemText>
+                  <ListItemText primary={this.state.userData.meeting_amount}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -108,7 +108,7 @@ class UserData extends Component {
                   <ListItemText primary={'Tarjoukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.offer_count}></ListItemText>
+                  <ListItemText primary={this.state.userData.offer_amount}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -117,7 +117,7 @@ class UserData extends Component {
                   <ListItemText primary={'Sopimukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.sales_count}></ListItemText>
+                  <ListItemText primary={this.state.userData.sales_amount}></ListItemText>
                 </Grid>
               </ListItem>
               {/* <Divider variant='middle'/>
