@@ -37,7 +37,6 @@ const styles = {
 class UserData extends Component {
   state = {
     user: this.props.user,
-    name: this.props.name,
     userData: this.props.userData
   }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
-import leaderboards from '../../placeholders/leaderboards.json'; 
 import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
@@ -12,11 +11,17 @@ import {print} from '../../utils/Debug';
 class Leaderboards extends Component {
   state = {
     startDate: new Date('foo'),
-    endDate: new Date('foo')
+    endDate: new Date('foo'),
+    loading: true,
+    data: []
   }
 
   componentDidMount() {
-
+    axios.get('userData/all')
+      .then(res => this.setState({data: res.data}, () => {
+        this.setState({loading: false});
+        console.log(this.state.data);
+      }));
   }
 
   onChange = this.onChange.bind(this);
@@ -106,7 +111,15 @@ class Leaderboards extends Component {
 
     print ('Leaderboards', 'render');
 
-    const data = leaderboards.leaderboards;   
+    if (this.state.loading) {
+      return (
+        <div className='Leaderboards'>
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
+    const data = this.state.data;   
     const newData = this.convertData(data);
     const columns = [
       {
@@ -163,13 +176,6 @@ class Leaderboards extends Component {
       },
       {
         name: 'Sopimukset',
-        options: {
-          filter: false,
-          sort: true,
-        }
-      },
-      {
-        name: 'Pvm',
         options: {
           filter: false,
           sort: true,
