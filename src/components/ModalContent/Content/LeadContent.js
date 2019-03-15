@@ -14,7 +14,7 @@ class LeadContent extends Component {
     website: '',
     industry: '',
     notes: '',
-    type: 4
+    eventType: 4
   }
 
   constructor() {

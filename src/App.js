@@ -87,8 +87,8 @@ class App extends Component {
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
-          <Route path='/' component={() => <Dashboard user_id={this.state.user_id}/>} exact />
-          <Route path='/leaderboards' component={Leaderboards} />
+          <Route path='/' render={() => <Dashboard user_id={this.state.user_id}/>} exact />
+          <Route path='/leaderboards' render={() => <Leaderboards />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
@@ -101,7 +101,7 @@ class App extends Component {
           onClose={this.modalClose.bind(this)}
           className='modal-wrapper'
           onEscapeKeyDown={this.modalClose.bind(this)}>
-          <ModalContent updateLeads={this.updateLeads.bind(this)} closeModal={this.modalClose.bind(this)} leads={this.state.leads}/>
+          <ModalContent updateLeads={this.updateLeads.bind(this)} userId={this.state.user_id} closeModal={this.modalClose.bind(this)} leads={this.state.leads}/>
         </Modal>
       </div>
     );

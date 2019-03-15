@@ -11,8 +11,8 @@ class OfferContent extends Component {
     date: new Date().toISOString().split('T')[0],
     companyname: '',
     sum: 0,
-    info: '',
-    type: 2
+    notes: '',
+    eventType: 2
   };
 
   constructor() {
@@ -47,8 +47,8 @@ class OfferContent extends Component {
           />
 
           <Select
-            name='companyname'
-            value={this.state.companyname}
+            name='companyName'
+            value={this.state.companyName}
             onChange={this.handleChange}
             className='content-item'
             input={
@@ -78,7 +78,7 @@ class OfferContent extends Component {
 
         <div className='info-container'>
           <TextField
-            name='info'
+            name='notes'
             label='Lisätiedot'
             onChange={this.handleChange}
             className='content-item'
