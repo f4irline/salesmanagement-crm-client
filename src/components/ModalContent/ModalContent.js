@@ -11,6 +11,7 @@ import MeetingContent from './Content/MeetingContent';
 import SalesContent from './Content/SalesContent';
 import OfferContent from './Content/OfferContent';
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from '../../axios-options';
 
 class ModalContent extends Component {
 
@@ -37,7 +38,12 @@ class ModalContent extends Component {
   }
 
   handleClick = data => event => {
-    console.log(data);
+    if (data.type === 4) {
+      axios.post('/leads/add', data)
+        .then((res) => console.log(res));
+    }
+
+    this.props.closeModal();
   }
 
   handleChange = event => {

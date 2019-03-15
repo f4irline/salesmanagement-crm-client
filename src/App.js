@@ -92,7 +92,7 @@ class App extends Component {
           onClose={this.modalClose.bind(this)}
           className='modal-wrapper'
           onEscapeKeyDown={this.modalClose.bind(this)}>
-          <ModalContent leads={this.state.leads}/>
+          <ModalContent closeModal={this.modalClose.bind(this)} leads={this.state.leads}/>
         </Modal>
       </div>
     );

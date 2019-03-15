@@ -37,7 +37,6 @@ const styles = {
 class UserData extends Component {
   state = {
     user: this.props.user,
-    name: this.props.name,
     userData: this.props.userData
   }
 
@@ -50,7 +49,7 @@ class UserData extends Component {
     return (
       <Grid item xs={12} lg={5} className='UserData' style={{minHeight: '46vh'}}>
         <Typography variant='h2' classes={{root: classes.header}}>
-          Hei, {this.state.user.name}
+          Hei, {this.state.user.userFirst}
         </Typography>
         <Typography variant="h5" classes={{root: classes.login}}>
           Sisäänkirjautunut viimeksi: {this.state.user.lastLogin}
