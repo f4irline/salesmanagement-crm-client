@@ -9,7 +9,6 @@ import UserData from './UserData/UserData';
 import UserGraph from './UserGraph/UserGraph';
 import CompanyGraph from './CompanyGraph/CompanyGraph';
 
-//import userData from '../../placeholders/user.json';
 
 import axios from '../../axios-options';
 
@@ -36,7 +35,6 @@ class Dashboard extends Component {
 
     axios.get(url_userData)
       .then(userData => this.setState({userData: userData.data}, () => {
-        console.log('Dashboard', 'componentDidMount', userData.data);
         this.setState({loading2: false});
       }))
       .catch(err => console.log(err));
@@ -64,9 +62,6 @@ class Dashboard extends Component {
 
   render() {
     print('Dashboard', 'render');
-    
-    console.log('dashboardRenderUserData' + this.state.userData.allSales);
-    console.log('dashboardRenderUser' + this.state.user.name);
     
     if (this.state.loading || this.state.loading2) {
       print('Dashboard', 'return loading');
