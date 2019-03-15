@@ -21,7 +21,7 @@ class App extends Component {
   state = {
     loggedIn: true,
     modalOpen: false,
-    name: 'Jaska',
+    user_id: 1,
     leads: leads.leads
   }
 
@@ -78,7 +78,7 @@ class App extends Component {
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
-          <Route path='/' component={() => <Dashboard name={this.state.name}/>} exact />
+          <Route path='/' component={() => <Dashboard user_id={this.state.user_id}/>} exact />
           <Route path='/leaderboards' component={Leaderboards} />
           <Route component={Error} />
         </Switch>

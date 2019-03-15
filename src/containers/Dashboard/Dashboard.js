@@ -16,10 +16,10 @@ import axios from 'axios';
 import {print} from '../../utils/Debug';
 
 class Dashboard extends Component {
-  BASE_URL = 'https://vc-system-server.herokuapp.com/';
+  BASE_URL = 'http://localhost:8080/';
 
   state = {
-    name: this.props.name,
+    user_id: this.props.user_id,
     user: {},
     userData: userData,
     loading: true
@@ -27,7 +27,7 @@ class Dashboard extends Component {
   
   componentDidMount() {
     print('Dashboard', 'componentDidMount');
-    let url_user = `${this.BASE_URL}users/${this.state.name}`;
+    let url_user = `${this.BASE_URL}users/${this.state.user_id}`;
     axios.get(url_user)
       .then(user => this.setState({user: user.data}, () => {
         this.setState({loading: false});
