@@ -34,12 +34,14 @@ class App extends Component {
     userData: {}
   }
 
+
   componentDidMount() {
     print('App', 'componentDidMount');
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserData();
     this.updateUser();
+
   }
 
   updateUserData() {
