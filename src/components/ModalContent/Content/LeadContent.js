@@ -6,14 +6,15 @@ import Button from '@material-ui/core/Button';
 class LeadContent extends Component {
   state = {
     date: new Date().toISOString().split('T')[0],
-    companyname: '',
-    businessarea: '',
+    companyName: '',
+    contactPerson: '',
+    contactRole: '',
+    phoneNumber: '',
+    email: '',
     website: '',
-    personname: '',
-    personrole: '',
-    personemail: '',
-    personphone: '',
-    info: ''
+    industry: '',
+    notes: '',
+    type: 4
   }
 
   constructor() {
@@ -49,7 +50,7 @@ class LeadContent extends Component {
           />
           
           <TextField
-            name='companyname'
+            name='companyName'
             label='Yrityksen nimi'
             onChange={this.handleChange}
             className='content-item'
@@ -58,7 +59,7 @@ class LeadContent extends Component {
           />
           
           <TextField
-            name='businessarea'
+            name='industry'
             label='Yrityksen toimiala'
             onChange={this.handleChange}
             className='content-item'
@@ -79,7 +80,7 @@ class LeadContent extends Component {
         
         <div className='content-fields'>
           <TextField
-            name='personname'
+            name='contactPerson'
             label='Nimi'
             onChange={this.handleChange}
             className='content-item'
@@ -88,7 +89,7 @@ class LeadContent extends Component {
           />
           
           <TextField
-            name='personrole'
+            name='contactRole'
             label='Rooli'
             onChange={this.handleChange}
             className='content-item'
@@ -97,14 +98,14 @@ class LeadContent extends Component {
           />
           
           <TextField
-            name='personemail'
+            name='email'
             label='Sähköposti'
             onChange={this.handleChange}
             className='content-item'
             variant='outlined'
           />
           <TextField
-            name='personphone'
+            name='phoneNumber'
             label='Puhelinnumero'
             onChange={this.handleChange}
             className='content-item'
@@ -118,7 +119,7 @@ class LeadContent extends Component {
 
         <div className='info-container'>
           <TextField
-            name='info'
+            name='notes'
             label='Lisätiedot'
             onChange={this.handleChange}
             className='content-item'
