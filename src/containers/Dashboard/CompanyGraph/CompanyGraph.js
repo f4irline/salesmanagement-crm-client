@@ -4,18 +4,18 @@ import './CompanyGraph.css';
 
 import Grid from '@material-ui/core/Grid';
 
+import {print} from '../../../utils/Debug';
+
 class CompanyGraph extends Component {
-  constructor(props) {
-    super(props);
-    console.log('UserData constructor');
-    let user = {};
-    this.state = {name: props.name, user: user};
+  state = {
+    name: this.props.name,
+    user: {}
   }
 
   render() {
-    console.log('UserData render');
+    print('CompanyGraph', 'render');
     return (
-      <Grid item xs={12} className='CompanyGraph' style={{minHeight: '100%'}}>
+      <Grid item xs={10} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <p>CompanyGraph</p>
       </Grid>
     );

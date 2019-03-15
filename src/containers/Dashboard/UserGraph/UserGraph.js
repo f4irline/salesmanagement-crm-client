@@ -1,55 +1,46 @@
 import React, { PureComponent } from 'react';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import './UserGraph.css';
+
+import {print} from '../../../utils/Debug';
 
 import {
   PieChart, Pie, Cell,
 } from 'recharts';
 
 class UserGraph extends PureComponent {
-  constructor(props) {
-    super(props);
-    console.log('UserData constructor');
-    this.state = {
-      user: props.user, 
-      name: props.name, 
-      userData: props.userData, 
-      height: 0, 
-      width: 0
-    };
+  state = {
+    height: 0, 
+    width: 0
   }
 
   componentDidMount() {
-    const height = this.divElement.clientHeight;
-    const width = this.divElement.clientWidth;
-    this.setState({height: height, wiidth: width});
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
+    this.setState({height: height, width: width});
     window.addEventListener('resize', this.checkWindowSize.bind(this));
-  }
-  
-  componentDidUpdate() {
-    if (this.divElement.clientHeight !== this.state.height) {
-      this.setState({height: this.divElement.clientHeight});
-    } else if (this.divElement.clientWidth !== this.state.width) {
-      this.setState({width: this.divElement.clientWidth});
-    }
+    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
   checkWindowSize() {
-    const height = this.divElement.clientHeight;
-    const width = this.divElement.clientWidth;
-    this.setState({height: height, wiidth: width});
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
+    if (height !== this.state.height || width !== this.state.width) {
+      this.setState({height: height, width: width});
+    }
   }
 
   render() {
-    console.log('UserData render');
-
+    print('UserGraph', 'render');
+    
     let padding = 5;
-    let toGoal = this.state.userData.goal - this.state.userData.total_sales;
+    let toGoal = this.props.goal - this.props.sales;
 
     const data = [
-      { name: 'Group A', value: this.state.userData.total_sales }
+      { name: 'Group A', value: this.props.sales }
     ];
 
     if (toGoal > 0) {
@@ -62,8 +53,13 @@ class UserGraph extends PureComponent {
     const COLORS = ['#D72322', '#222C35'];
 
     return (
-      <Grid item xs={12} lg={6} className='UserGraph' style={{minHeight: '100%'}}>
-        <div className='chart-wrapper' ref={(divElement) => this.divElement = divElement}>
+      <Grid item xs={12} lg={5} className='UserGraph' style={{minHeight: '46vh'}}>
+        <div className='chart-header'>
+          <Typography variant='h2' style={{fontWeight: 800}}>
+            YOUR GOAL
+          </Typography>
+        </div>
+        <div className='chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
           <PieChart width={this.state.width} height={this.state.height} onMouseEnter={this.onPieEnter}>
             <Pie
               data={data}
