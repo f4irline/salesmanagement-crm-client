@@ -11,7 +11,8 @@ class MeetingContent extends Component {
     date: new Date().toISOString().split('T')[0],
     companyname: '',
     place: '',
-    info: ''
+    info: '',
+    type: 1
   };
 
   constructor() {
