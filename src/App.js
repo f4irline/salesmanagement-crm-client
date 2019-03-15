@@ -11,7 +11,9 @@ import Error from './containers/Error/Error';
 import Leaderboards from './containers/Leaderboards/Leaderboards';
 import Navigation from './containers/Navigation/Navigation';
 import Login from './containers/Login/Login';
-import leads from './placeholders/leads.json'; 
+
+import axios from './axios-options';
+
 import './App.css';
 
 const {print} = require('./utils/Debug');
@@ -22,11 +24,18 @@ class App extends Component {
     loggedIn: true,
     modalOpen: false,
     user_id: 100001,
-    leads: leads.leads
+    leads: []
   }
 
   componentDidMount() {
     print('App', 'componentDidMount');
+    axios.get('/leads')
+      .then(res => this.setState({leads: res.data}));
+  }
+
+  updateLeads() {
+    axios.get('/leads')
+      .then(res => this.setState({leads: res.data, modalOpen: false}));
   }
 
   /**
@@ -92,7 +101,7 @@ class App extends Component {
           onClose={this.modalClose.bind(this)}
           className='modal-wrapper'
           onEscapeKeyDown={this.modalClose.bind(this)}>
-          <ModalContent closeModal={this.modalClose.bind(this)} leads={this.state.leads}/>
+          <ModalContent updateLeads={this.updateLeads.bind(this)} closeModal={this.modalClose.bind(this)} leads={this.state.leads}/>
         </Modal>
       </div>
     );
