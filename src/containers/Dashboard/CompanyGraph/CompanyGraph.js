@@ -3,6 +3,10 @@ import './CompanyGraph.css';
 
 import Grid from '@material-ui/core/Grid';
 
+import TextField from '@material-ui/core/TextField';
+
+import axios from '../../../axios-options';
+
 import {print} from '../../../utils/Debug';
 
 /* eslint-disable react/no-multi-comp */
@@ -37,11 +41,83 @@ class CustomizedAxisTick extends PureComponent {
 class CompanyGraph extends PureComponent {
   state = {
     name: this.props.name,
-    user: {}
+    user: {},
+    startDate: new Date('foo'),
+    endDate: new Date('foo'),
+    loading: true,
+    data: []
+  }
+  onChange = this.onChange.bind(this);
+  getData = this.getData.bind(this);
+  
+  componentDidMount() {
+    this.getData();
+  }
+
+  onChange(event) {
+
+    print('CompanyGraph', 'onChange');
+
+    let value = event.target.value;
+    let id = event.target.id;
+    switch(id) {
+    case 'startDate':
+      this.setState({startDate: new Date(value)});
+      break;
+    case 'endDate':
+      this.setState({endDate: new Date(value)});
+      break;
+    default:
+      break;
+    }
+    this.getData();
+  }
+
+  getData() {
+    print('CompanyGraph', 'getData');
+    let url_companyChart = `/companyChart/${this.state.startDate}/${this.state.endDate}`;
+    console.log('CompanyGraph componenDidMount() url_companyChart: ' + url_companyChart);
+    let url_dummy ='/userData/all';
+    axios.get(url_dummy)
+      .then(res => this.setState({data: res.data}, () => {
+        this.setState({loading: false});
+        console.log(this.state.data);
+      }));
   }
 
   render() {
     print('CompanyGraph', 'render');
+
+    if (this.state.loading) {
+      return (
+        <div className='Leaderboards'>
+          <p>CompanyGraph</p>
+          <form className='datePicker'>
+            <TextField className='date'
+              id='startDate'
+              label='Aloitus päivämäärä'
+              type='date'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={this.onChange}
+            />
+            <TextField className='date'
+              id='endDate'
+              label='Lopetus päivämäärä'
+              type='date'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={this.onChange}
+            />
+          </form>
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
+    //const data = this.state.data; 
 
     const data = [
       {
@@ -70,6 +146,26 @@ class CompanyGraph extends PureComponent {
     return (
       <Grid item xs={10} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <p>CompanyGraph</p>
+        <form className='datePicker'>
+          <TextField className='date'
+            id='startDate'
+            label='Aloitus päivämäärä'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.onChange}
+          />
+          <TextField className='date'
+            id='endDate'
+            label='Lopetus päivämäärä'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.onChange}
+          />
+        </form>
         <LineChart
           width={1000}
           height={300}
