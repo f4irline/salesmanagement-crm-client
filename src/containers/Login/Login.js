@@ -17,7 +17,7 @@ class Login extends Component {
 
   handleButtonClick() {
     print('Login', 'handleButtonClick');
-    this.props.onLogin(this.state.name);
+    this.props.onLogin(this.state.user_id);
   }
 
   handleInputChange(event) {
