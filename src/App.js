@@ -37,7 +37,9 @@ class App extends Component {
 
   componentDidMount() {
     print('App', 'componentDidMount');
-    this.updateAll();
+    if (this.state.loggedIn) {
+      this.updateAll();
+    }
   }
 
   updateAll() {
