@@ -37,11 +37,14 @@ class App extends Component {
 
   componentDidMount() {
     print('App', 'componentDidMount');
+    this.updateAll();
+  }
+
+  updateAll() {
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserData();
     this.updateUser();
-
   }
 
   updateUserData() {
@@ -95,7 +98,9 @@ class App extends Component {
    */
   handleLogin(userId) {
     print('App', 'hangleLogin');
-    this.setState({loggedIn: true, user_id: userId});
+    this.setState({loggedIn: true, user_id: userId}, () => {
+      this.updateAll();
+    });
   }
 
   handleLogout() {
