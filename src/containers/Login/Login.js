@@ -11,7 +11,7 @@ import {print} from '../../utils/Debug';
 class Login extends Component {
 
   state = {
-    name: '',
+    user_id: -1,
     password: ''
   }
 
@@ -49,7 +49,7 @@ class Login extends Component {
             value={this.state.name}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
-            name='username'
+            name='user_id'
           />
           <TextField
             className='login-item'

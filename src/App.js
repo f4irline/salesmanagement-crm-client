@@ -93,9 +93,9 @@ class App extends Component {
    * 
    * @param {String} name 
    */
-  handleLogin(name) {
+  handleLogin(userId) {
     print('App', 'hangleLogin');
-    this.setState({loggedIn: true, name: name});
+    this.setState({loggedIn: true, user_id: userId});
   }
 
   handleLogout() {
