@@ -23,7 +23,7 @@ class App extends Component {
   state = {
     loggedIn: false,
     modalOpen: false,
-    user_id: -1,
+    user_id: '',
     loadingLeads: false,
     loadingLeaderBoards: false,
     loadingUser: false,
@@ -99,6 +99,7 @@ class App extends Component {
    * @param {String} name 
    */
   handleLogin(userId) {
+    console.log(userId);
     print('App', 'hangleLogin');
     this.setState({loggedIn: true, user_id: userId}, () => {
       this.updateAll();

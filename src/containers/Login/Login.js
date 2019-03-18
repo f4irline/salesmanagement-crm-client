@@ -11,20 +11,21 @@ import {print} from '../../utils/Debug';
 class Login extends Component {
 
   state = {
-    user_id: -1,
+    user_id: '',
     password: ''
   }
 
   handleButtonClick() {
     print('Login', 'handleButtonClick');
+    console.log(this.state.user_id);
     this.props.onLogin(this.state.user_id);
   }
 
   handleInputChange(event) {
     print('Login', 'handleInputChange');
     switch (event.target.name) {
-    case 'username':
-      this.setState({name: event.target.value});
+    case 'user_id':
+      this.setState({user_id: event.target.value});
       break;
     case 'password':
       this.setState({password: event.target.value});
@@ -46,10 +47,11 @@ class Login extends Component {
           <TextField
             className='login-item'
             label='Työntekijä id'
-            value={this.state.name}
+            value={this.state.user_id}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
             name='user_id'
+            type='number'
           />
           <TextField
             className='login-item'
