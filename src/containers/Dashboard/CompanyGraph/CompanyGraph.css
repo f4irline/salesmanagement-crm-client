@@ -1,0 +1,14 @@
+.company-chart-wrapper {
+    width: 100%;
+    height: 55%;
+    text-align: center;
+    font-weight: 800;
+}
+
+.company-chart-header {
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    width: 100%;
+    height: 15%;
+    text-align: center;
+}

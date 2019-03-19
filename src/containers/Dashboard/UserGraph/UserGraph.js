@@ -26,10 +26,15 @@ class UserGraph extends PureComponent {
   }
 
   checkWindowSize() {
-    const height = this.chartWrapper.clientHeight;
-    const width = this.chartWrapper.clientWidth;
-    if (height !== this.state.height || width !== this.state.width) {
-      this.setState({height: height, width: width});
+    try {
+      const height = this.chartWrapper.clientHeight;
+      const width = this.chartWrapper.clientWidth;  
+      
+      if (height !== this.state.height || width !== this.state.width) {
+        this.setState({height: height, width: width});
+      }
+    } catch (err) {
+      print('UserGraph', 'checkWindowSize', 'Reloading Div');
     }
   }
 
@@ -56,15 +61,15 @@ class UserGraph extends PureComponent {
       <Grid item xs={12} lg={5} className='UserGraph' style={{minHeight: '46vh'}}>
         <div className='chart-header'>
           <Typography variant='h2' style={{fontWeight: 800}}>
-            YOUR GOAL
+            TAVOITTEESI
           </Typography>
         </div>
         <div className='chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
           <PieChart width={this.state.width} height={this.state.height} onMouseEnter={this.onPieEnter}>
             <Pie
               data={data}
-              innerRadius={'70%'}
-              outerRadius={'90%'}
+              innerRadius={'60%'}
+              outerRadius={'80%'}
               paddingAngle={padding}
               dataKey="value"
               label>

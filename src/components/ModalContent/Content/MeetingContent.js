@@ -9,10 +9,10 @@ class MeetingContent extends Component {
 
   state = {
     date: new Date().toISOString().split('T')[0],
-    companyname: '',
+    companyName: '',
     place: '',
-    info: '',
-    type: 1
+    notes: '',
+    eventType: 1
   };
 
   constructor() {
@@ -47,8 +47,8 @@ class MeetingContent extends Component {
           />
 
           <Select
-            name='companyname'
-            value={this.state.companyname}
+            name='companyName'
+            value={this.state.companyName}
             onChange={this.handleChange}
             className='content-item'
             input={
@@ -77,7 +77,7 @@ class MeetingContent extends Component {
 
         <div className='info-container'>
           <TextField
-            name='info'
+            name='notes'
             label='Lisätiedot'
             onChange={this.handleChange}
             className='content-item'
@@ -89,7 +89,7 @@ class MeetingContent extends Component {
 
         <Button 
           variant='contained' 
-          onClick={this.props.handleClick(this.state)}
+          onClick={this.props.handleSend(this.state)}
           size='large'
           className='button-save'
           color='primary'>Tallenna</Button>

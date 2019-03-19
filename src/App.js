@@ -11,7 +11,9 @@ import Error from './containers/Error/Error';
 import Leaderboards from './containers/Leaderboards/Leaderboards';
 import Navigation from './containers/Navigation/Navigation';
 import Login from './containers/Login/Login';
-import leads from './placeholders/leads.json'; 
+
+import axios from './axios-options';
+
 import './App.css';
 
 const {print} = require('./utils/Debug');
@@ -19,14 +21,76 @@ const {print} = require('./utils/Debug');
 class App extends Component {
 
   state = {
-    loggedIn: true,
+    loggedIn: false,
     modalOpen: false,
-    user_id: 100001,
-    leads: leads.leads
+    user_id: '',
+    loadingLeads: false,
+    loadingLeaderBoards: false,
+    loadingUser: false,
+    loadingUserData: false,
+    leads: [], 
+    leaderBoards: [],
+    user: {},
+    userData: {}
   }
+
 
   componentDidMount() {
     print('App', 'componentDidMount');
+    if (this.state.loggedIn) {
+      this.updateAll();
+    }
+  }
+
+  updateAll() {
+    this.updateLeads();
+    this.updateLeaderBoards();
+    this.updateUserData();
+    this.updateUser();
+  }
+
+  updateUserData() {
+    let url_userData = `/userData/${this.state.user_id}`;
+    this.setState({loadingUserData: true}, () => {
+      axios.get(url_userData)
+        .then(userData => this.setState({userData: userData.data, modalOpen: false}, () => {
+          this.setState({loadingUserData: false});
+          print('App', 'updateUserData');
+        }))
+        .catch(err => console.log(err));
+    });
+  }
+
+  updateUser() {
+    let url_user = `/users/${this.state.user_id}`;
+    this.setState({loadingUser: true}, () => {
+      axios.get(url_user)
+        .then(user => this.setState({user: user.data}, () => {
+          this.setState({loadingUser: false});
+          print('App', 'updateUser');
+        }))
+        .catch(err => console.log(err));
+    });
+  }
+
+  updateLeaderBoards() {
+    this.setState({loadingLeaderBoards: true}, () => {
+      axios.get('/userData/all')
+        .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+          this.setState({loadingLeaderBoards: false});
+          print('App', 'updateLeaderBoards');
+        }));
+    });
+  }
+
+  updateLeads() {
+    this.setState({loadingLeads: true}, () => {
+      axios.get('/leads')
+        .then(res => this.setState({leads: res.data, modalOpen: false}, () => {
+          this.setState({loadingLeads: false});
+          print('App', 'updateLeads');
+        }));
+    });
   }
 
   /**
@@ -34,9 +98,12 @@ class App extends Component {
    * 
    * @param {String} name 
    */
-  handleLogin(name) {
+  handleLogin(userId) {
+    console.log(userId);
     print('App', 'hangleLogin');
-    this.setState({loggedIn: true, name: name});
+    this.setState({loggedIn: true, user_id: userId}, () => {
+      this.updateAll();
+    });
   }
 
   handleLogout() {
@@ -74,12 +141,20 @@ class App extends Component {
       );
     }
 
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData) {
+      return (
+        <div className='App'>
+          <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
+        </div>
+      );
+    }
+
     return (
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
-          <Route path='/' component={() => <Dashboard user_id={this.state.user_id}/>} exact />
-          <Route path='/leaderboards' component={Leaderboards} />
+          <Route path='/' render={() => <Dashboard user={this.state.user} userData={this.state.userData} user_id={this.state.user_id}/>} exact />
+          <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
@@ -92,7 +167,13 @@ class App extends Component {
           onClose={this.modalClose.bind(this)}
           className='modal-wrapper'
           onEscapeKeyDown={this.modalClose.bind(this)}>
-          <ModalContent closeModal={this.modalClose.bind(this)} leads={this.state.leads}/>
+          <ModalContent
+            updateUserData={this.updateUserData.bind(this)}
+            updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
+            updateLeads={this.updateLeads.bind(this)} 
+            userId={this.state.user_id} 
+            closeModal={this.modalClose.bind(this)} 
+            leads={this.state.leads}/>
         </Modal>
       </div>
     );

@@ -9,28 +9,18 @@ import UserData from './UserData/UserData';
 import UserGraph from './UserGraph/UserGraph';
 import CompanyGraph from './CompanyGraph/CompanyGraph';
 
-import userData from '../../placeholders/user.json';
-
-import axios from '../../axios-options';
-
 import {print} from '../../utils/Debug';
 
 class Dashboard extends Component {
   state = {
     user_id: this.props.user_id,
-    user: {},
-    userData: userData,
-    loading: true
+    user: this.props.user,
+    userData: this.props.userData
   }
   
   componentDidMount() {
     print('Dashboard', 'componentDidMount');
-    let url_user = `/users/${this.state.user_id}`;
-    axios.get(url_user)
-      .then(user => this.setState({user: user.data}, () => {
-        this.setState({loading: false});
-      }))
-      .catch(err => console.log(err));
+    this.setState({user: this.props.user, userData: this.props.userData});
   }
 
   componentWillUnmount() {
@@ -46,6 +36,8 @@ class Dashboard extends Component {
       return true;
     } else if (nextState.loading !== this.state.loading) {
       return true;
+    } else if (nextState.loading2 !== this.state.loading2) {
+      return true;
     }
     
     return false;
@@ -54,7 +46,7 @@ class Dashboard extends Component {
   render() {
     print('Dashboard', 'render');
     
-    if (this.state.loading) {
+    if (this.state.loading || this.state.loading2) {
       print('Dashboard', 'return loading');
       return (
         <Grid container justify='center' direction='row' className='Dashboard'>
@@ -71,7 +63,7 @@ class Dashboard extends Component {
       <Grid container justify='space-between' direction='row' className='Dashboard'>
         <Grid container justify='space-around' item className='user-wrapper'>
           <UserData user={this.state.user} userData={this.state.userData}/>
-          <UserGraph sales={this.state.userData.total_sales} goal={this.state.userData.goal}/>
+          <UserGraph sales={this.state.userData.total_sales} goal={this.state.user.goal}/>
         </Grid>
         <Divider variant='middle' />
         <Grid container justify='space-around' item className='company-wrapper'>

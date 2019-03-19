@@ -14,7 +14,7 @@ class LeadContent extends Component {
     website: '',
     industry: '',
     notes: '',
-    type: 4
+    eventType: 4
   }
 
   constructor() {
@@ -132,7 +132,7 @@ class LeadContent extends Component {
         <Button 
           variant='contained' 
           color='primary' 
-          onClick={this.props.handleClick(this.state)}
+          onClick={this.props.handleSend(this.state)}
           size='large'
           className='button-save'>Tallenna</Button>
 

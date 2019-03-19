@@ -10,12 +10,12 @@ class ContactContent extends Component {
 
   state = {
     date: new Date().toISOString().split('T')[0],
-    companyname: 'Yritys',
-    person: '',
-    phonenumber: '',
+    companyName: '',
+    contactPerson: '',
+    phoneNumber: '',
     email: '',
-    info: '',
-    type: 0
+    notes: '',
+    eventType: 0
   };
 
   constructor(props) {
@@ -52,9 +52,9 @@ class ContactContent extends Component {
 
           <FormControl className='content-item'>
             <Select
-              name='companyname'
+              name='companyName'
               displayEmpty
-              value={this.state.companyname}
+              value={this.state.companyName}
               onChange={this.handleChange}
               input={
                 <OutlinedInput
@@ -68,7 +68,7 @@ class ContactContent extends Component {
           </FormControl>
 
           <TextField
-            name='person'
+            name='contactPerson'
             label='Yhteyshenkilö'
             onChange={this.handleChange}
             className='content-item'
@@ -77,7 +77,7 @@ class ContactContent extends Component {
           />
 
           <TextField
-            name='phonenumber'
+            name='phoneNumber'
             label='Puhelinnumero'
             onChange={this.handleChange}
             className='content-item'
@@ -99,7 +99,7 @@ class ContactContent extends Component {
 
         <div className='info-container'>
           <TextField
-            name='info'
+            name='notes'
             label='Lisätiedot'
             onChange={this.handleChange}
             className='content-item'
@@ -111,7 +111,7 @@ class ContactContent extends Component {
         
         <Button 
           variant='contained'
-          onClick={this.props.handleClick(this.state)}
+          onClick={this.props.handleSend(this.state)}
           color='primary'
           size='large'
           className='button-save'>Tallenna</Button>

@@ -11,20 +11,21 @@ import {print} from '../../utils/Debug';
 class Login extends Component {
 
   state = {
-    name: '',
+    user_id: '',
     password: ''
   }
 
   handleButtonClick() {
     print('Login', 'handleButtonClick');
-    this.props.onLogin(this.state.name);
+    console.log(this.state.user_id);
+    this.props.onLogin(this.state.user_id);
   }
 
   handleInputChange(event) {
     print('Login', 'handleInputChange');
     switch (event.target.name) {
-    case 'username':
-      this.setState({name: event.target.value});
+    case 'user_id':
+      this.setState({user_id: event.target.value});
       break;
     case 'password':
       this.setState({password: event.target.value});
@@ -40,20 +41,21 @@ class Login extends Component {
       <div className='Login'>
         <Paper className='MuiPaper-root-1' elevation={5}>
           <Typography variant='h5' gutterBottom>
-            USER LOGIN
+            KIRJAUTUMINEN
           </Typography>
           <Divider />
           <TextField
             className='login-item'
-            label='Name'
-            value={this.state.name}
+            label='Työntekijä id'
+            value={this.state.user_id}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
-            name='username'
+            name='user_id'
+            type='number'
           />
           <TextField
             className='login-item'
-            label='Password'
+            label='Salasana'
             value={this.state.password}
             onChange={this.handleInputChange.bind(this)}
             name='password'
