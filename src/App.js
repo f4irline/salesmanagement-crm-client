@@ -56,8 +56,19 @@ class App extends Component {
   }
 
   updateCompanyData(startDate, endDate) {
-    let url_companyChart = `/companyChart/get/${startDate}/${endDate}`;
-    this.setState({loadingCompany: true, startDate: startDate, endDate: endDate}, () => {
+    let start = undefined;
+    let end = undefined;
+    
+    if (startDate === undefined && endDate === undefined) {
+      start = this.state.startDate;
+      end = this.state.endDate;
+    } else {
+      start = startDate;
+      end = endDate;
+    }
+
+    let url_companyChart = `/companyChart/get/${start}/${end}`;
+    this.setState({loadingCompany: true, startDate: start, endDate: end}, () => {
       axios.get(url_companyChart)
         .then(res => this.setState({companyData: res.data}, () => {
           this.setState({loadingCompany: false});
