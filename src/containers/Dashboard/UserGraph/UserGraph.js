@@ -20,6 +20,8 @@ class UserGraph extends PureComponent {
   componentDidMount() {
     const height = this.chartWrapper.clientHeight;
     const width = this.chartWrapper.clientWidth;
+    console.log(this.props.sales);
+    console.log(this.props.goal);
     this.setState({height: height, width: width});
     window.addEventListener('resize', this.checkWindowSize.bind(this));
     print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
