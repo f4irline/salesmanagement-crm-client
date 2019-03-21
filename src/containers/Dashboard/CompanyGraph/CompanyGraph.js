@@ -111,7 +111,7 @@ class CompanyGraph extends PureComponent {
   render() {
     print('CompanyGraph', 'render');
     
-    const data = this.props.company; 
+    const data = this.props.companyData; 
 
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>

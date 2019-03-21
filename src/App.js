@@ -166,7 +166,12 @@ class App extends Component {
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
-          <Route path='/' render={() => <Dashboard user={this.state.user} userData={this.state.userData} company={this.state.companyData} user_id={this.state.user_id}/>} exact />
+          <Route path='/' render={() => <Dashboard 
+            user={this.state.user} 
+            userData={this.state.userData} 
+            companyData={this.state.companyData} 
+            user_id={this.state.user_id}/>} 
+          exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
           <Route component={Error} />
         </Switch>

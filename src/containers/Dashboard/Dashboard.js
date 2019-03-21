@@ -16,12 +16,11 @@ class Dashboard extends Component {
     user_id: this.props.user_id,
     user: this.props.user,
     userData: this.props.userData,
-    company: this.props.company
+    company: this.props.companyData
   }
   
   componentDidMount() {
     print('Dashboard', 'componentDidMount');
-    this.setState({user: this.props.user, userData: this.props.userData});
   }
 
   componentWillUnmount() {
@@ -43,7 +42,6 @@ class Dashboard extends Component {
   }
 
   render() {    
-    console.log(this.state.user);
     return (
       <Grid container justify='space-between' direction='row' className='Dashboard'>
         <Grid container justify='space-around' item className='user-wrapper'>
@@ -52,7 +50,7 @@ class Dashboard extends Component {
         </Grid>
         <Divider variant='middle' />
         <Grid container justify='space-around' item className='company-wrapper'>
-          <CompanyGraph company={this.state.company} />
+          <CompanyGraph companyData={this.state.company} />
         </Grid>
       </Grid>
     );
