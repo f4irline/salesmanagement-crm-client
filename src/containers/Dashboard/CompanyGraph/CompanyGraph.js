@@ -14,37 +14,13 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-class CustomizedLabel extends PureComponent {
-  render() {
-    const {
-      x, y, stroke, value,
-    } = this.props;
-
-    return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
-  }
-}
-
-class CustomizedAxisTick extends PureComponent {
-  render() {
-    const {
-      x, y, stroke, payload,
-    } = this.props;
-
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-      </g>
-    );
-  }
-}
-
 class CompanyGraph extends PureComponent {
   
   state = {
     name: this.props.name,
     user: {},
-    startDate: this.getCurrentDate(false),
-    endDate: this.getCurrentDate(true),
+    startDate: this.getDate(false),
+    endDate: this.getDate(true),
     loading: true,
     data: []
   }
@@ -55,17 +31,17 @@ class CompanyGraph extends PureComponent {
     this.getData();
   }
 
-  getCurrentDate(nextMonth) {
-
+  getDate(end) {
     let newDate = new Date();
+    newDate.setDate(1);
 
-    newDate.setMonth(newDate.getMonth() + 1);
-
-    if (nextMonth) {
-      newDate.setMonth(newDate.getMonth() + 1);
+    if (end) {
+      newDate.setMonth(newDate.getMonth()+1);
+      newDate.setDate(newDate.getDate()-1);
     }
     
-    return `${newDate.getFullYear()}-${newDate.getMonth()<10?`0${newDate.getMonth()}`:`${newDate.getMonth()}`}-01`;
+    let str = newDate.toISOString();
+    return str.slice(0, 10);
   }
 
   onChange(event) {
@@ -178,10 +154,24 @@ class CompanyGraph extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel />} />
-          <Line connectNulls type="monotone" dataKey="goal" stroke="red" />
+          <Line type="monotone" dataKey="sum" stroke="#8884d8" dot={null} />
+          <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={null}/>
         </LineChart>
       </Grid>
+    );
+  }
+}
+
+class CustomizedAxisTick extends PureComponent {
+  render() {
+    const {
+      x, y, stroke, payload,
+    } = this.props;
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+      </g>
     );
   }
 }
