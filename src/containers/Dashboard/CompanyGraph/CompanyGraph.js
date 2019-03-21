@@ -40,10 +40,11 @@ class CompanyGraph extends PureComponent {
       newDate = new Date();
     }
     
-    if (date === 'monthFirst' || date === 'monthLast') {
+    if (date === 'monthFirst') {
       newDate.setDate(1);
     }
     if (date === 'monthLast') {
+      newDate.setDate(1);
       newDate.setMonth(newDate.getMonth()+1);
       newDate.setDate(newDate.getDate()-1);
     }
