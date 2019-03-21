@@ -50,7 +50,7 @@ class Dashboard extends Component {
         </Grid>
         <Divider variant='middle' />
         <Grid container justify='space-around' item className='company-wrapper'>
-          <CompanyGraph companyData={this.state.company} />
+          <CompanyGraph companyDates={this.props.companyDates} changeDate={this.props.updateCompany} companyData={this.state.company} />
         </Grid>
       </Grid>
     );
