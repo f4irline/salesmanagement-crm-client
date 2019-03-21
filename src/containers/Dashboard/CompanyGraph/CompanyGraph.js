@@ -39,11 +39,12 @@ class CustomizedAxisTick extends PureComponent {
 }
 
 class CompanyGraph extends PureComponent {
+  
   state = {
     name: this.props.name,
     user: {},
-    startDate: new Date('foo'),
-    endDate: new Date('foo'),
+    startDate: this.getCurrentDate(false),
+    endDate: this.getCurrentDate(true),
     loading: true,
     data: []
   }
@@ -54,6 +55,19 @@ class CompanyGraph extends PureComponent {
     this.getData();
   }
 
+  getCurrentDate(nextMonth) {
+
+    let newDate = new Date();
+
+    newDate.setMonth(newDate.getMonth() + 1);
+
+    if (nextMonth) {
+      newDate.setMonth(newDate.getMonth() + 1);
+    }
+    
+    return `${newDate.getFullYear()}-${newDate.getMonth()<10?`0${newDate.getMonth()}`:`${newDate.getMonth()}`}-01`;
+  }
+
   onChange(event) {
 
     print('CompanyGraph', 'onChange');
@@ -62,23 +76,26 @@ class CompanyGraph extends PureComponent {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      this.setState({startDate: new Date(value)});
+      this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
+        this.getData();
+      });
       break;
     case 'endDate':
-      this.setState({endDate: new Date(value)});
+      this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
+        this.getData();
+      });
       break;
     default:
       break;
     }
-    this.getData();
   }
 
   getData() {
     print('CompanyGraph', 'getData');
-    let url_companyChart = `/companyChart/${this.state.startDate}/${this.state.endDate}`;
+    let url_companyChart = `/companyChart/get/${this.state.startDate}/${this.state.endDate}`;
     console.log('CompanyGraph componenDidMount() url_companyChart: ' + url_companyChart);
-    let url_dummy ='/userData/all';
-    axios.get(url_dummy)
+    //let url_dummy ='/companyChart/get/2019-01-01/2019-03-21';
+    axios.get(url_companyChart)
       .then(res => this.setState({data: res.data}, () => {
         this.setState({loading: false});
         console.log(this.state.data);
@@ -97,6 +114,7 @@ class CompanyGraph extends PureComponent {
               id='startDate'
               label='Aloitus päivämäärä'
               type='date'
+              defaultValue={this.state.startDate}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -106,6 +124,7 @@ class CompanyGraph extends PureComponent {
               id='endDate'
               label='Lopetus päivämäärä'
               type='date'
+              defaultValue={this.state.endDate}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -117,31 +136,9 @@ class CompanyGraph extends PureComponent {
       );
     }
 
-    //const data = this.state.data; 
+    const data = this.state.data; 
 
-    const data = [
-      {
-        name: '1.1.2019', uv: 4000, pv: 2400, goal: 0,
-      },
-      {
-        name: '2.1.2019', uv: 3000, pv: 1398,
-      },
-      {
-        name: '3.1.2019', uv: 2000, pv: 9800,
-      },
-      {
-        name: '4.1.2019', uv: 2780, pv: 3908,
-      },
-      {
-        name: '5.1.2019', uv: 1890, pv: 4800,
-      },
-      {
-        name: '6.1.2019', uv: 2390, pv: 3800,
-      },
-      {
-        name: '7.1.2019', uv: 3490, pv: 4300, goal: 9000,
-      },
-    ];
+    console.log('render() data:' + data);
 
     return (
       <Grid item xs={10} className='CompanyGraph' style={{minHeight: '46vh'}}>
@@ -151,6 +148,7 @@ class CompanyGraph extends PureComponent {
             id='startDate'
             label='Aloitus päivämäärä'
             type='date'
+            defaultValue={this.state.startDate}
             InputLabelProps={{
               shrink: true,
             }}
@@ -160,6 +158,7 @@ class CompanyGraph extends PureComponent {
             id='endDate'
             label='Lopetus päivämäärä'
             type='date'
+            defaultValue={this.state.endDate}
             InputLabelProps={{
               shrink: true,
             }}
@@ -175,11 +174,11 @@ class CompanyGraph extends PureComponent {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
+          <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" label={<CustomizedLabel />} />
+          <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel />} />
           <Line connectNulls type="monotone" dataKey="goal" stroke="red" />
         </LineChart>
       </Grid>
