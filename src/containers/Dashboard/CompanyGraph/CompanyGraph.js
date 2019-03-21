@@ -44,10 +44,9 @@ class CompanyGraph extends PureComponent {
     user: {},
     height: 0,
     width: 0,
-    startDate: this.getCurrentDate(false),
-    endDate: this.getCurrentDate(true),
-    loading: true,
-    data: []
+    startDate: this.props.companyDates[0],
+    endDate: this.props.companyDates[1],
+    data: this.props.companyData
   }
 
   onChange = this.onChange.bind(this);
@@ -73,19 +72,6 @@ class CompanyGraph extends PureComponent {
     }  
   }
   
-  getCurrentDate(nextMonth) {
-
-    let newDate = new Date();
-
-    newDate.setMonth(newDate.getMonth() + 1);
-
-    if (nextMonth) {
-      newDate.setMonth(newDate.getMonth() + 1);
-    }
-    
-    return `${newDate.getFullYear()}-${newDate.getMonth()<10?`0${newDate.getMonth()}`:`${newDate.getMonth()}`}-01`;
-  }
-
   onChange(event) {
 
     print('CompanyGraph', 'onChange');
@@ -95,12 +81,12 @@ class CompanyGraph extends PureComponent {
     switch(id) {
     case 'startDate':
       this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.getData();
+        this.props.changeDate(this.state.startDate, this.state.endDate);
       });
       break;
     case 'endDate':
       this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.getData();
+        this.props.changeDate(this.state.startDate, this.state.endDate);
       });
       break;
     default:
@@ -111,8 +97,6 @@ class CompanyGraph extends PureComponent {
   render() {
     print('CompanyGraph', 'render');
     
-    const data = this.props.companyData; 
-
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <div className='company-chart-header'>
@@ -146,7 +130,7 @@ class CompanyGraph extends PureComponent {
           <LineChart
             width={this.state.width}
             height={this.state.height}
-            data={data}
+            data={this.state.data}
             margin={{
               top: 0, right: this.state.width / 100 * 10, left: this.state.width / 100 * 10, bottom: this.state.height / 100 * 5,
             }}

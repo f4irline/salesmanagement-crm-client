@@ -17,6 +17,7 @@ import axios from './axios-options';
 import './App.css';
 
 const {print} = require('./utils/Debug');
+const {getDate} = require('./utils/Date');
 
 class App extends Component {
 
@@ -33,7 +34,9 @@ class App extends Component {
     leaderBoards: [],
     user: {},
     userData: {},
-    companyData: []
+    companyData: [],
+    startDate: getDate('monthFirst'),
+    endDate: getDate('monthLast')
   }
 
 
@@ -45,7 +48,7 @@ class App extends Component {
   }
 
   updateAll() {
-    this.updateCompanyData();
+    this.updateCompanyData(this.state.startDate, this.state.endDate);
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserData();
@@ -53,8 +56,8 @@ class App extends Component {
   }
 
   updateCompanyData(startDate, endDate) {
-    let url_companyChart = `/companyChart/get/2019-03-01/2019-04-01`;
-    this.setState({loadingCompany: true}, () => {
+    let url_companyChart = `/companyChart/get/${startDate}/${endDate}`;
+    this.setState({loadingCompany: true, startDate: startDate, endDate: endDate}, () => {
       axios.get(url_companyChart)
         .then(res => this.setState({companyData: res.data}, () => {
           this.setState({loadingCompany: false});
@@ -169,7 +172,9 @@ class App extends Component {
           <Route path='/' render={() => <Dashboard 
             user={this.state.user} 
             userData={this.state.userData} 
-            companyData={this.state.companyData} 
+            companyData={this.state.companyData}
+            companyDates={[this.state.startDate, this.state.endDate]}
+            updateCompany={this.updateCompanyData.bind(this)} 
             user_id={this.state.user_id}/>} 
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
