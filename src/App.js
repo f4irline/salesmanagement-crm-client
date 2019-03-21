@@ -21,17 +21,19 @@ const {print} = require('./utils/Debug');
 class App extends Component {
 
   state = {
-    loggedIn: false,
+    loggedIn: true,
     modalOpen: false,
-    user_id: '',
+    user_id: '100001',
     loadingLeads: false,
     loadingLeaderBoards: false,
     loadingUser: false,
     loadingUserData: false,
+    loadingCompany: false,
     leads: [], 
     leaderBoards: [],
     user: {},
-    userData: {}
+    userData: {},
+    companyData: []
   }
 
 
@@ -43,10 +45,21 @@ class App extends Component {
   }
 
   updateAll() {
+    this.updateCompanyData();
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserData();
     this.updateUser();
+  }
+
+  updateCompanyData(startDate, endDate) {
+    let url_companyChart = `/companyChart/get/2019-03-01/2019-04-01`;
+    this.setState({loadingCompany: true}, () => {
+      axios.get(url_companyChart)
+        .then(res => this.setState({companyData: res.data}, () => {
+          this.setState({loadingCompany: false});
+        }));
+    });
   }
 
   updateUserData() {
@@ -141,7 +154,7 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData) {
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData || this.state.loadingCompany) {
       return (
         <div className='App'>
           <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
@@ -153,7 +166,12 @@ class App extends Component {
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
-          <Route path='/' render={() => <Dashboard user={this.state.user} userData={this.state.userData} user_id={this.state.user_id}/>} exact />
+          <Route path='/' render={() => <Dashboard 
+            user={this.state.user} 
+            userData={this.state.userData} 
+            companyData={this.state.companyData} 
+            user_id={this.state.user_id}/>} 
+          exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
           <Route component={Error} />
         </Switch>
