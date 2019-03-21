@@ -194,6 +194,7 @@ class App extends Component {
             updateUserData={this.updateUserData.bind(this)}
             updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
             updateLeads={this.updateLeads.bind(this)} 
+            updateCompanyGraph={this.updateCompanyData.bind(this)}
             userId={this.state.user_id} 
             closeModal={this.modalClose.bind(this)} 
             leads={this.state.leads}/>
