@@ -19,8 +19,8 @@ class CompanyGraph extends PureComponent {
   state = {
     name: this.props.name,
     user: {},
-    startDate: this.getDate(false),
-    endDate: this.getDate(true),
+    startDate: this.getDate('monthFirst'),
+    endDate: this.getDate('monthLast'),
     loading: true,
     data: []
   }
@@ -31,11 +31,19 @@ class CompanyGraph extends PureComponent {
     this.getData();
   }
 
-  getDate(end) {
-    let newDate = new Date();
-    newDate.setDate(1);
-
-    if (end) {
+  getDate(date, value) {
+    console.log(`getDate(date: ${date}, value: ${value})`);
+    let newDate;
+    if (value != null) {
+      newDate = new Date(value);
+    } else {
+      newDate = new Date();
+    }
+    
+    if (date === 'monthFirst' || date === 'monthLast') {
+      newDate.setDate(1);
+    }
+    if (date === 'monthLast') {
       newDate.setMonth(newDate.getMonth()+1);
       newDate.setDate(newDate.getDate()-1);
     }
@@ -52,12 +60,12 @@ class CompanyGraph extends PureComponent {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
+      this.setState({startDate: this.getDate('', value)}, () => {
         this.getData();
       });
       break;
     case 'endDate':
-      this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
+      this.setState({endDate: this.getDate('', value)}, () => {
         this.getData();
       });
       break;
