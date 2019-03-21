@@ -13,16 +13,6 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-class CustomizedLabel extends PureComponent {
-  render() {
-    const {
-      x, y, stroke, value,
-    } = this.props;
-
-    return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
-  }
-}
-
 class CustomizedAxisTick extends PureComponent {
   render() {
     const {
@@ -140,8 +130,8 @@ class CompanyGraph extends PureComponent {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel />} />
-            <Line connectNulls type="monotone" dataKey="goal" stroke="red" />
+            <Line type="monotone" dataKey="sum" stroke="#8884d8" dot={null} />
+            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={null} />
           </LineChart>
         </div>
       </Grid>
