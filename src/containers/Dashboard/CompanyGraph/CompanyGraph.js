@@ -165,7 +165,7 @@ class CompanyGraph extends PureComponent {
 class CustomizedAxisTick extends PureComponent {
   render() {
     const {
-      x, y, stroke, payload,
+      x, y, payload,
     } = this.props;
 
     return (
