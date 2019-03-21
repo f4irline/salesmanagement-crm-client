@@ -22,9 +22,9 @@ const {getDate} = require('./utils/Date');
 class App extends Component {
 
   state = {
-    loggedIn: true,
+    loggedIn: false,
     modalOpen: false,
-    user_id: '100001',
+    user_id: '',
     loadingLeads: false,
     loadingLeaderBoards: false,
     loadingUser: false,
