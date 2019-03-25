@@ -28,11 +28,13 @@ class App extends Component {
     user_id: '',
     loadingLeads: false,
     loadingLeaderBoards: false,
+    loadingUserEvents: false,
     loadingUser: false,
     loadingUserData: false,
     loadingCompany: false,
     leads: [], 
     leaderBoards: [],
+    userEvents: [],
     user: {},
     userData: {},
     companyData: [],
@@ -52,6 +54,7 @@ class App extends Component {
     this.updateCompanyData(this.state.startDate, this.state.endDate);
     this.updateLeads();
     this.updateLeaderBoards();
+    this.updateUserEvents();
     this.updateUserData();
     this.updateUser();
   }
@@ -74,6 +77,18 @@ class App extends Component {
         .then(res => this.setState({companyData: res.data}, () => {
           this.setState({loadingCompany: false});
         }));
+    });
+  }
+
+  updateUserEvents() {
+    let url_userEvents = `/userEvents/${this.state.user_id}`;
+    this.setState({loadingUserEvents: true}, () => {
+      axios.get(url_userEvents)
+        .then(userEvents => this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
+          this.setState({loadingUserEvents: false});
+          print('App', 'updateUserEvents');
+        }))
+        .catch(err => console.log(err));
     });
   }
 
@@ -169,7 +184,7 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData || this.state.loadingCompany) {
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingCompany) {
       return (
         <div className='App'>
           <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
@@ -190,7 +205,7 @@ class App extends Component {
             user_id={this.state.user_id}/>} 
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
-          <Route path='/events' render={() => <Events data={this.state.events} />} />
+          <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
@@ -206,6 +221,7 @@ class App extends Component {
           <ModalContent
             updateUserData={this.updateUserData.bind(this)}
             updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
+            updateUserEvents={this.updateUserEvents.bind(this)}
             updateLeads={this.updateLeads.bind(this)} 
             updateCompanyGraph={this.updateCompanyData.bind(this)}
             userId={this.state.user_id} 
