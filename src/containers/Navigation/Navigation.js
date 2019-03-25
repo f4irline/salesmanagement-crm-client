@@ -13,7 +13,7 @@ const Navigation = (props) => {
     <div className='Navigation'>
       <div className='navigation-wrapper'>
         <NavItem url='/' icon={<Dashboard />}>Oma sivu</NavItem>
-        <NavItem url='/leaderboards' icon={<TableChart />}>Sijoitukset</NavItem>
+        <NavItem url='/leaderboards' icon={<TableChart />}>Tulostaulukko</NavItem>
       </div>
       <div className='action-wrapper'>
         <ActionItem icon = {<Settings/>} onClick = {props.handleConfiguration}>Hallinta</ActionItem>

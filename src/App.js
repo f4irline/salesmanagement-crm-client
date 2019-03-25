@@ -22,9 +22,9 @@ const {getDate} = require('./utils/Date');
 class App extends Component {
 
   state = {
-    loggedIn: false,
+    loggedIn: true,
     modalOpen: false,
-    user_id: '',
+    user_id: '100001',
     loadingLeads: false,
     loadingLeaderBoards: false,
     loadingUser: false,
@@ -35,10 +35,13 @@ class App extends Component {
     user: {},
     userData: {},
     companyData: [],
-    startDate: getDate('monthFirst'),
-    endDate: getDate('monthLast')
+    companyStartDate: getDate('monthFirst'),
+    companyEndDate: getDate('monthLast'),
+    leaderStartDate: new Date('Undefined'),
+    leaderEndDate: new Date('Undefined')
   }
 
+  validateDate = this.validateDate.bind(this);
 
   componentDidMount() {
     print('App', 'componentDidMount');
@@ -48,7 +51,7 @@ class App extends Component {
   }
 
   updateAll() {
-    this.updateCompanyData(this.state.startDate, this.state.endDate);
+    this.updateCompanyData(this.state.companyStartDate, this.state.companyEndDate);
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserData();
@@ -68,7 +71,7 @@ class App extends Component {
     }
 
     let url_companyChart = `/companyChart/get/${start}/${end}`;
-    this.setState({loadingCompany: true, startDate: start, endDate: end}, () => {
+    this.setState({loadingCompany: true, companyStartDate: start, companyEndDate: end}, () => {
       axios.get(url_companyChart)
         .then(res => this.setState({companyData: res.data}, () => {
           this.setState({loadingCompany: false});
@@ -107,6 +110,36 @@ class App extends Component {
           this.setState({loadingLeaderBoards: false});
           print('App', 'updateLeaderBoards');
         }));
+    });  
+  }
+
+  updateLeaderBoardsByDate(startDate, endDate) {
+    this.setState({leaderStartDate: startDate, leaderEndDate: endDate}, () => {
+      this.validateDate(startDate, endDate);
+    });
+  }
+
+  validateDate(startDate, endDate) {
+    this.setState({loadingLeaderBoards: true}, () => {
+      if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
+        axios.get(`/userData/all/${startDate}/${endDate}`)
+          .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+            this.setState({loadingLeaderBoards: false});
+            print('App', 'updateLeaderBoards');
+          }));
+      } else if (startDate.toString() !== 'Invalid Date') {
+        axios.get(`/userData/all/${startDate}/2100-01-01`)
+          .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+            this.setState({loadingLeaderBoards: false});
+            print('App', 'updateLeaderBoards');
+          }));
+      } else if (endDate.toString() !== 'Invalid Date') {
+        axios.get(`/userData/all/1970-01-01/${endDate}`)
+          .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+            this.setState({loadingLeaderBoards: false});
+            print('App', 'updateLeaderBoards');
+          }));
+      }  
     });
   }
 
@@ -126,7 +159,6 @@ class App extends Component {
    * @param {String} name 
    */
   handleLogin(userId) {
-    console.log(userId);
     print('App', 'hangleLogin');
     this.setState({loggedIn: true, user_id: userId}, () => {
       this.updateAll();
@@ -184,11 +216,11 @@ class App extends Component {
             user={this.state.user} 
             userData={this.state.userData} 
             companyData={this.state.companyData}
-            companyDates={[this.state.startDate, this.state.endDate]}
+            companyDates={[this.state.companyStartDate, this.state.companyEndDate]}
             updateCompany={this.updateCompanyData.bind(this)} 
             user_id={this.state.user_id}/>} 
           exact />
-          <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
+          <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
