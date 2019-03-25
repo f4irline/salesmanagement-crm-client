@@ -2,11 +2,11 @@ import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
-import './Events.css';
+import './Contacts.css';
 
-import {print} from '../../utils/Debug';
+import {print} from '../../../utils/Debug';
 
-class Events extends Component {
+class Contacts extends Component {
   state = {
     startDate: new Date('foo'),
     endDate: new Date('foo'),
@@ -17,27 +17,27 @@ class Events extends Component {
     this.setState({data: this.props.data});
   }
 
-  onChange = this.onChange.bind(this);
-//  convertData=this.convertData.bind(this);
-//  filterData=this.filterData.bind(this);
+//   onChange = this.onChange.bind(this);
+// //  convertData=this.convertData.bind(this);
+// //  filterData=this.filterData.bind(this);
 
-  onChange(event) {
+//   onChange(event) {
 
-    print('Events', 'onChange');
+//     print('Events', 'onChange');
 
-    let value = event.target.value;
-    let id = event.target.id;
-    switch(id) {
-    case 'startDate':
-      this.setState({startDate: new Date(value)});
-      break;
-    case 'endDate':
-      this.setState({endDate: new Date(value)});
-      break;
-    default:
-      break;
-    }
-  }
+//     let value = event.target.value;
+//     let id = event.target.id;
+//     switch(id) {
+//     case 'startDate':
+//       this.setState({startDate: new Date(value)});
+//       break;
+//     case 'endDate':
+//       this.setState({endDate: new Date(value)});
+//       break;
+//     default:
+//       break;
+//     }
+//   }
 
   // filterData(data) {    
 
@@ -102,19 +102,19 @@ class Events extends Component {
   
   render() {
 
-    print ('Events', 'render');
+    print ('Contacts', 'render');
 
     if (this.state.loading) {
       return (
-        <div className='Events'>
+        <div className='Contacts'>
           <p>Loading...</p>
         </div>
       );
     }
 
-    const data = this.state.data;   
-    const newData = this.data;
-    const columns = [
+    // const data = this.state.data;   
+    // const newData = this.data;
+     const columns = [
       {
         name: 'Nimi',
         options: {
@@ -218,14 +218,14 @@ class Events extends Component {
 
 
         </form>
-        { <div id='table'>
+        {/* { <div id='table'>
           <MUIDataTable
             title={'Tapahtumat'}
             data={newData}
             columns={columns}
             options={options}
           />
-        </div>   }
+        </div>   } */}
       </div>
      
     );
@@ -233,4 +233,4 @@ class Events extends Component {
   }
 }
 
-export default Events;
+export default Contacts;

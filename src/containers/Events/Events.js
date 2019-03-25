@@ -3,6 +3,9 @@ import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
 import './Events.css';
+import {Switch, Route, Redirect} from 'react-router-dom';
+
+import Contacts from './Contacts/Contacts';
 
 import {print} from '../../utils/Debug';
 
@@ -212,21 +215,12 @@ class Events extends Component {
     
     };
 
-    console.log('userEvents: ' + this.state.data);
+    console.log('userEvents: ' + this.state.data[0]);
     return (
       <div className='Events'>
-        <form className='datePicker'>
-
-
-        </form>
-        {/* { <div id='table'>
-          <MUIDataTable
-            title={'Tapahtumat'}
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>   } */}
+        <Switch>
+          <Route path='/contacts' render={() => <Contacts data={this.state.data[0]} />} />
+        </Switch>
       </div>
      
     );
