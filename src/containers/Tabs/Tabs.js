@@ -2,7 +2,6 @@ import React from 'react';
 
 import './Tabs.css';
 import NavItem from '../../components/NavItem/NavItem';
-import ActionItem from '../../components/ActionItem/ActionItem';
 
 import Description from '@material-ui/icons/Description';
 import EuroSymbol from '@material-ui/icons/EuroSymbol';
