@@ -192,6 +192,8 @@ class App extends Component {
       );
     }
 
+    console.log(this.state.userEvents);
+    
     return (
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>

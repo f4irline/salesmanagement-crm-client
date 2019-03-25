@@ -14,6 +14,7 @@ class Events extends Component {
   }
 
   componentDidMount() {
+    print('Events', 'componentDidMount');
     this.setState({data: this.props.data});
   }
 
@@ -211,20 +212,21 @@ class Events extends Component {
     
     };
 
+    console.log('userEvents: ' + this.state.data);
     return (
       <div className='Events'>
         <form className='datePicker'>
 
 
         </form>
-        { <div id='table'>
+        {/* { <div id='table'>
           <MUIDataTable
             title={'Tapahtumat'}
             data={data}
             columns={columns}
             options={options}
           />
-        </div>   }
+        </div>   } */}
       </div>
      
     );
