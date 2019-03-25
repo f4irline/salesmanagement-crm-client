@@ -2,9 +2,9 @@ import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
-import './Events.css';
+import './Contacts.css';
 
-import {print} from '../../utils/Debug';
+import {print} from '../../../utils/Debug';
 
 class Contacts extends Component {
   state = {
@@ -17,19 +17,19 @@ class Contacts extends Component {
 
   render() {
 
-    print ('Events', 'render');
+    print ('Contacts', 'render');
 
     if (this.state.loading) {
       return (
-        <div className='Events'>
+        <div className='Contacts'>
           <p>Loading...</p>
         </div>
       );
     }
 
-    const data = this.state.data;   
-    const newData = this.data;
-    const columns = [
+    // const data = this.state.data;   
+    // const newData = this.data;
+     const columns = [
       {
         name: 'Nimi',
         options: {
@@ -133,14 +133,14 @@ class Contacts extends Component {
 
 
         </form>
-        { <div id='table'>
+        {/* { <div id='table'>
           <MUIDataTable
             title={'Tapahtumat'}
             data={newData}
             columns={columns}
             options={options}
           />
-        </div>   }
+        </div>   } */}
       </div>
      
     );
