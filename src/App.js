@@ -9,6 +9,7 @@ import Modal from '@material-ui/core/Modal';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Error from './containers/Error/Error';
 import Leaderboards from './containers/Leaderboards/Leaderboards';
+import Events from './containers/Events/Events';
 import Navigation from './containers/Navigation/Navigation';
 import Login from './containers/Login/Login';
 
@@ -189,6 +190,7 @@ class App extends Component {
             user_id={this.state.user_id}/>} 
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
+          <Route path='/events' render={() => <Events data={this.state.events} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
