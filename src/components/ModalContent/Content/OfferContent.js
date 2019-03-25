@@ -9,10 +9,10 @@ class OfferContent extends Component {
 
   state = {
     date: new Date().toISOString().split('T')[0],
-    companyname: '',
+    companyName: '',
     sum: 0,
-    info: '',
-    type: 2
+    notes: '',
+    eventType: 2
   };
 
   constructor() {
@@ -47,8 +47,8 @@ class OfferContent extends Component {
           />
 
           <Select
-            name='companyname'
-            value={this.state.companyname}
+            name='companyName'
+            value={this.state.companyName}
             onChange={this.handleChange}
             className='content-item'
             input={
@@ -78,7 +78,7 @@ class OfferContent extends Component {
 
         <div className='info-container'>
           <TextField
-            name='info'
+            name='notes'
             label='Lisätiedot'
             onChange={this.handleChange}
             className='content-item'
@@ -90,7 +90,7 @@ class OfferContent extends Component {
 
         <Button 
           variant='contained' 
-          onClick={this.props.handleClick(this.state)}
+          onClick={this.props.handleSend(this.state)}
           color='primary'
           size='large'
           className='button-save'>Tallenna</Button>

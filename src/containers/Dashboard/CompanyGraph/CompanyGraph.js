@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import './CompanyGraph.css';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import TextField from '@material-ui/core/TextField';
-
-import axios from '../../../axios-options';
 
 import {print} from '../../../utils/Debug';
 
@@ -13,16 +12,6 @@ import {print} from '../../../utils/Debug';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-
-class CustomizedLabel extends PureComponent {
-  render() {
-    const {
-      x, y, stroke, value,
-    } = this.props;
-
-    return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
-  }
-}
 
 class CustomizedAxisTick extends PureComponent {
   render() {
@@ -43,31 +32,36 @@ class CompanyGraph extends PureComponent {
   state = {
     name: this.props.name,
     user: {},
-    startDate: this.getCurrentDate(false),
-    endDate: this.getCurrentDate(true),
-    loading: true,
-    data: []
+    height: 0,
+    width: 0,
+    startDate: this.props.companyDates[0],
+    endDate: this.props.companyDates[1],
+    data: this.props.companyData
   }
+
   onChange = this.onChange.bind(this);
-  getData = this.getData.bind(this);
-  
+
   componentDidMount() {
-    this.getData();
+    const height = this.chartWrapper.clientHeight;
+    const width = this.chartWrapper.clientWidth;
+    this.setState({height: height, width: width});
+    window.addEventListener('resize', this.checkWindowSize.bind(this));
+    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
-  getCurrentDate(nextMonth) {
-
-    let newDate = new Date();
-
-    newDate.setMonth(newDate.getMonth() + 1);
-
-    if (nextMonth) {
-      newDate.setMonth(newDate.getMonth() + 1);
-    }
-    
-    return `${newDate.getFullYear()}-${newDate.getMonth()<10?`0${newDate.getMonth()}`:`${newDate.getMonth()}`}-01`;
+  checkWindowSize() {
+    try {
+      const height = this.chartWrapper.clientHeight;
+      const width = this.chartWrapper.clientWidth;  
+      
+      if (height !== this.state.height || width !== this.state.width) {
+        this.setState({height: height, width: width});
+      }
+    } catch (err) {
+      print('CompanyGraph', 'checkWindowSize', 'Reloading Div');
+    }  
   }
-
+  
   onChange(event) {
 
     print('CompanyGraph', 'onChange');
@@ -77,12 +71,12 @@ class CompanyGraph extends PureComponent {
     switch(id) {
     case 'startDate':
       this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.getData();
+        this.props.changeDate(this.state.startDate, this.state.endDate);
       });
       break;
     case 'endDate':
       this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.getData();
+        this.props.changeDate(this.state.startDate, this.state.endDate);
       });
       break;
     default:
@@ -90,65 +84,23 @@ class CompanyGraph extends PureComponent {
     }
   }
 
-  getData() {
-    print('CompanyGraph', 'getData');
-    let url_companyChart = `/companyChart/get/${this.state.startDate}/${this.state.endDate}`;
-    console.log('CompanyGraph componenDidMount() url_companyChart: ' + url_companyChart);
-    //let url_dummy ='/companyChart/get/2019-01-01/2019-03-21';
-    axios.get(url_companyChart)
-      .then(res => this.setState({data: res.data}, () => {
-        this.setState({loading: false});
-        console.log(this.state.data);
-      }));
-  }
-
   render() {
     print('CompanyGraph', 'render');
-
-    if (this.state.loading) {
-      return (
-        <div className='Leaderboards'>
-          <p>CompanyGraph</p>
-          <form className='datePicker'>
-            <TextField className='date'
-              id='startDate'
-              label='Aloitus päivämäärä'
-              type='date'
-              defaultValue={this.state.startDate}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={this.onChange}
-            />
-            <TextField className='date'
-              id='endDate'
-              label='Lopetus päivämäärä'
-              type='date'
-              defaultValue={this.state.endDate}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={this.onChange}
-            />
-          </form>
-          <p>Loading...</p>
-        </div>
-      );
-    }
-
-    const data = this.state.data; 
-
-    console.log('render() data:' + data);
-
+    
     return (
-      <Grid item xs={10} className='CompanyGraph' style={{minHeight: '46vh'}}>
-        <p>CompanyGraph</p>
-        <form className='datePicker'>
+      <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
+        <div className='company-chart-header'>
+          <Typography variant='h2' style={{fontWeight: 800}}>
+            YRITYKSEN TAVOITE
+          </Typography>
+        </div>
+        <div className='company-chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
           <TextField className='date'
             id='startDate'
             label='Aloitus päivämäärä'
             type='date'
             defaultValue={this.state.startDate}
+            style={{margin: 0}}
             InputLabelProps={{
               shrink: true,
             }}
@@ -159,28 +111,29 @@ class CompanyGraph extends PureComponent {
             label='Lopetus päivämäärä'
             type='date'
             defaultValue={this.state.endDate}
+            style={{margin: 0}}
             InputLabelProps={{
               shrink: true,
             }}
             onChange={this.onChange}
           />
-        </form>
-        <LineChart
-          width={1000}
-          height={300}
-          data={data}
-          margin={{
-            top: 20, right: 30, left: 20, bottom: 10,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel />} />
-          <Line connectNulls type="monotone" dataKey="goal" stroke="red" />
-        </LineChart>
+          <LineChart
+            width={this.state.width}
+            height={this.state.height}
+            data={this.state.data}
+            margin={{
+              top: 0, right: this.state.width / 100 * 10, left: this.state.width / 100 * 10, bottom: this.state.height / 100 * 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="sum" stroke="#8884d8" dot={null} />
+            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={null} />
+          </LineChart>
+        </div>
       </Grid>
     );
   }

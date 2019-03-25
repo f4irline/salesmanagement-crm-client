@@ -26,10 +26,15 @@ class UserGraph extends PureComponent {
   }
 
   checkWindowSize() {
-    const height = this.chartWrapper.clientHeight;
-    const width = this.chartWrapper.clientWidth;
-    if (height !== this.state.height || width !== this.state.width) {
-      this.setState({height: height, width: width});
+    try {
+      const height = this.chartWrapper.clientHeight;
+      const width = this.chartWrapper.clientWidth;  
+      
+      if (height !== this.state.height || width !== this.state.width) {
+        this.setState({height: height, width: width});
+      }
+    } catch (err) {
+      print('UserGraph', 'checkWindowSize', 'Reloading Div');
     }
   }
 

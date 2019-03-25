@@ -22,28 +22,40 @@ class ModalContent extends Component {
     labelWidth: 0
   };
 
-  constructor() {
-    super();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   componentDidMount() {
     this.setState({leads: this.props.leads}, () => {
       const leadNames = this.state.leads.map(lead => {
-        return <MenuItem key={lead.companyname} value={lead.companyname}>{lead.companyname}</MenuItem>;
+        return <MenuItem key={lead.companyName} value={lead.companyName}>{lead.companyName}</MenuItem>;
       });
       this.setState({leadNames: leadNames});
     });
   }
 
-  handleClick = data => event => {
-    if (data.type === 4) {
-      axios.post('/leads/add', data)
-        .then((res) => console.log(res));
-    }
+  updateData = () => {
+    this.props.updateUserData();
+    this.props.updateLeaderBoards();
+    this.props.updateCompanyGraph();
+  }
 
-    this.props.closeModal();
+  handleSend = data => event => {
+    if (data.eventType === 4) {
+      axios.post('/leads/add', data)
+        .then((res) => console.log(res))
+        .then(this.props.updateLeads);
+    } else {
+      const leadId = this.findLeadId(data);
+      axios.post(`events/add/${this.props.userId}/${leadId}`, data)
+        .then((res) => console.log(res))
+        .then(this.updateData.bind(this));
+    }
+  }
+
+  findLeadId(data) {
+    for (let lead of this.state.leads) {
+      if (lead.companyName === data.companyName) {
+        return lead.leadId;
+      }
+    }
   }
 
   handleChange = event => {
@@ -55,15 +67,15 @@ class ModalContent extends Component {
     let content = null;
 
     if (this.state.selectedValue === 'lead')
-      content = <LeadContent handleClick={this.handleClick} />;
+      content = <LeadContent handleSend={this.handleSend.bind(this)} />;
     else if (this.state.selectedValue === 'contact')
-      content = <ContactContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <ContactContent handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'meeting')
-      content = <MeetingContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <MeetingContent handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'sales')
-      content = <SalesContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <SalesContent handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'offer')
-      content = <OfferContent handleClick={this.handleClick} leadNames={this.state.leadNames}/>;
+      content = <OfferContent handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
 
     return (
       <div className='ModalContent' tabIndex={-1}>
@@ -75,7 +87,7 @@ class ModalContent extends Component {
             <RadioGroup row
               name='radioGroup'
               value={this.state.value}
-              onChange={this.handleChange}
+              onChange={this.handleChange.bind(this)}
               className='controls-wrapper'
             >
               <FormControlLabel value='lead' control={<Radio />} label='Liidi' />
