@@ -6,10 +6,8 @@ import './Events.css';
 
 import {print} from '../../utils/Debug';
 
-class Events extends Component {
+class Contacts extends Component {
   state = {
-    startDate: new Date('foo'),
-    endDate: new Date('foo'),
     data: []
   }
 
@@ -17,89 +15,6 @@ class Events extends Component {
     this.setState({data: this.props.data});
   }
 
-  onChange = this.onChange.bind(this);
-//  convertData=this.convertData.bind(this);
-//  filterData=this.filterData.bind(this);
-
-  onChange(event) {
-
-    print('Events', 'onChange');
-
-    let value = event.target.value;
-    let id = event.target.id;
-    switch(id) {
-    case 'startDate':
-      this.setState({startDate: new Date(value)});
-      break;
-    case 'endDate':
-      this.setState({endDate: new Date(value)});
-      break;
-    default:
-      break;
-    }
-  }
-
-  // filterData(data) {    
-
-  //   print ('Events', 'filterData');
-    
-  //   let filterData = [];
-    
-  //   // eslint-disable-next-line
-  //   filterData = data.filter((object) => {
-  //     let objectDate = new Date(object.date);
-  //     if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
-  //       return object;
-  //     } else if ((objectDate >= this.state.startDate && this.state.endDate.toString() === 'Invalid Date')
-  //       || (objectDate <= this.state.endDate && this.state.startDate.toString() === 'Invalid Date')) {
-  //       return object;
-  //     }
-  //   });
-
-  //   return filterData;
-  // }
-
-  // mapData(data) {
-
-  //   print ('Events', 'mapData');
-
-  //   let newData = [];
-  //   newData = data.map((object) => {
-  //     let rowData = [];
-  //     let fullName = '';
-  //     for (let data in object) {
-  //       if (data === 'user_first') {
-  //         fullName += object[data]+' ';
-  //       } else if (data === 'user_last') {
-  //         fullName += object[data];
-  //         rowData.push(fullName);
-  //       } else {
-  //         rowData.push(object[data]);
-  //       }
-  //     }
-  //     return rowData;
-  //   });
-
-  //   return newData;
-  // }
-
-  // convertData(data) {
-
-  //   print ('Events', 'convertData');
-
-  //   let dataToMap = [];
-  //   let filterData = [];
-  //   if(this.state.startDate.toString() !== 'Invalid Date' ||
-  //     this.state.endDate.toString() !== 'Invalid Date') {
-  //     filterData = this.filterData(data);
-  //     dataToMap = filterData;
-  //   } else {
-  //     dataToMap = data;
-  //   }
-  //   return this.mapData(dataToMap);
-
-  // }
-  
   render() {
 
     print ('Events', 'render');
@@ -233,4 +148,4 @@ class Events extends Component {
   }
 }
 
-export default Events;
+export default Contacts;

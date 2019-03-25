@@ -6,7 +6,7 @@ import './Events.css';
 
 import {print} from '../../utils/Debug';
 
-class Events extends Component {
+class Leads extends Component {
   state = {
     startDate: new Date('foo'),
     endDate: new Date('foo'),
@@ -233,4 +233,4 @@ class Events extends Component {
   }
 }
 
-export default Events;
+export default Leads;
