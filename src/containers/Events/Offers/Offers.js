@@ -113,6 +113,7 @@ class Events extends Component {
     }
 
     const data = this.state.data;   
+    const newData = this.data;
     const columns = [
       {
         name: 'Nimi',
@@ -220,7 +221,7 @@ class Events extends Component {
         { <div id='table'>
           <MUIDataTable
             title={'Tapahtumat'}
-            data={data}
+            data={newData}
             columns={columns}
             options={options}
           />
