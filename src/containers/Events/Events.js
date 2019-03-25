@@ -4,6 +4,7 @@ import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
 import './Events.css';
 import {Switch, Route, Redirect} from 'react-router-dom';
+import Tabs from '../../containers/Tabs/Tabs';
 
 import Contacts from './Contacts/Contacts';
 
@@ -218,6 +219,7 @@ class Events extends Component {
     console.log('userEvents: ' + this.state.data[0]);
     return (
       <div className='Events'>
+      <Tabs/>
         <Switch>
           <Route path='/contacts' render={() => <Contacts data={this.state.data[0]} />} />
         </Switch>
