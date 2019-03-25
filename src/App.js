@@ -17,6 +17,7 @@ import axios from './axios-options';
 import './App.css';
 
 const {print} = require('./utils/Debug');
+const {getDate} = require('./utils/Date');
 
 class App extends Component {
 
@@ -28,10 +29,14 @@ class App extends Component {
     loadingLeaderBoards: false,
     loadingUser: false,
     loadingUserData: false,
+    loadingCompany: false,
     leads: [], 
     leaderBoards: [],
     user: {},
-    userData: {}
+    userData: {},
+    companyData: [],
+    startDate: getDate('monthFirst'),
+    endDate: getDate('monthLast')
   }
 
 
@@ -43,10 +48,32 @@ class App extends Component {
   }
 
   updateAll() {
+    this.updateCompanyData(this.state.startDate, this.state.endDate);
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserData();
     this.updateUser();
+  }
+
+  updateCompanyData(startDate, endDate) {
+    let start = undefined;
+    let end = undefined;
+    
+    if (startDate === undefined && endDate === undefined) {
+      start = this.state.startDate;
+      end = this.state.endDate;
+    } else {
+      start = startDate;
+      end = endDate;
+    }
+
+    let url_companyChart = `/companyChart/get/${start}/${end}`;
+    this.setState({loadingCompany: true, startDate: start, endDate: end}, () => {
+      axios.get(url_companyChart)
+        .then(res => this.setState({companyData: res.data}, () => {
+          this.setState({loadingCompany: false});
+        }));
+    });
   }
 
   updateUserData() {
@@ -141,7 +168,7 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData) {
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData || this.state.loadingCompany) {
       return (
         <div className='App'>
           <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
@@ -153,7 +180,14 @@ class App extends Component {
       <div className='App'>
         <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
         <Switch>
-          <Route path='/' render={() => <Dashboard user={this.state.user} userData={this.state.userData} user_id={this.state.user_id}/>} exact />
+          <Route path='/' render={() => <Dashboard 
+            user={this.state.user} 
+            userData={this.state.userData} 
+            companyData={this.state.companyData}
+            companyDates={[this.state.startDate, this.state.endDate]}
+            updateCompany={this.updateCompanyData.bind(this)} 
+            user_id={this.state.user_id}/>} 
+          exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
           <Route component={Error} />
         </Switch>
@@ -171,6 +205,7 @@ class App extends Component {
             updateUserData={this.updateUserData.bind(this)}
             updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
             updateLeads={this.updateLeads.bind(this)} 
+            updateCompanyGraph={this.updateCompanyData.bind(this)}
             userId={this.state.user_id} 
             closeModal={this.modalClose.bind(this)} 
             leads={this.state.leads}/>

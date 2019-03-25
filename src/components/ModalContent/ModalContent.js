@@ -34,6 +34,7 @@ class ModalContent extends Component {
   updateData = () => {
     this.props.updateUserData();
     this.props.updateLeaderBoards();
+    this.props.updateCompanyGraph();
   }
 
   handleSend = data => event => {
