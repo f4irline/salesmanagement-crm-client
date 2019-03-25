@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import './Events.css';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Tabs from '../../containers/Tabs/Tabs';
 
 import Contacts from './Contacts/Contacts';
