@@ -6,26 +6,36 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import './Login.css';
 
+import axios from '../../axios-options';
+
 import {print} from '../../utils/Debug';
 
 class Login extends Component {
 
   state = {
-    user_id: '',
-    password: ''
+    username: '',
+    password: '',
+    error: false
   }
 
   handleButtonClick() {
     print('Login', 'handleButtonClick');
-    console.log(this.state.user_id);
-    this.props.onLogin(this.state.user_id);
+    axios.post(`/login?username=${this.state.username}&password=${this.state.password}`)
+      .then((res) => {
+        console.log(res);
+        this.props.onLogin();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({error: true});
+      });
   }
 
   handleInputChange(event) {
     print('Login', 'handleInputChange');
     switch (event.target.name) {
-    case 'user_id':
-      this.setState({user_id: event.target.value});
+    case 'username':
+      this.setState({username: event.target.value});
       break;
     case 'password':
       this.setState({password: event.target.value});
@@ -46,12 +56,12 @@ class Login extends Component {
           <Divider />
           <TextField
             className='login-item'
-            label='Työntekijä id'
-            value={this.state.user_id}
+            label='Käyttäjätunnus id'
+            value={this.state.username}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
-            name='user_id'
-            type='number'
+            name='username'
+            type='text'
           />
           <TextField
             className='login-item'

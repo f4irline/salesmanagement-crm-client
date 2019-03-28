@@ -21,19 +21,25 @@ const {getDate} = require('./utils/Date');
 
 class App extends Component {
 
+  anonUserDetails = {
+    roles: [
+      'ANONYMOUS'
+    ]
+  }
+
   state = {
-    loggedIn: false,
+    loggedIn: true,
     modalOpen: false,
-    user_id: '',
-    loadingLeads: false,
-    loadingLeaderBoards: false,
-    loadingUser: false,
-    loadingUserData: false,
-    loadingCompany: false,
+    loadingLeads: true,
+    loadingLeaderBoards: true,
+    loadingUser: true,
+    loadingUserData: true,
+    loadingCompany: true,
     leads: [], 
     leaderBoards: [],
     user: {},
     userData: {},
+    user_details: this.anonUserDetails,
     companyData: [],
     companyStartDate: getDate('monthFirst'),
     companyEndDate: getDate('monthLast'),
@@ -46,7 +52,7 @@ class App extends Component {
   componentDidMount() {
     print('App', 'componentDidMount');
     if (this.state.loggedIn) {
-      this.updateAll();
+      this.handleLogin();
     }
   }
 
@@ -63,8 +69,8 @@ class App extends Component {
     let end = undefined;
     
     if (startDate === undefined && endDate === undefined) {
-      start = this.state.startDate;
-      end = this.state.endDate;
+      start = this.state.companyStartDate;
+      end = this.state.companyEndDate;
     } else {
       start = startDate;
       end = endDate;
@@ -80,7 +86,7 @@ class App extends Component {
   }
 
   updateUserData() {
-    let url_userData = `/userData/${this.state.user_id}`;
+    let url_userData = `/userData/${this.state.user_details.userId}`;
     this.setState({loadingUserData: true}, () => {
       axios.get(url_userData)
         .then(userData => this.setState({userData: userData.data, modalOpen: false}, () => {
@@ -92,7 +98,7 @@ class App extends Component {
   }
 
   updateUser() {
-    let url_user = `/users/${this.state.user_id}`;
+    let url_user = `/users/${this.state.user_details.userId}`;
     this.setState({loadingUser: true}, () => {
       axios.get(url_user)
         .then(user => this.setState({user: user.data}, () => {
@@ -158,16 +164,32 @@ class App extends Component {
    * 
    * @param {String} name 
    */
-  handleLogin(userId) {
-    print('App', 'hangleLogin');
-    this.setState({loggedIn: true, user_id: userId}, () => {
-      this.updateAll();
-    });
+  handleLogin() {
+    axios.get('/users/details')
+      .then((res) => {
+        console.log(res);
+        if (res.data.user === undefined) {
+          this.setState({loggedIn: false, user_details: this.anonUserDetails});
+        } else {
+          this.setState({loggedIn: true, user_details: res.data.user}, () => {
+            this.updateAll();
+          });  
+        }
+      })
+      .catch((err) => { 
+        this.setState({loggedIn: false, user_details: this.anonUserDetails});
+        console.log(err);
+      });
   }
 
   handleLogout() {
     print('App', 'handleLogout');
-    this.setState({loggedIn: false});
+    axios.post('/logout')
+      .then((res) => {
+        console.log(res);
+        this.setState({loggedIn: false, user_details: this.anonUserDetails});
+      })
+      .catch(err => console.log(err));
   }
 
   handleConfiguration () {
@@ -218,7 +240,7 @@ class App extends Component {
             companyData={this.state.companyData}
             companyDates={[this.state.companyStartDate, this.state.companyEndDate]}
             updateCompany={this.updateCompanyData.bind(this)} 
-            user_id={this.state.user_id}/>} 
+            user_id={this.state.user_details.userId}/>} 
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route component={Error} />
@@ -238,7 +260,7 @@ class App extends Component {
             updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
             updateLeads={this.updateLeads.bind(this)} 
             updateCompanyGraph={this.updateCompanyData.bind(this)}
-            userId={this.state.user_id} 
+            userId={this.state.user_details.userId} 
             closeModal={this.modalClose.bind(this)} 
             leads={this.state.leads}/>
         </Modal>
