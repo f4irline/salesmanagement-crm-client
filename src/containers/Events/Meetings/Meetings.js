@@ -66,7 +66,7 @@ class Meetings extends Component {
         }
       },
       {
-        name: 'Tarjouksen summa',
+        name: 'Paikka',
         options: {
           filter: false,
           sort: true,
