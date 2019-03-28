@@ -71,10 +71,14 @@ class App extends Component {
       end = endDate;
     }
 
+    console.log(start);
+    console.log(end);
+
     let url_companyChart = `/companyChart/get/${start}/${end}`;
     this.setState({loadingCompany: true, startDate: start, endDate: end}, () => {
       axios.get(url_companyChart)
         .then(res => this.setState({companyData: res.data}, () => {
+          console.log(res);
           this.setState({loadingCompany: false});
         }));
     });

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 import TextField from '@material-ui/core/TextField';
 
+import {daysBetween} from '../../../utils/Date';
 import {print} from '../../../utils/Debug';
 
 /* eslint-disable react/no-multi-comp */
@@ -72,8 +73,7 @@ class CompanyGraph extends PureComponent {
   }
 
   render() {
-    print('CompanyGraph', 'render');
-    
+    print('CompanyGraph', 'render');    
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <div className='company-chart-header'>
@@ -113,12 +113,12 @@ class CompanyGraph extends PureComponent {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" height={60} interval={0} tick={<CustomizedAxisTick index />} />
+            <XAxis dataKey="date" height={60} interval={0} tick={<CustomizedAxisTick days={daysBetween(this.state.startDate, this.state.endDate)} index />} />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel index/>} dot={<CustomizedDot color={'#0000FF'} index />} />
-            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={<CustomizedDot color={'#FF0000'} index />} />
+            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel days={daysBetween(this.state.startDate, this.state.endDate)} index/>} dot={<CustomizedDot color={'#0000FF'} index />} />
+            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={<CustomizedDot days={daysBetween(this.state.startDate, this.state.endDate)} color={'#FF0000'} index />} />
           </LineChart>
         </div>
       </Grid>
@@ -132,9 +132,9 @@ class CustomizedDot extends PureComponent {
       cx, cy, color,
     } = this.props;
   
-    if (this.props.index % 3 === 0) {
+    if (this.props.index % 3 === 0 || this.props.index === this.props.days - 1) {
       return (
-        <circle r="3" stroke={color} stroke-width="1" fill="#fff" width="543.2" height="147.1" class="recharts-dot recharts-line-dot" cx={cx} cy={cy}></circle>
+        <circle r="3" stroke={color} strokeWidth="1" fill="#fff" width="543.2" height="147.1" className="recharts-dot recharts-line-dot" cx={cx} cy={cy}></circle>
       );  
     }
 
@@ -148,7 +148,7 @@ class CustomizedLabel extends PureComponent {
       x, y, stroke, value,
     } = this.props;
     
-    if (this.props.index % 3 === 0) {
+    if (this.props.index % 3 === 0 || this.props.index === this.props.days - 1) {
       return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
     }
 
