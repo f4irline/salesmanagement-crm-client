@@ -28,6 +28,7 @@ class Events extends Component {
   render() {
 
     print ('Events', 'render');
+    console.log(this.state.data);
 
     if (this.state.loading) {
       return (
@@ -37,7 +38,6 @@ class Events extends Component {
       );
     }
 
-    console.log('userEvents: ' + this.state.data[0]);
     return (
       <div className='Events'>
         <Tabs/>

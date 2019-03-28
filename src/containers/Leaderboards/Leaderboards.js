@@ -103,6 +103,7 @@ class Leaderboards extends Component {
   render() {
 
     print ('Leaderboards', 'render');
+    console.log(this.state.data);
 
     if (this.state.loading) {
       return (
