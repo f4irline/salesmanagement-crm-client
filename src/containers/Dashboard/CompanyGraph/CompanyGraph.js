@@ -10,7 +10,7 @@ import {print} from '../../../utils/Debug';
 
 /* eslint-disable react/no-multi-comp */
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 
 class CompanyGraph extends PureComponent {
@@ -22,7 +22,8 @@ class CompanyGraph extends PureComponent {
     width: 0,
     startDate: this.props.companyDates[0],
     endDate: this.props.companyDates[1],
-    data: this.props.companyData
+    data: this.props.companyData,
+    tickIndex: 0
   }
 
   onChange = this.onChange.bind(this);
@@ -112,38 +113,64 @@ class CompanyGraph extends PureComponent {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" height={60} tick={<CustomizedAxisTick />} />
+            <XAxis dataKey="date" height={60} interval={0} tick={<CustomizedAxisTick index />} />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel />} dot={null} />
-            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={null} />
+            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel index/>} dot={<CustomizedDot color={'#0000FF'} index />} />
+            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={<CustomizedDot color={'#FF0000'} index />} />
           </LineChart>
         </div>
       </Grid>
     );
   }
 }
+
+class CustomizedDot extends PureComponent {
+  render() {
+    const {
+      cx, cy, color,
+    } = this.props;
+  
+    if (this.props.index % 3 === 0) {
+      return (
+        <circle r="3" stroke={color} stroke-width="1" fill="#fff" width="543.2" height="147.1" class="recharts-dot recharts-line-dot" cx={cx} cy={cy}></circle>
+      );  
+    }
+
+    return null;
+  }
+}
+
 class CustomizedLabel extends PureComponent {
   render() {
     const {
       x, y, stroke, value,
     } = this.props;
     
-    return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
+    if (this.props.index % 3 === 0) {
+      return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
+    }
+
+    return null;
   }
 }
 class CustomizedAxisTick extends PureComponent {
+
   render() {
     const {
       x, y, payload,
     } = this.props;
 
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-      </g>
-    );
+    if (this.props.index % 3 === 0) {
+      return (
+        <g transform={`translate(${x},${y})`}>
+          <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+        </g>
+      );    
+    }
+
+    return null;
   }
 }
 
