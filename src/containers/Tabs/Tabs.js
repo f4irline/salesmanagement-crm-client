@@ -11,8 +11,8 @@ import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
 
 const Tabs = (props) => {
   return (
-    <div className='Navigation'>
-      <div className='navigation-wrapper'>
+    <div className='Tabs'>
+      <div className='tabs-wrapper'>
         <NavItem url='/events/leads' icon={<Person />}>Liidit</NavItem>
         <NavItem url='/events/contacts' icon={<PhoneInTalk />}>Yhteydenotot</NavItem>
         <NavItem url='/events/meetings' icon={<CalendarToday />}>Tapaamiset</NavItem>

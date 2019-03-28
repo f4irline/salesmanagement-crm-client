@@ -1,4 +1,4 @@
-.Navigation {
+.Tabs {
   display: flex; /** Use CSS flexbox for easy responsive stuff */
   position: relative;
   top: 0;
@@ -13,7 +13,7 @@
   z-index: 1000; /** Make sure that it's always on top of everything */
 }
 
-.navigation-wrapper {
+.tabs-wrapper {
   display: flex;
   justify-content: flex-start; /** Content automatically sticks to the left side of the container */
   align-items: center; /** Align items vertically to center so they appear in the middle of the navigation bar */
