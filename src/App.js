@@ -81,6 +81,7 @@ class App extends Component {
   }
 
   updateUserEvents() {
+    print('App', 'updateUserEvents');
     let url_userEvents = `/userEvents/${this.state.user_id}`;
     this.setState({loadingUserEvents: true}, () => {
       axios.get(url_userEvents)
