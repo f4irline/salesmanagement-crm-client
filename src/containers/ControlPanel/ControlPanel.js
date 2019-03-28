@@ -1,10 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
-//import TextField from '@material-ui/core/TextField';
 import './ControlPanel.css';
 
 import {print} from '../../utils/Debug';
+import { Button } from '@material-ui/core';
 
 class ControlPanel extends Component {
   state = {
@@ -16,45 +16,11 @@ class ControlPanel extends Component {
   }
 
   onChange = this.onChange.bind(this);
-  //convertData=this.convertData.bind(this);
-  filterData=this.filterData.bind(this);
 
   onChange(event) {
 
     print('ControlPanel', 'onChange');
 
-    let value = event.target.value;
-    let id = event.target.id;
-    switch(id) {
-    case 'startDate':
-      this.setState({startDate: new Date(value)});
-      break;
-    case 'endDate':
-      this.setState({endDate: new Date(value)});
-      break;
-    default:
-      break;
-    }
-  }
-
-  filterData(data) {    
-
-    print ('Leaderboards', 'filterData');
-    
-    let filterData = [];
-    
-    // eslint-disable-next-line
-    filterData = data.filter((object) => {
-      let objectDate = new Date(object.date);
-      if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
-        return object;
-      } else if ((objectDate >= this.state.startDate && this.state.endDate.toString() === 'Invalid Date')
-        || (objectDate <= this.state.endDate && this.state.startDate.toString() === 'Invalid Date')) {
-        return object;
-      }
-    });
-
-    return filterData;
   }
 
   mapData(data) {
@@ -80,22 +46,6 @@ class ControlPanel extends Component {
 
     return newData;
   }
-
-  /*convertData(data) {
-
-    print ('ControlPanel', 'convertData');
-
-    let dataToMap = [];
-    let filterData = [];
-    if(1==0) {
-      filterData = this.filterData(data);
-      dataToMap = filterData;
-    } else {
-      dataToMap = data;
-    }
-    return this.mapData(dataToMap);
-
-  }*/
   
   render() {
 
@@ -108,10 +58,11 @@ class ControlPanel extends Component {
         </div>
       );
     }
+ 
+    // eslint-disable-next-line
+    const newData = this.mapData(this.state.data);
 
-    const data = this.state.data;   
-    const newData = this.mapData(data); //this.convertData(data);
-    const columns = [
+    const columnsUser = [
       {
         name: 'ID',
         options: {
@@ -162,9 +113,128 @@ class ControlPanel extends Component {
         }
       }
     ];
+
+    const columnsEvent = [
+      {
+        name: 'ID',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Tyyppi',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Summa',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Paikka',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Kontakti',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Puh nro',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Sähköposti',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      }
+    ];
+
+    const columnsLead = [
+      {
+        name: 'ID',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Pvm',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Yrityksen nimi',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Toimiala',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Kontakti',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Kontaktin rooli',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Puh nro',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Sähköposti',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'www-sivu',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      }
+    ];
+
     const options = {
       filterType: 'multiselect',
-      selectableRows: false,
+      selectableRows: true,
       search: false,
       textLabels: {
         body: {
@@ -202,16 +272,42 @@ class ControlPanel extends Component {
     
     };
 
+    console.log('HALO?'+this.props.data);
     return (
       <div className='ControlPanel'>
         <div id='table'>
           <MUIDataTable
-            title={'Sijoitukset'}
-            data={newData}
-            columns={columns}
+            title={'Käyttäjät'}
+            //data={newData}
+            columns={columnsUser}
             options={options}
           />
-        </div>  
+        </div>
+        <Button variant="contained" size="small" color="primary">
+          Lisää
+        </Button>
+        <Button variant="contained" size="small" color="primary">
+          Muokkaa
+        </Button>
+        <Button variant="contained" size="small" color="primary">
+          Poista
+        </Button>
+        <div id='table'>
+          <MUIDataTable
+            title={'Tapahtumat'}
+            //data={newData}
+            columns={columnsEvent}
+            options={options}
+          />
+        </div>
+        <div id='table'>
+          <MUIDataTable
+            title={'Liidit'}
+            //data={newData}
+            columns={columnsLead}
+            options={options}
+          />
+        </div>
       </div>
      
     );
