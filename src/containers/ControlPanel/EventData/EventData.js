@@ -1,11 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
-import './UserData.css';
+import './EventData.css';
 
 import {print} from '../../../utils/Debug';
 
-class UserData extends Component {
+class EventData extends Component {
   state = {
     data: []
   }
@@ -17,7 +17,7 @@ class UserData extends Component {
   /*
   mapData(data) {
 
-    print ('UserData', 'mapData');
+    print ('EventData', 'mapData');
 
     let newData = [];
     newData = data.map((object) => {
@@ -41,12 +41,12 @@ class UserData extends Component {
   
   render() {
 
-    print ('UserData', 'render');
+    print ('EventData', 'render');
     console.log(this.state.data);
 
     if (this.state.loading) {
       return (
-        <div className='UserData'>
+        <div className='EventData'>
           <p>Loading...</p>
         </div>
       );
@@ -129,7 +129,7 @@ class UserData extends Component {
     };
 
     return (
-      <div className='UserData'>
+      <div className='EventData'>
         <div id='table'>
           <MUIDataTable
             title={'Käyttäjät'}
@@ -145,4 +145,4 @@ class UserData extends Component {
   }
 }
 
-export default UserData;
+export default EventData;
