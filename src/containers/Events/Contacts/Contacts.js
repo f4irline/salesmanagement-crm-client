@@ -27,8 +27,8 @@ class Contacts extends Component {
     }
 
     return (
-      <div className='Events'>
-
+      <div className='Contacts'>
+        <p>Contacts</p>
       </div>
      
     );

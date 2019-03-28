@@ -20,15 +20,15 @@ class Leads extends Component {
 
     if (this.state.loading) {
       return (
-        <div className='Events'>
+        <div className='Leads'>
           <p>Loading...</p>
         </div>
       );
     }
 
     return (
-      <div className='Events'>
-
+      <div className='Leads'>
+        <p>Leads</p>
       </div>
      
     );

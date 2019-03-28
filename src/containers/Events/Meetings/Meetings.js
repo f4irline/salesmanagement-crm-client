@@ -28,7 +28,7 @@ class Meetings extends Component {
 
     return (
       <div className='Meetings'>
-
+        <p>Meetings</p>
       </div>
      
     );

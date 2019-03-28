@@ -42,11 +42,11 @@ class Events extends Component {
       <div className='Events'>
         <Tabs/>
         <Switch>
-          <Route path='/contacts' render={() => <Contacts data={this.state.data[0]} />} />
-          <Route path='/meetings' render={() => <Meetings data={this.state.data[1]} />} />
-          <Route path='/offers' render={() => <Offers data={this.state.data[2]} />} />
-          <Route path='/sales' render={() => <Sales data={this.state.data[3]} />} />
-          <Route path='/leads' render={() => <Leads data={this.state.data[4]} />} />
+          <Route path='/events/contacts' render={() => <Contacts data={this.state.data[0]} />} />
+          <Route path='/events/meetings' render={() => <Meetings data={this.state.data[1]} />} />
+          <Route path='/events/offers' render={() => <Offers data={this.state.data[2]} />} />
+          <Route path='/events/sales' render={() => <Sales data={this.state.data[3]} />} />
+          <Route path='/events/leads' render={() => <Leads data={this.state.data[4]} />} />
         </Switch>
       </div>
      

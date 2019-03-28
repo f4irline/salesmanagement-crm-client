@@ -20,15 +20,15 @@ class Offers extends Component {
 
     if (this.state.loading) {
       return (
-        <div className='Events'>
+        <div className='Offers'>
           <p>Loading...</p>
         </div>
       );
     }
 
     return (
-      <div className='Events'>
-
+      <div className='Offers'>
+        <p>Offers</p>
       </div>
      
     );

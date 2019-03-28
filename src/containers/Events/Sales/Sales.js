@@ -21,15 +21,15 @@ class Sales extends Component {
 
     if (this.state.loading) {
       return (
-        <div className='Events'>
+        <div className='Sales'>
           <p>Loading...</p>
         </div>
       );
     }
 
     return (
-      <div className='Events'>
-
+      <div className='Sales'>
+        <p>Sales</p>
       </div>
      
     );

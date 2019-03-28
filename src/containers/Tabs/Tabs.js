@@ -13,11 +13,11 @@ const Tabs = (props) => {
   return (
     <div className='Navigation'>
       <div className='navigation-wrapper'>
-        <NavItem url='/leads' icon={<Person />}>Liidit</NavItem>
-        <NavItem url='/contacts' icon={<PhoneInTalk />}>Yhteydenotot</NavItem>
-        <NavItem url='/meetings' icon={<CalendarToday />}>Tapaamiset</NavItem>
-        <NavItem url='/offers' icon={<Description />}>Tarjoukset</NavItem>
-        <NavItem url='/sales' icon={<EuroSymbol />}>Kaupat</NavItem>
+        <NavItem url='/events/leads' icon={<Person />}>Liidit</NavItem>
+        <NavItem url='/events/contacts' icon={<PhoneInTalk />}>Yhteydenotot</NavItem>
+        <NavItem url='/events/meetings' icon={<CalendarToday />}>Tapaamiset</NavItem>
+        <NavItem url='/events/offers' icon={<Description />}>Tarjoukset</NavItem>
+        <NavItem url='/events/sales' icon={<EuroSymbol />}>Kaupat</NavItem>
       </div>
     </div>
   );
