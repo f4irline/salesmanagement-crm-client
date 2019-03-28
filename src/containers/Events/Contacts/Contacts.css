@@ -1,0 +1,49 @@
+#table {
+  margin-right: 5%;;
+  margin-left: 5%;
+  margin-bottom: 5vh;
+  box-sizing: border-box;
+  max-width: 90%;
+}
+
+#table button {
+  color: #222C35;
+}
+
+#table h6 {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #222C35;
+}
+
+#table th {
+  text-transform: uppercase;
+  transition: 0.2s ease;
+}
+
+#table button:hover,
+#table th:hover {
+  color: #D72322;
+}
+
+.Contacts {
+  min-height: 94.9vh;
+  position: relative;
+}
+
+.datePicker {
+  display: flex;
+  justify-content: center;
+}
+
+.date {
+  margin: 3vh 10vw !important;
+}
+
+@media only screen and (min-width: 960px) {
+  #table th,
+  #table td {
+    padding-left:10px;
+    padding-right: 10px;
+  }
+}
