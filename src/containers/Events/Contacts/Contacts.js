@@ -54,42 +54,42 @@ class Contacts extends Component {
     const newData = this.mapData(data);
     const columns = [
       {
-        name: 'date',
+        name: 'päivämäärä',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'companyName',
+        name: 'yritys',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'contactPerson',
+        name: 'yhteyshenkilö',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'phoneNumber',
+        name: 'puhelinnumero',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'email',
+        name: 'sähköposti',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'notes',
+        name: 'lisätiedot',
         options: {
           filter: false,
           sort: true,
