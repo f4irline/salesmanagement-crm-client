@@ -146,7 +146,7 @@ const EventData = (props) => {
     <div className='EventData'>
       <div id='table'>
         <MUIDataTable
-          title={'Käyttäjät'}
+          title={'Tapahtumat'}
           data={newData}
           columns={columns}
           options={options}

@@ -9,7 +9,6 @@
   height: 5vh;
   color: white;
   background-color: #222C35;
-  border-bottom: 1px solid black;
   z-index: 1000; /** Make sure that it's always on top of everything */
 }
 

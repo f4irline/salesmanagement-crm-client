@@ -1,0 +1,9 @@
+.navLink a {
+  text-decoration: none;
+  color: #000;
+}
+
+.navLink > a:hover,
+.navLink > a.active {
+  color: #D72322;
+}

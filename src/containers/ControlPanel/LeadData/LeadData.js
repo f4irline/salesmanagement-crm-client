@@ -132,7 +132,7 @@ const LeadData = (props) => {
     <div className='LeadData'>
       <div id='table'>
         <MUIDataTable
-          title={'Käyttäjät'}
+          title={'Liidit'}
           data={newData}
           columns={columns}
           options={options}
