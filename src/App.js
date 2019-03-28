@@ -12,6 +12,7 @@ import Leaderboards from './containers/Leaderboards/Leaderboards';
 import Events from './containers/Events/Events';
 import Navigation from './containers/Navigation/Navigation';
 import Login from './containers/Login/Login';
+import ControlPanel from './containers/ControlPanel/ControlPanel';
 
 import axios from './axios-options';
 
@@ -23,21 +24,23 @@ const {getDate} = require('./utils/Date');
 class App extends Component {
 
   state = {
-    loggedIn: false,
+    loggedIn: true,
     modalOpen: false,
-    user_id: '',
+    user_id: '100001',
     loadingLeads: false,
     loadingLeaderBoards: false,
     loadingUserEvents: false,
     loadingUser: false,
     loadingUserData: false,
     loadingCompany: false,
+    loadingControlPanel: false,
     leads: [], 
     leaderBoards: [],
     userEvents: [],
     user: {},
     userData: {},
     companyData: [],
+    adminData: {},
     startDate: getDate('monthFirst'),
     endDate: getDate('monthLast')
   }
@@ -137,6 +140,16 @@ class App extends Component {
     });
   }
 
+  updateAdmin() {
+    this.setState({loadingControlPanel: true}, () => {
+      axios.get('/admin')
+        .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
+          this.setState({loadingControlPanel: false});
+          print('App', 'updateControlPanel');
+        }));
+    });
+  }
+
   /**
    * Handles logging the user in
    * 
@@ -209,6 +222,7 @@ class App extends Component {
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
+          <Route path='/admin' render={() => <ControlPanel data={this.state.leaderBoards} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
