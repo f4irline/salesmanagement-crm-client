@@ -50,63 +50,63 @@ class Leads extends Component {
     const newData = this.mapData(data);
     const columns = [
       {
-        name: 'date',
+        name: 'päivämäärä',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'companyName',
+        name: 'yritys',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'industry',
+        name: 'toimiala',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'contactPerson',
+        name: 'yhteyshenkilö',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'contactRole',
+        name: 'toimenkuva',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'phoneNumber',
+        name: 'puhelinnumero',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'email',
+        name: 'sähköposti',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'website',
+        name: 'nettisivu',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'notes',
+        name: 'lisätiedot',
         options: {
           filter: false,
           sort: true,
