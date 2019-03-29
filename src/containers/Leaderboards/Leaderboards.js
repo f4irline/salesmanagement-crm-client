@@ -8,8 +8,8 @@ import {print} from '../../utils/Debug';
 
 class Leaderboards extends Component {
   state = {
-    startDate: new Date('foo'),
-    endDate: new Date('foo'),
+    startDate: this.props.leaderDates[0],
+    endDate: this.props.leaderDates[1],
     data: []
   }
 
@@ -18,8 +18,6 @@ class Leaderboards extends Component {
   }
 
   onChange = this.onChange.bind(this);
-  convertData=this.convertData.bind(this);
-  filterData=this.filterData.bind(this);
 
   onChange(event) {
 
@@ -29,39 +27,27 @@ class Leaderboards extends Component {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      this.setState({startDate: new Date(value)});
+      this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
+        this.props.updateDate(this.state.startDate, this.state.endDate);
+      });
       break;
     case 'endDate':
-      this.setState({endDate: new Date(value)});
+      this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
+        this.props.updateDate(this.state.startDate, this.state.endDate);
+      });
       break;
     default:
       break;
     }
   }
 
-  filterData(data) {    
-
-    print ('Leaderboards', 'filterData');
-    
-    let filterData = [];
-    
-    // eslint-disable-next-line
-    filterData = data.filter((object) => {
-      let objectDate = new Date(object.date);
-      if (objectDate >= this.state.startDate && objectDate <= this.state.endDate) {
-        return object;
-      } else if ((objectDate >= this.state.startDate && this.state.endDate.toString() === 'Invalid Date')
-        || (objectDate <= this.state.endDate && this.state.startDate.toString() === 'Invalid Date')) {
-        return object;
-      }
-    });
-
-    return filterData;
-  }
-
   mapData(data) {
 
     print ('Leaderboards', 'mapData');
+
+    if (new Date(this.state.endDate) < new Date(this.state.startDate)) {
+      return [];
+    }
 
     let newData = [];
     newData = data.map((object) => {
@@ -82,27 +68,11 @@ class Leaderboards extends Component {
 
     return newData;
   }
-
-  convertData(data) {
-
-    print ('Leaderboards', 'convertData');
-
-    let dataToMap = [];
-    let filterData = [];
-    if(this.state.startDate.toString() !== 'Invalid Date' ||
-      this.state.endDate.toString() !== 'Invalid Date') {
-      filterData = this.filterData(data);
-      dataToMap = filterData;
-    } else {
-      dataToMap = data;
-    }
-    return this.mapData(dataToMap);
-
-  }
   
   render() {
 
     print ('Leaderboards', 'render');
+    console.log(this.state.data);
 
     if (this.state.loading) {
       return (
@@ -112,8 +82,7 @@ class Leaderboards extends Component {
       );
     }
 
-    const data = this.state.data;   
-    const newData = this.convertData(data);
+    const newData = this.mapData(this.state.data);
     const columns = [
       {
         name: 'Nimi',
@@ -222,6 +191,7 @@ class Leaderboards extends Component {
             id='startDate'
             label='Aloitus päivämäärä'
             type='date'
+            defaultValue={this.state.startDate}
             InputLabelProps={{
               shrink: true,
             }}
@@ -231,6 +201,7 @@ class Leaderboards extends Component {
             id='endDate'
             label='Lopetus päivämäärä'
             type='date'
+            defaultValue={this.state.endDate}
             InputLabelProps={{
               shrink: true,
             }}
