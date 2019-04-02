@@ -50,8 +50,8 @@ class EditLead extends Component {
             LIIDIN MUOKKAUS
           </Typography>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={12} md={6}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -59,7 +59,7 @@ class EditLead extends Component {
               label='Liidi ID'
               value={this.state.data.leadId}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               label='Luotu'
               fullWidth
@@ -69,7 +69,9 @@ class EditLead extends Component {
               value={this.state.data.date}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -78,7 +80,7 @@ class EditLead extends Component {
               value={this.state.data.companyName}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -87,7 +89,9 @@ class EditLead extends Component {
               value={this.state.data.industry}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -96,7 +100,7 @@ class EditLead extends Component {
               value={this.state.data.contactPerson}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -105,7 +109,9 @@ class EditLead extends Component {
               value={this.state.data.contactRole}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -114,7 +120,7 @@ class EditLead extends Component {
               value={this.state.data.phoneNumber}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -123,7 +129,9 @@ class EditLead extends Component {
               value={this.state.data.email}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -132,7 +140,7 @@ class EditLead extends Component {
               value={this.state.data.website}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12} md={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -142,7 +150,7 @@ class EditLead extends Component {
               onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
-      </Grid> 
+      </Grid>
     );
 
   }

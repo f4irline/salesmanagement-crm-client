@@ -72,10 +72,6 @@ const Contacts = (props) => {
         filter: false,
         sort: true,
       }
-    }, {
-      name: 'Poista'
-    }, {
-      name: 'Muokkaa'
     }
   ];
 

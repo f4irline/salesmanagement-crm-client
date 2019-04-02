@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
 let instance = null;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {

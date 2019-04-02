@@ -62,8 +62,8 @@ class EditEvent extends Component {
             TAPAHTUMAN MUOKKAUS
           </Typography>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={6}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -71,7 +71,7 @@ class EditEvent extends Component {
               value={this.state.data.eventId}
               disabled></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -83,8 +83,8 @@ class EditEvent extends Component {
               value={this.state.data.date}></TextField>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={6}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               name='contactPerson'
@@ -93,7 +93,7 @@ class EditEvent extends Component {
               label='Yhteyshenkilö'
               value={this.state.data.contactPerson}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               name='email'
@@ -104,8 +104,8 @@ class EditEvent extends Component {
               value={this.state.data.email}></TextField>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={6}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -114,7 +114,7 @@ class EditEvent extends Component {
               onChange={this.handleChange}
               value={this.state.data.phoneNumber}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -125,8 +125,8 @@ class EditEvent extends Component {
               value={this.state.data.place}></TextField>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={6}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -136,7 +136,7 @@ class EditEvent extends Component {
               onChange={this.handleChange}
               value={this.state.data.sum}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <FormControl className='content-item' fullWidth>
               <Select
                 name='companyName'
@@ -155,8 +155,8 @@ class EditEvent extends Component {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={12}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={11}>
             <TextField
               fullWidth
               variant='outlined'

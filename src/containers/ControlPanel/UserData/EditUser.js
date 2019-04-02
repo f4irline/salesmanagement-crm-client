@@ -52,8 +52,8 @@ class EditUser extends Component {
             KÄYTTÄJÄN MUOKKAUS
           </Typography>
         </Grid>
-        <Grid container>
-          <Grid item container justify='center' xs={6}>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -61,7 +61,7 @@ class EditUser extends Component {
               defaultValue={this.state.data.userId}
               disabled></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -69,7 +69,9 @@ class EditUser extends Component {
               label='Etunimi'
               defaultValue={this.state.data.userFirst}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -77,7 +79,7 @@ class EditUser extends Component {
               label='Sukunimi'
               defaultValue={this.state.data.userLast}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={6}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
             <TextField
               fullWidth
               variant='outlined'
@@ -85,7 +87,9 @@ class EditUser extends Component {
               label='Rooli'
               defaultValue={this.state.data.role}></TextField>
           </Grid>
-          <Grid item container justify='center' xs={12}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={11}>
             <TextField
               fullWidth
               variant='outlined'
