@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import './UserData.css';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog'
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import axios from '../../../axios-options';
 
 class UserData extends Component {
 
   state = {
     showDialog: false,
-    newData: []
+    newData: [],
+    userId: undefined
   }
 
   mapData(data) {
@@ -24,6 +31,18 @@ class UserData extends Component {
           rowData.push(object[data]);
         }
       }
+      rowData.push(
+        <IconButton aria-label='Delete' onClick={()=>{
+          this.onClickDeleteHandler(object.userId)
+        }}>
+          <DeleteIcon />
+        </IconButton>
+      )
+      rowData.push(
+        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+          <CreateIcon />
+        </IconButton>
+      )
       return rowData;
     });
     return newData;
@@ -34,8 +53,22 @@ class UserData extends Component {
     this.setState({newData: this.mapData(data)});
   }
 
-  onClickOpenHandler() {
-    this.setState({showDialog: true});
+  onClickDeleteHandler(userId) {
+    this.setState({showDialog: true, userId: userId});
+  }
+  
+  onClickEditHandler(userId) {
+  }
+
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
+      axios.delete('/users/'+this.state.userId)
+      .then((res) => {
+        this.props.update();
+      })
+      .catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
   }
 
   render() {
@@ -83,6 +116,10 @@ class UserData extends Component {
           filter: false,
           sort: true
         }
+      },{
+        name: 'Poista'
+      },{
+        name: 'Muokkaa'
       }
     ];
 
@@ -124,6 +161,7 @@ class UserData extends Component {
 
     return (
       <div className='UserData'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
           <MUIDataTable
             title={'Käyttäjät'}
