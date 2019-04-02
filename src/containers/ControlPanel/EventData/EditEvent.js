@@ -15,6 +15,7 @@ class EditEvent extends Component {
 
   state = {
     data: this.props.data,
+    companyName: undefined,
     loading: false
   }
 
@@ -29,15 +30,28 @@ class EditEvent extends Component {
     this.setState({loading: true}, () => {
       axios.get(`event/${id}`)
         .then((res) => { 
-          this.setState({data: res.data, loading: false});
+          this.setState({data: res.data}, () => {
+            this.setState({loading: false, companyName: this.state.data.lead.companyName});
+          });
         })
         .catch(err => console.log(err));
     });
   }
 
+  handleChange = (e) => {
+    this.setState({
+      data: Object.assign({}, this.state.data, {[e.target.name]: e.target.value})
+    });
+  }
+  
+  handleLeadChange = (e) => {
+    this.setState({
+      companyName: e.target.value
+    });
+  }
+
   render() {
-    console.log(this.state.data);
-    if (this.state.loading) {
+    if (this.state.loading || this.state.companyName === undefined) {
       return (
         <p>Loading...</p>
       );
@@ -56,34 +70,40 @@ class EditEvent extends Component {
               fullWidth
               variant='outlined'
               label='Tapahtuman ID'
-              defaultValue={this.state.data.eventId}
+              value={this.state.data.eventId}
               disabled></TextField>
           </Grid>
           <Grid item container justify='center' xs={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='date'
               type='date'
               required
+              onChange={this.handleChange}
               label='Päivämäärä'
-              defaultValue={this.state.data.date}></TextField>
+              value={this.state.data.date}></TextField>
           </Grid>
         </Grid>
         <Grid container>
           <Grid item container justify='center' xs={6}>
             <TextField
               fullWidth
+              name='contactPerson'
               variant='outlined'
+              onChange={this.handleChange}
               label='Yhteyshenkilö'
-              defaultValue={this.state.data.contactPerson}></TextField>
+              value={this.state.data.contactPerson}></TextField>
           </Grid>
           <Grid item container justify='center' xs={6}>
             <TextField
               fullWidth
+              name='email'
               variant='outlined'
               required
+              onChange={this.handleChange}
               label='Sähköposti'
-              defaultValue={this.state.data.email}></TextField>
+              value={this.state.data.email}></TextField>
           </Grid>
         </Grid>
         <Grid container>
@@ -91,16 +111,20 @@ class EditEvent extends Component {
             <TextField
               fullWidth
               variant='outlined'
+              name='phoneNumber'
               label='Puhelinnumero'
-              defaultValue={this.state.data.phoneNumber}></TextField>
+              onChange={this.handleChange}
+              value={this.state.data.phoneNumber}></TextField>
           </Grid>
           <Grid item container justify='center' xs={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='place'
               required
               label='Paikka'
-              defaultValue={this.state.data.place}></TextField>
+              onChange={this.handleChange}
+              value={this.state.data.place}></TextField>
           </Grid>
         </Grid>
         <Grid container>
@@ -108,19 +132,22 @@ class EditEvent extends Component {
             <TextField
               fullWidth
               variant='outlined'
+              name='sum'
               label='Summa'
-              defaultValue={this.state.data.sum}></TextField>
+              type='number'
+              onChange={this.handleChange}
+              value={this.state.data.sum}></TextField>
           </Grid>
           <Grid item container justify='center' xs={6}>
-            <FormControl className='content-item'>
+            <FormControl className='content-item' fullWidth>
               <Select
                 name='companyName'
                 displayEmpty
                 value={this.state.companyName}
-                onChange={this.handleChange}
+                onChange={this.handleLeadChange}
                 input={
                   <OutlinedInput
-                    name="company"
+                    name='company'
                     labelWidth={0}
                   />
                 }
@@ -135,10 +162,12 @@ class EditEvent extends Component {
             <TextField
               fullWidth
               variant='outlined'
+              name='notes'
+              onChange={this.handleChange}
               required
               label='Lisätiedot'
               multiline
-              defaultValue={this.state.data.notes}></TextField>
+              value={this.state.data.notes}></TextField>
           </Grid>
         </Grid>
       </Grid>  
