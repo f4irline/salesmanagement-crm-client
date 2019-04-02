@@ -14,7 +14,6 @@ class LeadData extends Component {
   
   state = {
     showDialog: false,
-    newData: [],
     dataToEdit : {},
     leadId: undefined
   }

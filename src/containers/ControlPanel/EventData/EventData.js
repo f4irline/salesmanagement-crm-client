@@ -15,7 +15,8 @@ class EventData extends Component {
 
   state = {
     showDialog: false,
-    dataToEdit: {}
+    dataToEdit: {},
+    eventId: undefined
   }
 
   mapData(data) {
@@ -63,8 +64,8 @@ class EventData extends Component {
     return newData;
   }
   
-  onClickDeleteHandler(e) {
-    this.setState({showDialog: true});
+  onClickDeleteHandler(eventId) {
+    this.setState({showDialog: true, eventId: eventId});
   }
   
   onClickEditHandler = (event) => {
