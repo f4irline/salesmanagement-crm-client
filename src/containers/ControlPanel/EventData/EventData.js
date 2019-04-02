@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import React, {Component} from 'react';
 import MUIDataTable from 'mui-datatables';
 import './EventData.css';
@@ -66,7 +66,9 @@ class EventData extends Component {
   }
   
   onClickEditHandler = (event) => {
-    this.setState({dataToEdit: event});
+    this.setState({dataToEdit: event}, () => {
+      this.props.history.push('/admin/events/edit');
+    });
   }
 
   onClickCloseHandler(name) {
@@ -208,4 +210,4 @@ class EventData extends Component {
   }
 }
 
-export default EventData;
+export default withRouter(EventData);
