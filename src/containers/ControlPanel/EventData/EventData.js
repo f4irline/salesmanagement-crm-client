@@ -1,6 +1,9 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import MUIDataTable from 'mui-datatables';
 import './EventData.css';
+
+import EditEvent from './EditEvent';
 
 const EventData = (props) => {
 
@@ -145,12 +148,17 @@ const EventData = (props) => {
   return (
     <div className='EventData'>
       <div id='table'>
-        <MUIDataTable
-          title={'Käyttäjät'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
+        <Route path='/admin/events' exact render={() => 
+          <MUIDataTable
+            title={'Käyttäjät'}
+            data={newData}
+            columns={columns}
+            options={options}
+          />
+        } />
+        <Route path='/admin/events/edit' render={() => 
+          <EditEvent data={data}/>
+        } />
       </div>  
     </div>
     
