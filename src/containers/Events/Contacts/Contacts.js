@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import MUIDataTable from 'mui-datatables';
 import './Contacts.css';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog'
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 
 class Contacts extends Component {
@@ -26,6 +28,16 @@ class Contacts extends Component {
           
         }
       }
+      rowData.push(
+        <IconButton aria-label='Delete' onClick={this.onClickDeleteHandler.bind(this)}>
+          <DeleteIcon />
+        </IconButton>
+      )
+      rowData.push(
+        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+          <CreateIcon />
+        </IconButton>
+      )
       return rowData;
     });
     return newData;
@@ -36,13 +48,22 @@ class Contacts extends Component {
     this.setState({newData: this.mapData(data)})
   }
 
-  onClickOpenHandler() {
+  onClickDeleteHandler() {
     this.setState({showDialog: true});
   }
 
-  render() {
-    console.log(this.state.newData);
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
 
+    }
+    this.setState({showDialog: false});
+  }
+
+  onClickEditHandler() {
+    
+  }
+
+  render() {
     const columns = [
       {
         name: 'päivämäärä',
@@ -85,6 +106,10 @@ class Contacts extends Component {
           filter: false,
           sort: true,
         }
+      }, {
+        name: 'Poista'
+      }, {
+        name: 'Muokkaa'
       }
     ];
   
@@ -125,6 +150,7 @@ class Contacts extends Component {
     };
     return (
       <div className='Contacts'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
           <MUIDataTable
             title={'Yhteydenotot'}
