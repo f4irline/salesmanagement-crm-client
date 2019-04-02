@@ -75,7 +75,7 @@ class CompanyGraph extends PureComponent {
   }
 
   render() {
-    print('CompanyGraph', 'render');    
+    print('CompanyGraph', 'render', this.state.data);    
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <div className='company-chart-header'>
@@ -152,7 +152,6 @@ class CustomizedLabel extends PureComponent {
     const {
       x, y, stroke, value,
     } = this.props;
-    console.log(Math.floor(this.props.days / 8));
     let amount = Math.floor(this.props.days / 8);
     if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days) {
       return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
