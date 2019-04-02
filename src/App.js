@@ -140,13 +140,11 @@ class App extends Component {
             this.setState({loadingLeaderBoards: false});
           }));
       } else if (startDate.toString() !== 'Invalid Date') {
-        console.log('startDate');
         axios.get(`/userData/all/${startDate}/2100-01-01`)
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
             this.setState({loadingLeaderBoards: false, leaderEndDate: new Date('Undefined')});
           }));
       } else if (endDate.toString() !== 'Invalid Date') {
-        console.log('endDate');
         axios.get(`/userData/all/1970-01-01/${endDate}`)
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
             this.setState({loadingLeaderBoards: false, leaderStartDate: new Date('Undefined')});

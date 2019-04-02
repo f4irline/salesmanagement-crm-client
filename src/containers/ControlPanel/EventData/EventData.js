@@ -208,7 +208,7 @@ class EventData extends Component {
             />
           } />
           <Route path='/admin/events/edit/:id' render={() => 
-            <EditEvent leadNames={this.props.leadNames} data={this.state.dataToEdit}/>
+            <EditEvent update={this.props.update} leadNames={this.props.leadNames} data={this.state.dataToEdit}/>
           } />
         </div>  
       </div>

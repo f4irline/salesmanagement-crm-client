@@ -195,7 +195,7 @@ class LeadData extends Component {
             />
           } />
           <Route path='/admin/leads/edit/:id' render={() =>
-            <EditLead data={this.state.dataToEdit}/>
+            <EditLead update={this.props.update} data={this.state.dataToEdit}/>
           } />
         </div>  
       </div>

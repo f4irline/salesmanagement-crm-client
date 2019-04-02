@@ -181,7 +181,7 @@ class UserData extends Component {
             />
           } />
           <Route path='/admin/users/edit/:id' render={() => 
-            <EditUser data={this.state.dataToEdit}/>
+            <EditUser update={this.props.update} data={this.state.dataToEdit}/>
           } />
         </div>  
       </div>

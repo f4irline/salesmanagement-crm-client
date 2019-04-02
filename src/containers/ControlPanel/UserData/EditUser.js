@@ -41,7 +41,11 @@ class EditUser extends Component {
 
   handleSave = () => {
     axios.put('/admin/users/edit', this.state.data)
-      .then(res => console.log(res))
+      .then((res) => {
+        console.log(res);
+        this.props.update();
+        this.props.history.push('/admin/users');
+      })
       .catch(err => console.log(err));
   }
 

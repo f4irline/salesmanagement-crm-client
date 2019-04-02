@@ -32,7 +32,11 @@ class EditLead extends Component {
 
   handleSave = () => {
     axios.put('/admin/leads/edit', this.state.data)
-      .then(res => console.log(res))
+      .then((res) => {
+        console.log(res);
+        this.props.update();
+        this.props.history.push('/admin/leads');
+      })
       .catch(err => console.log(err));
   }
 

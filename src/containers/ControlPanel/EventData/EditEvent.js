@@ -39,7 +39,11 @@ class EditEvent extends Component {
 
   handleSave = () => {
     axios.put('/admin/events/edit', this.state.data)
-      .then(res => console.log(res))
+      .then((res) => {
+        console.log(res);
+        this.props.update();
+        this.props.history.push('/admin/events');
+      })
       .catch(err => console.log(err));
   }
 
