@@ -9,8 +9,10 @@ const Sales = (props) => {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data === 'date' || data === 'sum' || data === 'notes') {
+        if (data === 'date' || data === 'notes') {
           rowData.push(object[data]);
+        } else if(data === 'sum') {
+          rowData.push(object[data] + ' €');
         } else if(data === 'lead') {
           rowData.push(object[data].companyName);
         }
@@ -89,7 +91,6 @@ const Sales = (props) => {
     }
   
   };
-
   return (
     <div className='Offers'>
       <div id='table'>
