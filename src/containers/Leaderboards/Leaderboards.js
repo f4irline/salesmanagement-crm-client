@@ -73,13 +73,28 @@ class Leaderboards extends Component {
       let rowData = [];
       let fullName = '';
       for (let data in object) {
-        if (data === 'user_first') {
+        switch(data) {
+        case 'user_first': {
           fullName += object[data]+' ';
-        } else if (data === 'user_last') {
+          break;
+        }
+        case 'user_last': {
           fullName += object[data];
           rowData.push(fullName);
-        } else {
-          rowData.push(object[data]);
+          break;
+        }
+        case 'hit_rate': {
+          rowData.push(object[data] + ' %');
+          break;
+        }
+        case 'total_sales':
+        case 'avg_sales': {
+          rowData.push(object[data] + ' €');
+          break;
+        }
+        default: {
+          rowData.push(object[data] + ' kpl');
+        }
         }
       }
       return rowData;
