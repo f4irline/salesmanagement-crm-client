@@ -14,15 +14,13 @@ import axios from '../../../axios-options';
 class EditEvent extends Component {
 
   state = {
-    data: this.props.data,
-    companyName: undefined,
-    loading: false
+    data: {},
+    loading: false,
+    companyName: undefined
   }
 
   componentDidMount() {
-    if (!this.state.data.eventId) {
-      this.fetchData();
-    }
+    this.fetchData();
   }
 
   fetchData = () => {
@@ -143,7 +141,7 @@ class EditEvent extends Component {
               <Select
                 name='companyName'
                 displayEmpty
-                value={this.state.companyName}
+                value={this.state.data.lead.companyName}
                 onChange={this.handleLeadChange}
                 input={
                   <OutlinedInput
