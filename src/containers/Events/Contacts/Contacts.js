@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MUIDataTable from 'mui-datatables';
 import './Contacts.css';
 
-const Contacts = (props) => {
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
-  const mapData = (data) => {
+class Contacts extends Component {
+
+  state = {
+    showDialog: false,
+    newData: []
+  }
+
+  mapData(data) {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -20,106 +28,115 @@ const Contacts = (props) => {
       }
       return rowData;
     });
-
     return newData;
   };
 
-  const data = props.data;   
-  const newData = mapData(data);
-  const columns = [
-    {
-      name: 'päivämäärä',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'yritys',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'yhteyshenkilö',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'puhelinnumero',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'sähköposti',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'lisätiedot',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    }
-  ];
+  componentDidMount() {
+    const data = this.props.data;   
+    this.setState({newData: this.mapData(data)})
+  }
 
-  const options = {
-    filterType: 'multiselect',
-    selectableRows: false,
-    search: false,
-    filter: false,
-    textLabels: {
-      body: {
-        noMatch: 'Ei tuloksia',
-        toolTip: 'Järjestä',
+  onClickOpenHandler() {
+    this.setState({showDialog: true});
+  }
+
+  render() {
+    console.log(this.state.newData);
+
+    const columns = [
+      {
+        name: 'päivämäärä',
+        options: {
+          filter: false,
+          sort: true,
+        }
       },
-      pagination: {
-        next: 'Seuraava sivu',
-        previous: 'Edellinen sivu',
-        rowsPerPage: 'Rivejä / sivu:',
-        displayRows: '-',
+      {
+        name: 'yritys',
+        options: {
+          filter: false,
+          sort: true,
+        }
       },
-      toolbar: {
-        search: 'Etsi',
-        downloadCsv: 'Lataa CSV',
-        print: 'Tulosta',
-        viewColumns: 'Sarakkeet',
-        filterTable: 'Suodata',
+      {
+        name: 'yhteyshenkilö',
+        options: {
+          filter: false,
+          sort: true,
+        }
       },
-      viewColumns: {
-        title: 'Näytetyt Sarakkeet',
-        titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+      {
+        name: 'puhelinnumero',
+        options: {
+          filter: false,
+          sort: true,
+        }
       },
-      selectedRows: {
-        text: 'rivejä valittu',
-        delete: 'Poista',
-        deleteAria: 'Poista Valitut Rivit',
+      {
+        name: 'sähköposti',
+        options: {
+          filter: false,
+          sort: true,
+        }
       },
-    }
+      {
+        name: 'lisätiedot',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      }
+    ];
   
-  };
-
-  return (
-    <div className='Contacts'>
-      <div id='table'>
-        <MUIDataTable
-          title={'Yhteydenotot'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
-      </div>  
-    </div>
+    const options = {
+      filterType: 'multiselect',
+      selectableRows: false,
+      search: false,
+      filter: false,
+      textLabels: {
+        body: {
+          noMatch: 'Ei tuloksia',
+          toolTip: 'Järjestä',
+        },
+        pagination: {
+          next: 'Seuraava sivu',
+          previous: 'Edellinen sivu',
+          rowsPerPage: 'Rivejä / sivu:',
+          displayRows: '-',
+        },
+        toolbar: {
+          search: 'Etsi',
+          downloadCsv: 'Lataa CSV',
+          print: 'Tulosta',
+          viewColumns: 'Sarakkeet',
+          filterTable: 'Suodata',
+        },
+        viewColumns: {
+          title: 'Näytetyt Sarakkeet',
+          titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+        },
+        selectedRows: {
+          text: 'rivejä valittu',
+          delete: 'Poista',
+          deleteAria: 'Poista Valitut Rivit',
+        },
+      }
     
-  );
+    };
+    return (
+      <div className='Contacts'>
+        <div id='table'>
+          <MUIDataTable
+            title={'Yhteydenotot'}
+            data={this.state.newData}
+            columns={columns}
+            options={options}
+          />
+        </div>  
+      </div>
+      
+    );
+  }
 };
 
 export default Contacts;
