@@ -22,7 +22,6 @@ class UserGraph extends PureComponent {
     const width = this.chartWrapper.clientWidth;
     this.setState({height: height, width: width});
     window.addEventListener('resize', this.checkWindowSize.bind(this));
-    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
   checkWindowSize() {
@@ -38,9 +37,7 @@ class UserGraph extends PureComponent {
     }
   }
 
-  render() {
-    print('UserGraph', 'render');
-    
+  render() {    
     let padding = 5;
     let toGoal = this.props.goal - this.props.sales;
 

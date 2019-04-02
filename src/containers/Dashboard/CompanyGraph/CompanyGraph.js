@@ -34,7 +34,6 @@ class CompanyGraph extends PureComponent {
     const width = this.chartWrapper.clientWidth;
     this.setState({height: height, width: width});
     window.addEventListener('resize', this.checkWindowSize.bind(this));
-    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
   checkWindowSize() {
@@ -51,20 +50,15 @@ class CompanyGraph extends PureComponent {
   }
   
   onChange(event) {
-
-    print('CompanyGraph', 'onChange');
-
     let value = event.target.value;
     let id = event.target.id;
     switch(id) {
     case 'startDate':
-      console.log(value);
       this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
         this.props.changeDate(this.state.startDate, this.state.endDate);
       });
       break;
     case 'endDate':
-      console.log(value);
       this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
         this.props.changeDate(this.state.startDate, this.state.endDate);
       });
@@ -75,7 +69,6 @@ class CompanyGraph extends PureComponent {
   }
 
   render() {
-    print('CompanyGraph', 'render', this.state.data);    
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <div className='company-chart-header'>

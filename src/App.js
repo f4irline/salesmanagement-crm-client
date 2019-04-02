@@ -68,8 +68,8 @@ class App extends Component {
     let end = undefined;
     
     if (startDate === undefined && endDate === undefined) {
-      start = this.state.startDate;
-      end = this.state.endDate;
+      start = this.state.companyStartDate;
+      end = this.state.companyEndDate;
     } else {
       start = startDate;
       end = endDate;
@@ -172,7 +172,6 @@ class App extends Component {
     this.setState({loadingAdminData: true}, () => {
       axios.get('/admin')
         .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
-          console.log(this.state.adminData);
           this.setState({loadingAdminData: false});
         }));
     });

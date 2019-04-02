@@ -9,8 +9,6 @@ import {withStyles} from '@material-ui/core/styles';
 import { List, ListItemText, ListItem } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
-import {print} from '../../../utils/Debug';
-
 const styles = {
   itemContainer: {
     height: '100%'
@@ -41,12 +39,7 @@ class UserData extends Component {
   }
 
   render() {
-
-    print('UserData', 'render');
-
     const { classes } = this.props;
-
-    print('Userdata', 'render', 'Date: '+new Date(this.state.user.lastLogin).toLocaleString());
 
     const dateOptions = {
       year: 'numeric',
