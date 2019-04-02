@@ -31,18 +31,28 @@ class UserData extends Component {
           rowData.push(object[data]);
         }
       }
-      rowData.push(
-        <IconButton aria-label='Delete' onClick={()=>{
-          this.onClickDeleteHandler(object.userId)
-        }}>
-          <DeleteIcon />
-        </IconButton>
-      )
-      rowData.push(
-        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
-          <CreateIcon />
-        </IconButton>
-      )
+
+      if(object.userId != this.props.user_id) {
+        console.log(object.userId);
+        console.log(this.props.user_id);
+        console.log("===")
+        rowData.push(
+          <IconButton aria-label='Delete' onClick={()=>{
+            this.onClickDeleteHandler(object.userId)
+          }}>
+            <DeleteIcon />
+          </IconButton>
+        )
+        rowData.push(
+          <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+            <CreateIcon />
+          </IconButton>
+        )
+      } else {
+        rowData.push('');
+        rowData.push('');
+      }
+
       return rowData;
     });
     return newData;
