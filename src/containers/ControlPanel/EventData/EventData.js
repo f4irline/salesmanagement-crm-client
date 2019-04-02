@@ -63,20 +63,20 @@ class EventData extends Component {
     this.setState({newData: this.mapData(data)})
   }
 
-  onClickDeleteHandler() {
+  onClickDeleteHandler(e) {
+  
     this.setState({showDialog: true});
+  }
+  
+  onClickEditHandler() {
+    
   }
 
   onClickCloseHandler(name) {
     if(name === 'delete') {
-
       this.props.update();
     }
     this.setState({showDialog: false});
-  }
-
-  onClickEditHandler() {
-    
   }
 
   render() {
