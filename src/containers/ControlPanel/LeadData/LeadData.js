@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import MUIDataTable from 'mui-datatables';
 import './LeadData.css';
+import EditLead from './EditLead.js';
 
 class LeadData extends Component {
   
   state = {
     showDialog: false,
-    newData: []
+    newData: [],
+    dataToEdit : {}
   }
 
   mapData(data) {
@@ -29,6 +32,10 @@ class LeadData extends Component {
 
   onClickOpenHandler() {
     this.setState({showDialog: true});
+  }
+
+  onClickEditHandler = event => {
+    this.setState({dataToEdit : event});
   }
 
   render() {
@@ -144,12 +151,17 @@ class LeadData extends Component {
     return (
       <div className='LeadData'>
         <div id='table'>
-          <MUIDataTable
-            title={'Käyttäjät'}
-            data={this.state.newData}
-            columns={columns}
-            options={options}
-          />
+          <Route path='/admin/leads' render={
+            <MUIDataTable
+              title={'Käyttäjät'}
+              data={this.state.newData}
+              columns={columns}
+              options={options}
+            />
+          } />
+          <Route path='/admin/leads/edit' render={() => 
+            <EditLead data={this.state.dataToEdit}/>
+          } />
         </div>  
       </div>
     );
