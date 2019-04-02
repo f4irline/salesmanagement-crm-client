@@ -209,7 +209,7 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser 
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingCompany
       || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingAdminData) {
       return (
         <div className='App'>
