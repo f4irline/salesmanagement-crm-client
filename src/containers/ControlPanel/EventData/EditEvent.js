@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Button from '@material-ui/core/Button';
 
 import axios from '../../../axios-options';
 
@@ -57,7 +58,7 @@ class EditEvent extends Component {
 
     return (
       <Grid container direction='column' alignItems='center'>
-        <Grid item xs={12} style={{textAlign: 'center'}}>
+        <Grid item xs={12} style={{textAlign: 'center', marginTop: '5vh'}}>
           <Typography variant='h4' gutterBottom>
             TAPAHTUMAN MUOKKAUS
           </Typography>
@@ -168,6 +169,9 @@ class EditEvent extends Component {
               value={this.state.data.notes}></TextField>
           </Grid>
         </Grid>
+        <Button size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
+          Tallenna
+        </Button>
       </Grid>  
     );  
   }

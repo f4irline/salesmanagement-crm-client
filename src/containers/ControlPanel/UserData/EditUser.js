@@ -6,6 +6,7 @@ import axios from '../../../axios-options';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 class EditUser extends Component {
 
@@ -47,13 +48,13 @@ class EditUser extends Component {
 
     return (
       <Grid container direction='column' alignItems='center'>
-        <Grid item xs={12} style={{textAlign: 'center'}}>
+        <Grid item xs={11} style={{textAlign: 'center', marginTop: '5vh'}}>
           <Typography variant='h4' gutterBottom>
             KÄYTTÄJÄN MUOKKAUS
           </Typography>
         </Grid>
         <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={11}>
             <TextField
               fullWidth
               variant='outlined'
@@ -61,7 +62,7 @@ class EditUser extends Component {
               defaultValue={this.state.data.userId}
               disabled></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={11}>
             <TextField
               fullWidth
               variant='outlined'
@@ -71,7 +72,7 @@ class EditUser extends Component {
           </Grid>
         </Grid>
         <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={11}>
             <TextField
               fullWidth
               variant='outlined'
@@ -79,7 +80,7 @@ class EditUser extends Component {
               label='Sukunimi'
               defaultValue={this.state.data.userLast}></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={11}>
             <TextField
               fullWidth
               variant='outlined'
@@ -89,7 +90,7 @@ class EditUser extends Component {
           </Grid>
         </Grid>
         <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={11}>
+          <Grid style={{marginTop: '3vh'}} item xs={11}>
             <TextField
               fullWidth
               variant='outlined'
@@ -98,6 +99,9 @@ class EditUser extends Component {
               defaultValue={this.state.data.monthlyGoal}></TextField>
           </Grid>
         </Grid>
+        <Button size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
+          Tallenna
+        </Button>
       </Grid>
     );
   }

@@ -4,8 +4,6 @@ import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
-import {print} from '../../utils/Debug';
-
 class Leaderboards extends Component {
   state = {
     startDate: this.props.leaderDates[0],
@@ -20,9 +18,6 @@ class Leaderboards extends Component {
   onChange = this.onChange.bind(this);
 
   onChange(event) {
-
-    print('Leaderboards', 'onChange');
-
     let value = event.target.value;
     let id = event.target.id;
 
@@ -61,9 +56,6 @@ class Leaderboards extends Component {
   }
 
   mapData(data) {
-
-    print ('Leaderboards', 'mapData');
-
     if (new Date(this.state.endDate) < new Date(this.state.startDate)) {
       return [];
     }
@@ -95,9 +87,6 @@ class Leaderboards extends Component {
   }
   
   render() {
-
-    print ('Leaderboards', 'render');
-    console.log(this.state.data);
 
     if (this.state.loading) {
       return (

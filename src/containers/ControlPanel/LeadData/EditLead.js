@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import axios from '../../../axios-options';
 import {withRouter} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 class EditLead extends Component {
 
@@ -45,7 +46,7 @@ class EditLead extends Component {
 
     return(
       <Grid container direction='column' alignItems='center'>
-        <Grid item xs={12} style={{textAlign: 'center'}}>
+        <Grid item xs={12} style={{textAlign: 'center', marginTop: '5vh'}}>
           <Typography variant='h4' gutterBottom>
             LIIDIN MUOKKAUS
           </Typography>
@@ -150,6 +151,9 @@ class EditLead extends Component {
               onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
+        <Button size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
+          Tallenna
+        </Button>
       </Grid>
     );
 
