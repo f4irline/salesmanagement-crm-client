@@ -12,7 +12,11 @@ const Offers = (props) => {
         if (data === 'date' || data === 'notes' || data === 'sum') {
           rowData.push(object[data]);
         } else if(data === 'lead') {
-          rowData.push(object[data].companyName);
+          if(data.companyName !== undefined) {
+            rowData.push(object[data].companyName);
+          } else {
+            rowData.push('tuntematon');
+          }
         }
       }
       return rowData;

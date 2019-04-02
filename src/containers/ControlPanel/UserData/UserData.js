@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import './UserData.css';
-import AlertDialog from '../../../components/AlertDialog/AlertDialog'
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
@@ -31,18 +31,25 @@ class UserData extends Component {
           rowData.push(object[data]);
         }
       }
-      rowData.push(
-        <IconButton aria-label='Delete' onClick={()=>{
-          this.onClickDeleteHandler(object.userId)
-        }}>
-          <DeleteIcon />
-        </IconButton>
-      )
+
+      if(object.userId != this.props.user_id) {
+        rowData.push(
+          <IconButton aria-label='Delete' onClick={()=>{
+            this.onClickDeleteHandler(object.userId);
+          }}>
+            <DeleteIcon />
+          </IconButton>
+        );
+      } else {
+        rowData.push('');
+      }
+
       rowData.push(
         <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
           <CreateIcon />
         </IconButton>
-      )
+      );
+
       return rowData;
     });
     return newData;

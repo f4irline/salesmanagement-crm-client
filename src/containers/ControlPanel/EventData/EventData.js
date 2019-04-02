@@ -202,7 +202,7 @@ class EventData extends Component {
         <div id='table'>
           <Route path='/admin/events' exact render={() => 
             <MUIDataTable
-              title={'Käyttäjät'}
+              title={'Tapahtumat'}
               data={newData}
               columns={columns}
               options={options}

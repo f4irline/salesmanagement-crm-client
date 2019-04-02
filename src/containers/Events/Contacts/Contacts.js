@@ -11,7 +11,11 @@ const Contacts = (props) => {
       for (let data in object) {
         if (data !== 'eventId' && data !== 'eventType' && data !== 'user' && data !== 'sum' && data !== 'place') {
           if (data === 'lead') {
-            rowData.push(object[data].companyName);
+            if(data.companyName !== undefined) {
+              rowData.push(object[data].companyName);
+            } else {
+              rowData.push('tuntematon');
+            }
           } else {
             rowData.push(object[data]);
           }

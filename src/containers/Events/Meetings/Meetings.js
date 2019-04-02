@@ -12,7 +12,11 @@ const Meetings = (props) => {
         if (data === 'date' || data === 'place' || data === 'notes') {
           rowData.push(object[data]);
         } else if(data === 'lead') {
-          rowData.push(object[data].companyName);
+          if(data.companyName !== undefined) {
+            rowData.push(object[data].companyName);
+          } else {
+            rowData.push('tuntematon');
+          }
         }
       }
       return rowData;

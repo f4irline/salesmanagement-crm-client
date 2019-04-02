@@ -44,11 +44,6 @@ class LeadData extends Component {
     return newData;
   }
   
-  componentDidMount() {
-    const data = this.props.data;   
-    this.setState({newData: this.mapData(data)});
-  }
-
   onClickDeleteHandler(leadId) {
     this.setState({showDialog: true, leadId: leadId});
   }
@@ -72,6 +67,9 @@ class LeadData extends Component {
   }
 
   render() {
+    const data = this.props.data;   
+    const newData = this.mapData(data);
+
     const columns = [
       {
         name: 'ID',
@@ -192,7 +190,7 @@ class LeadData extends Component {
           <Route path='/admin/leads' exact render={() =>
             <MUIDataTable
               title={'Liidit'}
-              data={this.state.newData}
+              data={newData}
               columns={columns}
               options={options}
             />
