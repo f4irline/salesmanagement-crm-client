@@ -196,7 +196,7 @@ class EventData extends Component {
         {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
           <MUIDataTable
-            title={'Käyttäjät'}
+            title={'Tapahtumat'}
             data={this.state.newData}
             columns={columns}
             options={options}
