@@ -172,16 +172,6 @@ class App extends Component {
     });
   }
 
-  updateAdmin() {
-    this.setState({loadingControlPanel: true}, () => {
-      axios.get('/admin')
-        .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
-          this.setState({loadingControlPanel: false});
-          print('App', 'updateControlPanel');
-        }));
-    });
-  }
-
   /**
    * Handles logging the user in
    * 
