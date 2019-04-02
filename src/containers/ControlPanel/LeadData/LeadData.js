@@ -56,7 +56,7 @@ class LeadData extends Component {
   onClickEditHandler = event => {
     this.setState({dataToEdit: event}, () => {
       console.log(event);
-      this.props.history.push('/admin/leads/edit');
+      this.props.history.push('/admin/leads/edit/' + event.leadId);
     });
   }
 
@@ -197,7 +197,7 @@ class LeadData extends Component {
               options={options}
             />
           } />
-          <Route path='/admin/leads/edit' render={() =>
+          <Route path='/admin/leads/edit/:id' render={() =>
             <EditLead data={this.state.dataToEdit}/>
           } />
         </div>  

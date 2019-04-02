@@ -49,7 +49,7 @@ class EventData extends Component {
       }
       rowData.push(
         <IconButton aria-label='Delete' onClick={()=>{
-          this.onClickDeleteHandler(object.eventId)
+          this.onClickDeleteHandler(object.eventId);
         }}>
           <DeleteIcon />
         </IconButton>
@@ -67,14 +67,14 @@ class EventData extends Component {
   
   onClickEditHandler = (event) => {
     this.setState({dataToEdit: event}, () => {
-      this.props.history.push('/admin/events/edit');
+      this.props.history.push('/admin/events/edit/'+event.eventId);
     });
   }
 
   onClickDeleteHandler(eventId) {
     this.setState({showDialog: true, eventId: eventId});
   }
-
+  
   onClickCloseHandler(name) {
     if(name === 'delete') {
       axios.delete('/events/'+this.state.eventId)
@@ -208,7 +208,7 @@ class EventData extends Component {
               options={options}
             />
           } />
-          <Route path='/admin/events/edit' render={() => 
+          <Route path='/admin/events/edit/:id' render={() => 
             <EditEvent data={this.state.dataToEdit}/>
           } />
         </div>  
