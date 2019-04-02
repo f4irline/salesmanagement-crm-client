@@ -25,19 +25,38 @@ class Leaderboards extends Component {
 
     let value = event.target.value;
     let id = event.target.id;
-    switch(id) {
-    case 'startDate':
-      this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.props.updateDate(this.state.startDate, this.state.endDate);
-      });
-      break;
-    case 'endDate':
-      this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.props.updateDate(this.state.startDate, this.state.endDate);
-      });
-      break;
-    default:
-      break;
+
+    // eslint-disable-next-line
+    if (!value == '') {    
+      switch(id) {
+      case 'startDate':
+        this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      case 'endDate':
+        this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      default:
+        break;
+      }
+    } else {
+      switch(id) {
+      case 'startDate':
+        this.setState({startDate: new Date('Undefined')}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      case 'endDate':
+        this.setState({endDate: new Date('Undefined')}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      default:
+        break;
+      }  
     }
   }
 

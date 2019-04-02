@@ -58,11 +58,13 @@ class CompanyGraph extends PureComponent {
     let id = event.target.id;
     switch(id) {
     case 'startDate':
+      console.log(value);
       this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
         this.props.changeDate(this.state.startDate, this.state.endDate);
       });
       break;
     case 'endDate':
+      console.log(value);
       this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
         this.props.changeDate(this.state.startDate, this.state.endDate);
       });
@@ -88,9 +90,11 @@ class CompanyGraph extends PureComponent {
             type='date'
             defaultValue={this.state.startDate}
             style={{margin: 0}}
+            required
             InputLabelProps={{
               shrink: true,
             }}
+            SelectProps={null}
             onChange={this.onChange}
           />
           <TextField className='date'
@@ -99,6 +103,7 @@ class CompanyGraph extends PureComponent {
             type='date'
             defaultValue={this.state.endDate}
             style={{margin: 0}}
+            required
             InputLabelProps={{
               shrink: true,
             }}
