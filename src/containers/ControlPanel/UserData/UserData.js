@@ -43,7 +43,7 @@ class UserData extends Component {
         </IconButton>
       );
       rowData.push(
-        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+        <IconButton aria-label='Create' onClick={() => this.onClickEditHandler(object)}> 
           <CreateIcon />
         </IconButton>
       );
@@ -56,9 +56,9 @@ class UserData extends Component {
     this.setState({showDialog: true, userId: userId});
   }
   
-  onClickEditHandler = (userId) => {
-    this.setState({dataToEdit: userId}, () => {
-      this.props.history.push('/admin/users/edit');
+  onClickEditHandler = (user) => {
+    this.setState({dataToEdit: user}, () => {
+      this.props.history.push('/admin/users/edit/'+user.userId);
     });
   }
 

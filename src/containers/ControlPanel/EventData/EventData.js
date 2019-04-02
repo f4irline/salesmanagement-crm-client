@@ -69,7 +69,7 @@ class EventData extends Component {
   
   onClickEditHandler = (event) => {
     this.setState({dataToEdit: event}, () => {
-      this.props.history.push('/admin/events/edit');
+      this.props.history.push('/admin/events/edit/'+event.eventId);
     });
   }
 
@@ -206,7 +206,7 @@ class EventData extends Component {
               options={options}
             />
           } />
-          <Route path='/admin/events/edit' render={() => 
+          <Route path='/admin/events/edit/:id' render={() => 
             <EditEvent data={this.state.dataToEdit}/>
           } />
         </div>  
