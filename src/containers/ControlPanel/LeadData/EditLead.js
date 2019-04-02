@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField';
 
 const EditLead = (props) => {
 
+  function handleDateChange(event) {
+    event.preventDefault();
+  }
+
   return(
     <Grid container direction='column' alignItems='center'>
       <Grid item xs={12} style={{textAlign: 'center'}}>
@@ -13,66 +17,77 @@ const EditLead = (props) => {
         </Typography>
       </Grid>
       <Grid container>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
             disabled
-            label='Liidi ID'></TextField>
+            label='Liidi ID'
+            value={props.data.leadId}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
+          <TextField
+            label='Luotu'
+            fullWidth
+            variant='outlined'
+            type='date'
+            value={props.data.date}></TextField>
+        </Grid>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Luotu'></TextField>
+            label='Nimi'
+            value={props.data.companyName}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Nimi'></TextField>
+            label='Ala'
+            value={props.data.industry}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Ala'></TextField>
+            label='Yhteyshenkilö'
+            value={props.data.contactPerson}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Yhteyshenkilö'></TextField>
+            label='Rooli'
+            value={props.data.contactRole}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Rooli'></TextField>
+            label='Puhelin'
+            value={props.data.phoneNumber}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Puhelin'></TextField>
+            label='Email'
+            value={props.data.email}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='Email'></TextField>
+            label='WWW'
+            value={props.data.website}></TextField>
         </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
+        <Grid item container justify='center' xs={12} md={6}>
           <TextField
             fullWidth
             variant='outlined'
-            label='WWW'></TextField>
-        </Grid>
-        <Grid item container justify='center' xs={12} md={6} lg={3}>
-          <TextField
-            fullWidth
-            variant='outlined'
-            label='Huom'></TextField>
+            label='Huom'
+            value={props.data.notes}></TextField>
         </Grid>
       </Grid>
     </Grid> 

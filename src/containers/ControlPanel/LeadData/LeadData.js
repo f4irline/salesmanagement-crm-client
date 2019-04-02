@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import MUIDataTable from 'mui-datatables';
 import './LeadData.css';
 import EditLead from './EditLead.js';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import axios from '../../../axios-options';
 
 class LeadData extends Component {
   
   state = {
     showDialog: false,
     newData: [],
-    dataToEdit : {}
+    dataToEdit : {},
+    leadId: undefined
   }
 
   mapData(data) {
@@ -19,6 +26,18 @@ class LeadData extends Component {
       for (let data in object) {
         rowData.push(object[data]);
       }
+      rowData.push(
+        <IconButton aria-label='Delete' onClick={()=>{
+          this.onClickDeleteHandler(object.leadId)
+        }}>
+          <DeleteIcon />
+        </IconButton>
+      );
+      rowData.push(
+        <IconButton aria-label='Create' onClick={() => this.onClickEditHandler(object)}>
+          <CreateIcon />
+        </IconButton>
+      );
       return rowData;
     });
 
@@ -30,12 +49,26 @@ class LeadData extends Component {
     this.setState({newData: this.mapData(data)});
   }
 
-  onClickOpenHandler() {
-    this.setState({showDialog: true});
+  onClickDeleteHandler(leadId) {
+    this.setState({showDialog: true, leadId: leadId});
+  }
+  
+  onClickEditHandler = event => {
+    this.setState({dataToEdit: event}, () => {
+      console.log(event);
+      this.props.history.push('/admin/leads/edit');
+    });
   }
 
-  onClickEditHandler = event => {
-    this.setState({dataToEdit : event});
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
+      axios.delete('/leads/'+this.state.leadId)
+        .then((res) => {
+          this.props.update();
+        })
+        .catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
   }
 
   render() {
@@ -109,6 +142,10 @@ class LeadData extends Component {
           filter: false,
           sort: true,
         }
+      },{
+        name: 'Poista'
+      },{
+        name: 'Muokkaa'
       }
     ];
 
@@ -150,10 +187,11 @@ class LeadData extends Component {
 
     return (
       <div className='LeadData'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
-          <Route path='/admin/leads' exact render={
+          <Route path='/admin/leads' exact render={() =>
             <MUIDataTable
-              title={'Käyttäjät'}
+              title={'Liidit'}
               data={this.state.newData}
               columns={columns}
               options={options}
@@ -168,4 +206,4 @@ class LeadData extends Component {
   }
 }
 
-export default LeadData;
+export default withRouter(LeadData);
