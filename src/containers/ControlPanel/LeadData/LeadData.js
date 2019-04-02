@@ -151,7 +151,7 @@ class LeadData extends Component {
     return (
       <div className='LeadData'>
         <div id='table'>
-          <Route path='/admin/leads' render={
+          <Route path='/admin/leads' exact render={
             <MUIDataTable
               title={'Käyttäjät'}
               data={this.state.newData}
@@ -159,7 +159,7 @@ class LeadData extends Component {
               options={options}
             />
           } />
-          <Route path='/admin/leads/edit' render={() => 
+          <Route path='/admin/leads/edit' render={() =>
             <EditLead data={this.state.dataToEdit}/>
           } />
         </div>  
