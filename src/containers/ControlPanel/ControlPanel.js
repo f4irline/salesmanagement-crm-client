@@ -14,7 +14,7 @@ const ControlPanel = (props) => {
       <Switch>
         <Route path='/admin/users' render={() => <UserData data={props.data[0]} />} />
         <Route path='/admin/leads' render={() => <LeadData data={props.data[1]} />} />
-        <Route path='/admin/events' render={() => <EventData data={props.data[2]} />} />
+        <Route path='/admin/events' render={() => <EventData update={props.update} data={props.data[2]} />} />
       </Switch>
     </div>
   );
