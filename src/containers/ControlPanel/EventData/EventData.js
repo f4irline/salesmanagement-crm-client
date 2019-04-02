@@ -6,13 +6,14 @@ import AlertDialog from '../../../components/AlertDialog/AlertDialog'
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
-import Axios from 'axios';
+import axios from '../../../axios-options';
 
 class EventData extends Component {
 
   state = {
     showDialog: false,
-    newData: []
+    newData: [],
+    eventId:undefined
   }
 
   mapData(data) {
@@ -43,7 +44,9 @@ class EventData extends Component {
         }
       }
       rowData.push(
-        <IconButton aria-label='Delete' onClick={this.onClickDeleteHandler.bind(this)}>
+        <IconButton aria-label='Delete' onClick={()=>{
+          this.onClickDeleteHandler(object.eventId)
+        }}>
           <DeleteIcon />
         </IconButton>
       )
@@ -63,18 +66,20 @@ class EventData extends Component {
     this.setState({newData: this.mapData(data)})
   }
 
-  onClickDeleteHandler(e) {
-  
-    this.setState({showDialog: true});
+  onClickDeleteHandler(eventId) {
+    this.setState({showDialog: true, eventId: eventId});
   }
   
-  onClickEditHandler() {
-    
+  onClickEditHandler(eventId) {
   }
 
   onClickCloseHandler(name) {
     if(name === 'delete') {
-      this.props.update();
+      axios.delete('/events/'+this.state.eventId)
+      .then((res) => {
+        this.props.update();
+      })
+      .catch(err => console.log(err));
     }
     this.setState({showDialog: false});
   }
