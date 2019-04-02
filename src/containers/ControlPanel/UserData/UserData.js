@@ -15,8 +15,6 @@ class UserData extends Component {
 
   state = {
     showDialog: false,
-    //newData: [],
-    //userId: undefined,
     dataToEdit: {}
   }
 
@@ -176,7 +174,7 @@ class UserData extends Component {
               options={options}
             />
           } />
-          <Route path='/admin/users/edit' render={() => 
+          <Route path='/admin/users/edit/:id' render={() => 
             <EditUser data={this.state.dataToEdit}/>
           } />
         </div>  

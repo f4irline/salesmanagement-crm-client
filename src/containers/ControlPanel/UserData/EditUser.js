@@ -22,12 +22,19 @@ class EditUser extends Component {
 
   fetchData = () => {
     const { id } = this.props.match.params;
+    console.log(id);
     this.setState({loading: true}, () => {
       axios.get(`users/${id}`)
         .then((res) => { 
           this.setState({data: res.data, loading: false});
         })
         .catch(err => console.log(err));
+    });
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      data: Object.assign({}, this.state.data, {[e.target.name]: e.target.value})
     });
   }
 
@@ -58,10 +65,33 @@ class EditUser extends Component {
             <TextField
               fullWidth
               variant='outlined'
-              type='date'
               required
-              label='Päivämäärä'
-              defaultValue={this.state.data.date}></TextField>
+              label='Etunimi'
+              defaultValue={this.state.data.userFirst}></TextField>
+          </Grid>
+          <Grid item container justify='center' xs={6}>
+            <TextField
+              fullWidth
+              variant='outlined'
+              required
+              label='Sukunimi'
+              defaultValue={this.state.data.userLast}></TextField>
+          </Grid>
+          <Grid item container justify='center' xs={6}>
+            <TextField
+              fullWidth
+              variant='outlined'
+              required
+              label='Rooli'
+              defaultValue={this.state.data.role}></TextField>
+          </Grid>
+          <Grid item container justify='center' xs={12}>
+            <TextField
+              fullWidth
+              variant='outlined'
+              required
+              label='Kuukausitavoite'
+              defaultValue={this.state.data.monthlyGoal}></TextField>
           </Grid>
         </Grid>
       </Grid>

@@ -25,7 +25,7 @@ const ControlPanel = (props) => {
     <div className='Events'>
       <Tabs/>
       <Switch>
-        <Route path='/admin/users' render={() => <UserData update={props.update} leadNames={leadNames} data={props.data[0]} />} />
+        <Route path='/admin/users' render={() => <UserData update={props.update} data={props.data[0]} />} />
         <Route path='/admin/leads' render={() => <LeadData update={props.update} data={props.data[1]} />} />
         <Route path='/admin/events' render={() => <EventData update={props.update} leadNames={leadNames} data={props.data[2]} />} />
       </Switch>
