@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import './LeadData.css';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog'
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import axios from '../../../axios-options';
 
 class LeadData extends Component {
   
   state = {
     showDialog: false,
-    newData: []
+    newData: [],
+    leadId: undefined
   }
 
   mapData(data) {
@@ -16,6 +23,18 @@ class LeadData extends Component {
       for (let data in object) {
         rowData.push(object[data]);
       }
+      rowData.push(
+        <IconButton aria-label='Delete' onClick={()=>{
+          this.onClickDeleteHandler(object.leadId)
+        }}>
+          <DeleteIcon />
+        </IconButton>
+      )
+      rowData.push(
+        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+          <CreateIcon />
+        </IconButton>
+      )
       return rowData;
     });
 
@@ -27,8 +46,22 @@ class LeadData extends Component {
     this.setState({newData: this.mapData(data)});
   }
 
-  onClickOpenHandler() {
-    this.setState({showDialog: true});
+  onClickDeleteHandler(leadId) {
+    this.setState({showDialog: true, leadId: leadId});
+  }
+  
+  onClickEditHandler(leadId) {
+  }
+
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
+      axios.delete('/leads/'+this.state.leadId)
+      .then((res) => {
+        this.props.update();
+      })
+      .catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
   }
 
   render() {
@@ -102,6 +135,10 @@ class LeadData extends Component {
           filter: false,
           sort: true,
         }
+      },{
+        name: 'Poista'
+      },{
+        name: 'Muokkaa'
       }
     ];
 
@@ -143,6 +180,7 @@ class LeadData extends Component {
 
     return (
       <div className='LeadData'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
           <MUIDataTable
             title={'Käyttäjät'}

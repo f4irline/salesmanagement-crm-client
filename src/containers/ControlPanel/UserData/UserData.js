@@ -1,12 +1,23 @@
+import { Route, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import './UserData.css';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import axios from '../../../axios-options';
+
+import EditUser from './EditUser';
 
 class UserData extends Component {
 
   state = {
     showDialog: false,
-    newData: []
+    //newData: [],
+    //userId: undefined,
+    dataToEdit: {}
   }
 
   mapData(data) {
@@ -24,22 +35,49 @@ class UserData extends Component {
           rowData.push(object[data]);
         }
       }
+      rowData.push(
+        <IconButton aria-label='Delete' onClick={()=>{
+          this.onClickDeleteHandler(object.userId);
+        }}>
+          <DeleteIcon />
+        </IconButton>
+      );
+      rowData.push(
+        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+          <CreateIcon />
+        </IconButton>
+      );
       return rowData;
     });
     return newData;
   }
 
-  componentDidMount() {
-    const data = this.props.data;   
-    this.setState({newData: this.mapData(data)});
+  onClickDeleteHandler(userId) {
+    this.setState({showDialog: true, userId: userId});
+  }
+  
+  onClickEditHandler = (userId) => {
+    this.setState({dataToEdit: userId}, () => {
+      this.props.history.push('/admin/users/edit');
+    });
   }
 
-  onClickOpenHandler() {
-    this.setState({showDialog: true});
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
+      axios.delete('/users/'+this.state.userId)
+        .then((res) => {
+          this.props.update();
+        })
+        .catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
   }
 
   render() {
     console.log(this.state.newData);
+
+    const data = this.props.data;
+    const newData = this.mapData(data);
 
     const columns = [
       {
@@ -83,6 +121,10 @@ class UserData extends Component {
           filter: false,
           sort: true
         }
+      },{
+        name: 'Poista'
+      },{
+        name: 'Muokkaa'
       }
     ];
 
@@ -124,13 +166,19 @@ class UserData extends Component {
 
     return (
       <div className='UserData'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
-          <MUIDataTable
-            title={'Käyttäjät'}
-            data={this.state.newData}
-            columns={columns}
-            options={options}
-          />
+          <Route path='/admin/users' exact render={() => 
+            <MUIDataTable
+              title={'Käyttäjät'}
+              data={newData}
+              columns={columns}
+              options={options}
+            />
+          } />
+          <Route path='/admin/users/edit' render={() => 
+            <EditUser data={this.state.dataToEdit}/>
+          } />
         </div>  
       </div>
       
@@ -138,4 +186,4 @@ class UserData extends Component {
   }
 }
 
-export default UserData;
+export default withRouter(UserData);

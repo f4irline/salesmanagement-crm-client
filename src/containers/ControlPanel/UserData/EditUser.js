@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 const EditUser = (props) => {
+  console.log(props);
   return (
     <Grid container direction='column' alignItems='center'>
       <Grid item xs={12} style={{textAlign: 'center'}}>
@@ -15,3 +16,5 @@ const EditUser = (props) => {
     </Grid>
   );
 };
+
+export default EditUser;
