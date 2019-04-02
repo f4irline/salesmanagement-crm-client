@@ -29,8 +29,10 @@ class EditLead extends Component {
     });
   }
 
-  handleDateChange = event => {
-    event.preventDefault();
+  handleChange = (e) => {
+    this.setState({
+      data: Object.assign({}, this.state.data, {[e.target.name]: e.target.value})
+    });
   }
 
   render() {
@@ -61,66 +63,83 @@ class EditLead extends Component {
             <TextField
               label='Luotu'
               fullWidth
+              name='date'
               variant='outlined'
               type='date'
               value={this.state.data.date}
-              onChange={this.handleDateChange}></TextField>
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='companyName'
               label='Nimi'
-              value={this.state.data.companyName}></TextField>
+              value={this.state.data.companyName}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='industry'
               label='Ala'
-              value={this.state.data.industry}></TextField>
+              value={this.state.data.industry}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='contactPerson'
               label='Yhteyshenkilö'
-              value={this.state.data.contactPerson}></TextField>
+              value={this.state.data.contactPerson}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='contactRole'
               label='Rooli'
-              value={this.state.data.contactRole}></TextField>
+              value={this.state.data.contactRole}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='phoneNumber'
               label='Puhelin'
-              value={this.state.data.phoneNumber}></TextField>
+              value={this.state.data.phoneNumber}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='email'
               label='Email'
-              value={this.state.data.email}></TextField>
+              value={this.state.data.email}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='website'
               label='WWW'
-              value={this.state.data.website}></TextField>
+              value={this.state.data.website}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid item container justify='center' xs={12} md={6}>
             <TextField
               fullWidth
               variant='outlined'
+              name='notes'
               label='Huom'
-              value={this.state.data.notes}></TextField>
+              value={this.state.data.notes}
+              onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
       </Grid> 

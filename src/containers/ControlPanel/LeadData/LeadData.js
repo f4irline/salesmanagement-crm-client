@@ -28,7 +28,7 @@ class LeadData extends Component {
       }
       rowData.push(
         <IconButton aria-label='Delete' onClick={()=>{
-          this.onClickDeleteHandler(object.leadId)
+          this.onClickDeleteHandler(object.leadId);
         }}>
           <DeleteIcon />
         </IconButton>
