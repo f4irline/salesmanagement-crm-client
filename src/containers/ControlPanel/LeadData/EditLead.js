@@ -30,6 +30,12 @@ class EditLead extends Component {
     });
   }
 
+  handleSave = () => {
+    axios.put('/admin/leads/edit', this.state.data)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   handleChange = (e) => {
     this.setState({
       data: Object.assign({}, this.state.data, {[e.target.name]: e.target.value})
@@ -151,7 +157,7 @@ class EditLead extends Component {
               onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
-        <Button size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
+        <Button onClick={this.handleSave.bind(this)} size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
           Tallenna
         </Button>
       </Grid>

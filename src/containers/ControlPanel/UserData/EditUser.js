@@ -39,6 +39,12 @@ class EditUser extends Component {
     });
   }
 
+  handleSave = () => {
+    axios.put('/admin/users/edit', this.state.data)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -66,9 +72,11 @@ class EditUser extends Component {
             <TextField
               fullWidth
               variant='outlined'
+              name='userFirst'
               required
               label='Etunimi'
-              defaultValue={this.state.data.userFirst}></TextField>
+              defaultValue={this.state.data.userFirst}
+              onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
         <Grid container justify='space-around'>
@@ -76,17 +84,21 @@ class EditUser extends Component {
             <TextField
               fullWidth
               variant='outlined'
+              name='userLast'
               required
               label='Sukunimi'
-              defaultValue={this.state.data.userLast}></TextField>
+              defaultValue={this.state.data.userLast}
+              onChange={this.handleChange}></TextField>
           </Grid>
           <Grid style={{marginTop: '3vh'}} item xs={11}>
             <TextField
               fullWidth
               variant='outlined'
+              name='role'
               required
               label='Rooli'
-              defaultValue={this.state.data.role}></TextField>
+              defaultValue={this.state.data.role}
+              onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
         <Grid container justify='space-around'>
@@ -94,12 +106,14 @@ class EditUser extends Component {
             <TextField
               fullWidth
               variant='outlined'
+              name='monthlyGoal'
               required
               label='Kuukausitavoite'
-              defaultValue={this.state.data.monthlyGoal}></TextField>
+              defaultValue={this.state.data.monthlyGoal}
+              onChange={this.handleChange}></TextField>
           </Grid>
         </Grid>
-        <Button size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
+        <Button onClick={this.handleSave.bind(this)} size='large' style={{color: '#FFF', marginTop: '5vh', width: '15vw'}} variant='contained' color='primary'>
           Tallenna
         </Button>
       </Grid>
