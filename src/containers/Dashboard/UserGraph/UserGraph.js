@@ -44,15 +44,17 @@ class UserGraph extends PureComponent {
     let padding = 5;
     let toGoal = this.props.goal - this.props.sales;
 
-    const data = [
-      { name: 'Group A', value: this.props.sales }
-    ];
+    const data = [];
 
     if (toGoal > 0) {
+      data.push({ name: 'Group A', value: this.props.sales });
       data.push({ name: 'Group B', value: toGoal });
     } else {
+      let rpm = Math.floor(this.props.sales / this.props.goal);
       toGoal = 0;
       padding = 0;
+      data.push({ name: 'Group A', value: this.props.sales });
+      data.push({ name: 'Group B', value: rpm });
     }
 
     const COLORS = ['#D72322', '#222C35'];
