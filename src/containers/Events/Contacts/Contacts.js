@@ -20,12 +20,12 @@ const Contacts = (props) => {
       }
       return rowData;
     });
-
     return newData;
   };
 
   const data = props.data;   
   const newData = mapData(data);
+
   const columns = [
     {
       name: 'päivämäärä',
@@ -68,6 +68,10 @@ const Contacts = (props) => {
         filter: false,
         sort: true,
       }
+    }, {
+      name: 'Poista'
+    }, {
+      name: 'Muokkaa'
     }
   ];
 
@@ -106,7 +110,6 @@ const Contacts = (props) => {
     }
   
   };
-
   return (
     <div className='Contacts'>
       <div id='table'>

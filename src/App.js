@@ -238,7 +238,7 @@ class App extends Component {
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
-          <Route path='/admin' render={() => <ControlPanel data={this.state.adminData} />} />
+          <Route path='/admin' render={() => <ControlPanel update={this.updateAll.bind(this)} data={this.state.adminData} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>
