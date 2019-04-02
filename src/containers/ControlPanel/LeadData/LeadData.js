@@ -1,32 +1,24 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
-import './UserData.css';
+import './LeadData.css';
 
-const UserData = (props) => {
-
+const LeadData = (props) => {
+  
   const mapData = (data) => {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
-      let fullName = '';
       for (let data in object) {
-        if (data === 'userFirst') {
-          fullName += object[data]+' ';
-        } else if (data === 'userLast') {
-          fullName += object[data];
-          rowData.push(fullName);
-        } else {
-          rowData.push(object[data]);
-        }
+        rowData.push(object[data]);
       }
       return rowData;
     });
+
     return newData;
   };
-
+  
   const data = props.data;   
   const newData = mapData(data);
-
   const columns = [
     {
       name: 'ID',
@@ -43,14 +35,21 @@ const UserData = (props) => {
       }
     },
     {
-      name: 'Kirjautunut',
+      name: 'Nimi',
       options: {
         filter: false,
         sort: true,
       }
     },
     {
-      name: 'Nimi',
+      name: 'Ala',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Yhteyshenkilö',
       options: {
         filter: false,
         sort: true,
@@ -64,10 +63,31 @@ const UserData = (props) => {
       }
     },
     {
-      name: 'Tavoite',
+      name: 'Puhelin',
       options: {
         filter: false,
-        sort: true
+        sort: true,
+      }
+    },
+    {
+      name: 'Email',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'WWW',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Huom',
+      options: {
+        filter: false,
+        sort: true,
       }
     }
   ];
@@ -109,7 +129,7 @@ const UserData = (props) => {
   };
 
   return (
-    <div className='UserData'>
+    <div className='LeadData'>
       <div id='table'>
         <MUIDataTable
           title={'Käyttäjät'}
@@ -119,8 +139,7 @@ const UserData = (props) => {
         />
       </div>  
     </div>
-    
   );
 };
 
-export default UserData;
+export default LeadData;

@@ -18,7 +18,6 @@ import axios from './axios-options';
 
 import './App.css';
 
-const {print} = require('./utils/Debug');
 const {getDate} = require('./utils/Date');
 
 class App extends Component {
@@ -27,39 +26,41 @@ class App extends Component {
     loggedIn: true,
     modalOpen: false,
     user_id: '100001',
-    loadingLeads: false,
+    loadingLeads: true,
     loadingLeaderBoards: false,
     loadingUserEvents: false,
     loadingUser: false,
     loadingUserData: false,
     loadingCompany: false,
-    loadingControlPanel: false,
+    loadingAdminData: false,
     leads: [], 
     leaderBoards: [],
     userEvents: [],
     user: {},
     userData: {},
     companyData: [],
-    adminData: {},
-    startDate: getDate('monthFirst'),
-    endDate: getDate('monthLast')
+    companyStartDate: getDate('monthFirst'),
+    companyEndDate: getDate('monthLast'),
+    leaderStartDate: new Date('Undefined'),
+    leaderEndDate: new Date('Undefined')
   }
 
+  validateDate = this.validateDate.bind(this);
 
   componentDidMount() {
-    print('App', 'componentDidMount');
     if (this.state.loggedIn) {
       this.updateAll();
     }
   }
 
   updateAll() {
-    this.updateCompanyData(this.state.startDate, this.state.endDate);
+    this.updateCompanyData(this.state.companyStartDate, this.state.companyEndDate);
     this.updateLeads();
     this.updateLeaderBoards();
     this.updateUserEvents();
     this.updateUserData();
     this.updateUser();
+    this.updateAdmin();
   }
 
   updateCompanyData(startDate, endDate) {
@@ -75,7 +76,7 @@ class App extends Component {
     }
 
     let url_companyChart = `/companyChart/get/${start}/${end}`;
-    this.setState({loadingCompany: true, startDate: start, endDate: end}, () => {
+    this.setState({loadingCompany: true, companyStartDate: start, companyEndDate: end}, () => {
       axios.get(url_companyChart)
         .then(res => this.setState({companyData: res.data}, () => {
           this.setState({loadingCompany: false});
@@ -84,13 +85,11 @@ class App extends Component {
   }
 
   updateUserEvents() {
-    print('App', 'updateUserEvents');
     let url_userEvents = `/userEvents/${this.state.user_id}`;
     this.setState({loadingUserEvents: true}, () => {
       axios.get(url_userEvents)
         .then(userEvents => this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
           this.setState({loadingUserEvents: false});
-          print('App', 'updateUserEvents');
         }))
         .catch(err => console.log(err));
     });
@@ -102,7 +101,6 @@ class App extends Component {
       axios.get(url_userData)
         .then(userData => this.setState({userData: userData.data, modalOpen: false}, () => {
           this.setState({loadingUserData: false});
-          print('App', 'updateUserData');
         }))
         .catch(err => console.log(err));
     });
@@ -114,7 +112,6 @@ class App extends Component {
       axios.get(url_user)
         .then(user => this.setState({user: user.data}, () => {
           this.setState({loadingUser: false});
-          print('App', 'updateUser');
         }))
         .catch(err => console.log(err));
     });
@@ -125,8 +122,34 @@ class App extends Component {
       axios.get('/userData/all')
         .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
           this.setState({loadingLeaderBoards: false});
-          print('App', 'updateLeaderBoards');
         }));
+    });  
+  }
+
+  updateLeaderBoardsByDate(startDate, endDate) {
+    this.setState({leaderStartDate: startDate, leaderEndDate: endDate}, () => {
+      this.validateDate(startDate, endDate);
+    });
+  }
+
+  validateDate(startDate, endDate) {
+    this.setState({loadingLeaderBoards: true}, () => {
+      if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
+        axios.get(`/userData/all/${startDate}/${endDate}`)
+          .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+            this.setState({loadingLeaderBoards: false});
+          }));
+      } else if (startDate.toString() !== 'Invalid Date') {
+        axios.get(`/userData/all/${startDate}/2100-01-01`)
+          .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+            this.setState({loadingLeaderBoards: false});
+          }));
+      } else if (endDate.toString() !== 'Invalid Date') {
+        axios.get(`/userData/all/1970-01-01/${endDate}`)
+          .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
+            this.setState({loadingLeaderBoards: false});
+          }));
+      }  
     });
   }
 
@@ -135,7 +158,16 @@ class App extends Component {
       axios.get('/leads')
         .then(res => this.setState({leads: res.data, modalOpen: false}, () => {
           this.setState({loadingLeads: false});
-          print('App', 'updateLeads');
+        }));
+    });
+  }
+
+  updateAdmin() {
+    this.setState({loadingAdminData: true}, () => {
+      axios.get('/admin')
+        .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
+          console.log(this.state.adminData);
+          this.setState({loadingAdminData: false});
         }));
     });
   }
@@ -156,39 +188,28 @@ class App extends Component {
    * @param {String} name 
    */
   handleLogin(userId) {
-    console.log(userId);
-    print('App', 'hangleLogin');
     this.setState({loggedIn: true, user_id: userId}, () => {
       this.updateAll();
     });
   }
 
   handleLogout() {
-    print('App', 'handleLogout');
     this.setState({loggedIn: false});
   }
 
-  handleConfiguration () {
-    print('App', 'handleConfiguration');
-  }
-
   modalClose() {
-    print('App', 'modalClose');
     this.setState({modalOpen: false});
   }
 
   modalOpen() {
-    print('App', 'modalOpen');
     this.setState({modalOpen: true});
   }
 
   redirect() {
-    print('App', 'redirect');
     this.context.router.push('/');
   }
 
   render() {
-    print('App', 'render');
     if (!this.state.loggedIn) {
       return (
         <div>
@@ -198,31 +219,30 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingCompany) {
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser 
+      || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingAdminData) {
       return (
         <div className='App'>
-          <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
+          <Navigation handleLogout = {this.handleLogout.bind(this)} />
         </div>
       );
     }
-
-    console.log(this.state.userEvents);
     
     return (
       <div className='App'>
-        <Navigation handleLogout = {this.handleLogout.bind(this)} handleConfiguration = {this.handleConfiguration.bind(this)}/>
+        <Navigation handleLogout = {this.handleLogout.bind(this)} />
         <Switch>
           <Route path='/' render={() => <Dashboard 
             user={this.state.user} 
             userData={this.state.userData} 
             companyData={this.state.companyData}
-            companyDates={[this.state.startDate, this.state.endDate]}
+            companyDates={[this.state.companyStartDate, this.state.companyEndDate]}
             updateCompany={this.updateCompanyData.bind(this)} 
             user_id={this.state.user_id}/>} 
           exact />
-          <Route path='/leaderboards' render={() => <Leaderboards data={this.state.leaderBoards} />} />
+          <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
-          <Route path='/admin' render={() => <ControlPanel data={this.state.leaderBoards} />} />
+          <Route path='/admin' render={() => <ControlPanel data={this.state.adminData} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>

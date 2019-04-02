@@ -1,29 +1,42 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
-import './UserData.css';
+import './EventData.css';
 
-const UserData = (props) => {
+const EventData = (props) => {
 
   const mapData = (data) => {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
-      let fullName = '';
       for (let data in object) {
-        if (data === 'userFirst') {
-          fullName += object[data]+' ';
-        } else if (data === 'userLast') {
-          fullName += object[data];
-          rowData.push(fullName);
+        if (data === 'eventType') {
+          switch(object[data]) {
+          case 0:
+            rowData.push('Yhteydenotto');
+            break;
+          case 1:
+            rowData.push('Tapaaminen');
+            break;
+          case 2:
+            rowData.push('Tarjous');
+            break;
+          case 3:
+            rowData.push('Myynti');
+            break;
+          default:
+            rowData.push(undefined);
+            break;
+          }
         } else {
           rowData.push(object[data]);
         }
       }
       return rowData;
     });
+
     return newData;
   };
-
+  
   const data = props.data;   
   const newData = mapData(data);
 
@@ -43,31 +56,52 @@ const UserData = (props) => {
       }
     },
     {
-      name: 'Kirjautunut',
+      name: 'Yhteyshenkilö',
       options: {
         filter: false,
         sort: true,
       }
     },
     {
-      name: 'Nimi',
+      name: 'Puhelin',
       options: {
         filter: false,
         sort: true,
       }
     },
     {
-      name: 'Rooli',
+      name: 'Email',
       options: {
         filter: false,
         sort: true,
       }
     },
     {
-      name: 'Tavoite',
+      name: 'Tyyppi',
       options: {
         filter: false,
-        sort: true
+        sort: true,
+      }
+    },
+    {
+      name: 'Summa',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Paikka',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Huom',
+      options: {
+        filter: false,
+        sort: true,
       }
     }
   ];
@@ -109,7 +143,7 @@ const UserData = (props) => {
   };
 
   return (
-    <div className='UserData'>
+    <div className='EventData'>
       <div id='table'>
         <MUIDataTable
           title={'Käyttäjät'}
@@ -123,4 +157,4 @@ const UserData = (props) => {
   );
 };
 
-export default UserData;
+export default EventData;

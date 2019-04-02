@@ -46,13 +46,23 @@ class UserData extends Component {
 
     const { classes } = this.props;
 
+    print('Userdata', 'render', 'Date: '+new Date(this.state.user.lastLogin).toLocaleString());
+
+    const dateOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+
     return (
       <Grid item xs={12} lg={5} className='UserData' style={{minHeight: '46vh'}}>
         <Typography variant='h2' classes={{root: classes.header}}>
           Hei, {this.state.user.userFirst}
         </Typography>
         <Typography variant="h5" classes={{root: classes.login}}>
-          Sisäänkirjautunut viimeksi: {this.state.user.lastLogin}
+          Sisäänkirjautunut viimeksi: {new Date(this.state.user.lastLogin).toLocaleString('fi-FI', dateOptions)}
         </Typography>
         <Paper elevation={5} classes={{root: classes.paper}}>
           <div>

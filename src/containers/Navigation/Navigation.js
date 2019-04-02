@@ -15,7 +15,7 @@ const Navigation = (props) => {
     <div className='Navigation'>
       <div className='navigation-wrapper'>
         <NavItem url='/' icon={<Dashboard />}>Oma sivu</NavItem>
-        <NavItem url='/leaderboards' icon={<TableChart />}>Sijoitukset</NavItem>
+        <NavItem url='/leaderboards' icon={<TableChart />}>Tulostaulukko</NavItem>
         <NavItem url='/events' icon={<History />}>Tapahtumat</NavItem>
       </div>
       <div className='action-wrapper'>
