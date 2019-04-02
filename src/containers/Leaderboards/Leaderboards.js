@@ -73,13 +73,19 @@ class Leaderboards extends Component {
       let rowData = [];
       let fullName = '';
       for (let data in object) {
-        if (data === 'user_first') {
+        switch(data) {
+        case 'user_first': {
           fullName += object[data]+' ';
-        } else if (data === 'user_last') {
+          break;
+        }
+        case 'user_last': {
           fullName += object[data];
           rowData.push(fullName);
-        } else {
+          break;
+        }
+        default: {
           rowData.push(object[data]);
+        }
         }
       }
       return rowData;
@@ -114,49 +120,49 @@ class Leaderboards extends Component {
         }
       },
       {
-        name: 'Hit rate %',
+        name: 'Hit rate (%)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Keskim. myynti',
+        name: 'Keskim. myynti (€)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Kokonaismyynti',
+        name: 'Kokonaismyynti (€)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Yhteydenotot',
+        name: 'Yhteydenotot (kpl)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Tapaamiset',
+        name: 'Tapaamiset (kpl)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Tarjoukset',
+        name: 'Tarjoukset (kpl)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Sopimukset',
+        name: 'Sopimukset (kpl)',
         options: {
           filter: false,
           sort: true,
