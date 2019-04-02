@@ -15,9 +15,7 @@ class EventData extends Component {
 
   state = {
     showDialog: false,
-    dataToEdit: {},
-    newData: [],
-    eventId:undefined
+    dataToEdit: {}
   }
 
   mapData(data) {
@@ -65,16 +63,16 @@ class EventData extends Component {
     return newData;
   }
   
+  onClickDeleteHandler(e) {
+    this.setState({showDialog: true});
+  }
+  
   onClickEditHandler = (event) => {
     this.setState({dataToEdit: event}, () => {
       this.props.history.push('/admin/events/edit/'+event.eventId);
     });
   }
 
-  onClickDeleteHandler(eventId) {
-    this.setState({showDialog: true, eventId: eventId});
-  }
-  
   onClickCloseHandler(name) {
     if(name === 'delete') {
       axios.delete('/events/'+this.state.eventId)
