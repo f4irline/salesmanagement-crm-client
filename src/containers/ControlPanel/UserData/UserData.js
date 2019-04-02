@@ -63,10 +63,10 @@ class UserData extends Component {
   onClickCloseHandler(name) {
     if(name === 'delete') {
       axios.delete('/users/'+this.state.userId)
-      .then((res) => {
-        this.props.update();
-      })
-      .catch(err => console.log(err));
+        .then((res) => {
+          this.props.update();
+        })
+        .catch(err => console.log(err));
     }
     this.setState({showDialog: false});
   }

@@ -16,7 +16,8 @@ class EventData extends Component {
   state = {
     showDialog: false,
     dataToEdit: {},
-    eventId: undefined
+    newData: [],
+    eventId:undefined
   }
 
   mapData(data) {

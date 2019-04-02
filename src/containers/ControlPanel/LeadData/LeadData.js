@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import MUIDataTable from 'mui-datatables';
 import './LeadData.css';
-import AlertDialog from '../../../components/AlertDialog/AlertDialog'
+import EditLead from './EditLead.js';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
@@ -13,6 +15,7 @@ class LeadData extends Component {
   state = {
     showDialog: false,
     newData: [],
+    dataToEdit : {},
     leadId: undefined
   }
 
@@ -29,12 +32,12 @@ class LeadData extends Component {
         }}>
           <DeleteIcon />
         </IconButton>
-      )
+      );
       rowData.push(
-        <IconButton aria-label='Create' onClick={this.onClickEditHandler.bind(this)}>
+        <IconButton aria-label='Create' onClick={() => this.onClickEditHandler(object)}>
           <CreateIcon />
         </IconButton>
-      )
+      );
       return rowData;
     });
 
@@ -50,16 +53,20 @@ class LeadData extends Component {
     this.setState({showDialog: true, leadId: leadId});
   }
   
-  onClickEditHandler(leadId) {
+  onClickEditHandler = event => {
+    this.setState({dataToEdit: event}, () => {
+      console.log(event);
+      this.props.history.push('/admin/leads/edit/' + event.leadId);
+    });
   }
 
   onClickCloseHandler(name) {
     if(name === 'delete') {
       axios.delete('/leads/'+this.state.leadId)
-      .then((res) => {
-        this.props.update();
-      })
-      .catch(err => console.log(err));
+        .then((res) => {
+          this.props.update();
+        })
+        .catch(err => console.log(err));
     }
     this.setState({showDialog: false});
   }
@@ -182,16 +189,21 @@ class LeadData extends Component {
       <div className='LeadData'>
         {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table'>
-          <MUIDataTable
-            title={'Käyttäjät'}
-            data={this.state.newData}
-            columns={columns}
-            options={options}
-          />
+          <Route path='/admin/leads' exact render={() =>
+            <MUIDataTable
+              title={'Liidit'}
+              data={this.state.newData}
+              columns={columns}
+              options={options}
+            />
+          } />
+          <Route path='/admin/leads/edit/:id' render={() =>
+            <EditLead data={this.state.dataToEdit}/>
+          } />
         </div>  
       </div>
     );
   }
 }
 
-export default LeadData;
+export default withRouter(LeadData);
