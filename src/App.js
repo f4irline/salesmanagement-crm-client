@@ -294,7 +294,7 @@ class App extends Component {
     
     return (
       <div className='App'>
-        <Navigation handleLogout = {this.handleLogout.bind(this)} />
+        <Navigation roles={this.state.user_details.roles} handleLogout={this.handleLogout.bind(this)} />
         <Switch>
           <Route path='/' render={() => <Dashboard 
             user={this.state.user_details} 
@@ -306,7 +306,9 @@ class App extends Component {
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
-          <Route path='/admin' render={() => <ControlPanel update={this.updateAll.bind(this)} user_id={this.state.user_id} data={this.state.adminData} />} />
+          {this.state.user_details.roles[1] !== undefined ? 
+            <Route path='/admin' render={() => <ControlPanel update={this.updateAll.bind(this)} user_id={this.state.user_id} data={this.state.adminData} />} />
+            : null}
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>

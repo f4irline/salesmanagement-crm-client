@@ -11,6 +11,7 @@ import TableChart from '@material-ui/icons/TableChart';
 import History from '@material-ui/icons/History';
 
 const Navigation = (props) => {
+  console.log(props);
   return (
     <div className='Navigation'>
       <div className='navigation-wrapper'>
@@ -19,7 +20,10 @@ const Navigation = (props) => {
         <NavItem url='/events' icon={<History />}>Tapahtumat</NavItem>
       </div>
       <div className='action-wrapper'>
-        <NavItem url='/admin' icon={<Settings />}>Hallinta</NavItem>
+        {props.roles !== undefined && props.roles[1] !== undefined ? 
+          <NavItem url='/admin' icon={<Settings />}>Hallinta</NavItem>
+          : null
+        }
         <ActionItem icon = {<ExitToApp/>} onClick = {props.handleLogout}>Kirjaudu ulos</ActionItem>
       </div>
     </div>
