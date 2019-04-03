@@ -34,7 +34,6 @@ class CompanyGraph extends PureComponent {
     const width = this.chartWrapper.clientWidth;
     this.setState({height: height, width: width});
     window.addEventListener('resize', this.checkWindowSize.bind(this));
-    print('UserGraph', 'componentDidMount', `width: ${width}, height: ${height}`);
   }
 
   checkWindowSize() {
@@ -51,9 +50,6 @@ class CompanyGraph extends PureComponent {
   }
   
   onChange(event) {
-
-    print('CompanyGraph', 'onChange');
-
     let value = event.target.value;
     let id = event.target.id;
     switch(id) {
@@ -73,7 +69,6 @@ class CompanyGraph extends PureComponent {
   }
 
   render() {
-    print('CompanyGraph', 'render');    
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <div className='company-chart-header'>
@@ -88,9 +83,11 @@ class CompanyGraph extends PureComponent {
             type='date'
             defaultValue={this.state.startDate}
             style={{margin: 0}}
+            required
             InputLabelProps={{
               shrink: true,
             }}
+            SelectProps={null}
             onChange={this.onChange}
           />
           <TextField className='date'
@@ -99,6 +96,7 @@ class CompanyGraph extends PureComponent {
             type='date'
             defaultValue={this.state.endDate}
             style={{margin: 0}}
+            required
             InputLabelProps={{
               shrink: true,
             }}
@@ -131,8 +129,8 @@ class CustomizedDot extends PureComponent {
     const {
       cx, cy, color,
     } = this.props;
-  
-    if (this.props.index % 3 === 0 || this.props.index === this.props.days - 1) {
+    let amount = Math.floor(this.props.days / 8);
+    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days) {
       return (
         <circle r="3" stroke={color} strokeWidth="1" fill="#fff" width="543.2" height="147.1" className="recharts-dot recharts-line-dot" cx={cx} cy={cy}></circle>
       );  
@@ -147,8 +145,8 @@ class CustomizedLabel extends PureComponent {
     const {
       x, y, stroke, value,
     } = this.props;
-    
-    if (this.props.index % 3 === 0 || this.props.index === this.props.days - 1) {
+    let amount = Math.floor(this.props.days / 8);
+    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days) {
       return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
     }
 
@@ -161,8 +159,8 @@ class CustomizedAxisTick extends PureComponent {
     const {
       x, y, payload,
     } = this.props;
-
-    if (this.props.index % 3 === 0) {
+    let amount = Math.floor(this.props.days / 8);
+    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days)  {
       return (
         <g transform={`translate(${x},${y})`}>
           <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>

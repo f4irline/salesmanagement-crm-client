@@ -23,3 +23,7 @@
 .add-icon:hover {
   background-color: rgb(65, 89, 109) !important; 
 }
+
+input[type=date]::-webkit-inner-spin-button {
+  visibility: hidden;
+}

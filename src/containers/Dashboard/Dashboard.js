@@ -9,22 +9,12 @@ import UserData from './UserData/UserData';
 import UserGraph from './UserGraph/UserGraph';
 import CompanyGraph from './CompanyGraph/CompanyGraph';
 
-import {print} from '../../utils/Debug';
-
 class Dashboard extends Component {
   state = {
     user_id: this.props.user_id,
     user: this.props.user,
     userData: this.props.userData,
     company: this.props.companyData
-  }
-  
-  componentDidMount() {
-    print('Dashboard', 'componentDidMount');
-  }
-
-  componentWillUnmount() {
-    print('Dashboard', 'componentWillUnmount');
   }
 
   shouldComponentUpdate(nextProps, nextState) {

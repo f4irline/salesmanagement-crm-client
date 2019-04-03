@@ -19,7 +19,10 @@ const Navigation = (props) => {
         <NavItem url='/events' icon={<History />}>Tapahtumat</NavItem>
       </div>
       <div className='action-wrapper'>
-        <NavItem url='/admin/users' icon={<Settings />}>Hallinta</NavItem>
+        {props.roles !== undefined && props.roles[1] !== undefined ? 
+          <NavItem url='/admin' icon={<Settings />}>Hallinta</NavItem>
+          : null
+        }
         <ActionItem icon = {<ExitToApp/>} onClick = {props.handleLogout}>Kirjaudu ulos</ActionItem>
       </div>
     </div>

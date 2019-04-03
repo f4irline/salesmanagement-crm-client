@@ -9,23 +9,18 @@ const Contacts = (props) => {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data !== 'eventId' && data !== 'eventType' && data !== 'user' && data !== 'sum' && data !== 'place') {
-          if (data === 'lead') {
-            rowData.push(object[data].companyName);
-          } else {
-            rowData.push(object[data]);
-          }
-          
+        if (data !== 'eventId' && data !== 'eventType' && data !== 'user' && data !== 'sum' && data !== 'place' && data !== 'lead') {
+          rowData.push(object[data]);          
         }
       }
       return rowData;
     });
-
     return newData;
   };
 
   const data = props.data;   
   const newData = mapData(data);
+
   const columns = [
     {
       name: 'päivämäärä',
@@ -106,7 +101,6 @@ const Contacts = (props) => {
     }
   
   };
-
   return (
     <div className='Contacts'>
       <div id='table'>

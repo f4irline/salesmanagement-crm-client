@@ -9,11 +9,9 @@ const Meetings = (props) => {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data === 'date' || data === 'place' || data === 'notes') {
+        if (data === 'date' || data === 'companyName' || data === 'place' || data === 'notes') {
           rowData.push(object[data]);
-        } else if(data === 'lead') {
-          rowData.push(object[data].companyName);
-        }
+        } 
       }
       return rowData;
     });

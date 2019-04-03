@@ -6,26 +6,39 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import './Login.css';
 
-import {print} from '../../utils/Debug';
+import axios from '../../axios-options';
 
 class Login extends Component {
 
   state = {
-    user_id: '',
-    password: ''
+    userName: '',
+    password: '',
+    error: false
   }
 
   handleButtonClick() {
-    print('Login', 'handleButtonClick');
-    console.log(this.state.user_id);
-    this.props.onLogin(this.state.user_id);
+    let user = {
+      userName: this.state.userName,
+      password: this.state.password
+    };
+
+    axios.post('/auth/login', user, {
+      credentials: 'include'
+    })
+      .then((res) => {
+        localStorage.setItem('accessToken', res.data.accessToken);
+        this.props.onLogin();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({error: true});
+      });
   }
 
   handleInputChange(event) {
-    print('Login', 'handleInputChange');
     switch (event.target.name) {
-    case 'user_id':
-      this.setState({user_id: event.target.value});
+    case 'userName':
+      this.setState({userName: event.target.value});
       break;
     case 'password':
       this.setState({password: event.target.value});
@@ -36,7 +49,6 @@ class Login extends Component {
   }
 
   render() {
-    print('Login', 'render');
     return (
       <div className='Login'>
         <Paper className='MuiPaper-root-1' elevation={5}>
@@ -46,12 +58,12 @@ class Login extends Component {
           <Divider />
           <TextField
             className='login-item'
-            label='Työntekijä id'
-            value={this.state.user_id}
+            label='Käyttäjätunnus id'
+            value={this.state.userName}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
-            name='user_id'
-            type='number'
+            name='userName'
+            type='text'
           />
           <TextField
             className='login-item'

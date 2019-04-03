@@ -1,10 +1,24 @@
-import React from 'react';
+import { Route, withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import './UserData.css';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 
-const UserData = (props) => {
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import axios from '../../../axios-options';
 
-  const mapData = (data) => {
+import EditUser from './EditUser';
+
+class UserData extends Component {
+
+  state = {
+    showDialog: false,
+    dataToEdit: {}
+  }
+
+  mapData(data) {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -19,108 +33,169 @@ const UserData = (props) => {
           rowData.push(object[data]);
         }
       }
+
+      // eslint-disable-next-line
+      if(object.userId != this.props.user_id) {
+        rowData.push(
+          <IconButton aria-label='Delete' onClick={()=>{
+            this.onClickDeleteHandler(object.userId);
+          }}>
+            <DeleteIcon />
+          </IconButton>
+        );
+      } else {
+        rowData.push('');
+      }
+
+      rowData.push(
+        <IconButton aria-label='Create' onClick={() => this.onClickEditHandler(object)}> 
+          <CreateIcon />
+        </IconButton>
+      );
       return rowData;
     });
     return newData;
-  };
+  }
 
-  const data = props.data;   
-  const newData = mapData(data);
-
-  const columns = [
-    {
-      name: 'ID',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Luotu',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Kirjautunut',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Nimi',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Rooli',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Tavoite',
-      options: {
-        filter: false,
-        sort: true
-      }
-    }
-  ];
-
-  const options = {
-    filterType: 'multiselect',
-    selectableRows: false,
-    search: false,
-    filter: false,
-    textLabels: {
-      body: {
-        noMatch: 'Ei tuloksia',
-        toolTip: 'Järjestä',
-      },
-      pagination: {
-        next: 'Seuraava sivu',
-        previous: 'Edellinen sivu',
-        rowsPerPage: 'Rivejä / sivu:',
-        displayRows: '-',
-      },
-      toolbar: {
-        search: 'Etsi',
-        downloadCsv: 'Lataa CSV',
-        print: 'Tulosta',
-        viewColumns: 'Sarakkeet',
-        filterTable: 'Suodata',
-      },
-      viewColumns: {
-        title: 'Näytetyt Sarakkeet',
-        titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
-      },
-      selectedRows: {
-        text: 'rivejä valittu',
-        delete: 'Poista',
-        deleteAria: 'Poista Valitut Rivit',
-      },
-    }
+  onClickDeleteHandler(userId) {
+    this.setState({showDialog: true, userId: userId});
+  }
   
-  };
+  onClickEditHandler = (user) => {
+    this.setState({dataToEdit: user}, () => {
+      this.props.history.push('/admin/users/edit/'+user.userId);
+    });
+  }
 
-  return (
-    <div className='UserData'>
-      <div id='table'>
-        <MUIDataTable
-          title={'Käyttäjät'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
-      </div>  
-    </div>
+  onClickCloseHandler(name) {
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    if(name === 'delete') {
+      axios.delete('/users/'+this.state.userId, options)
+        .then((res) => {
+          this.props.update();
+        })
+        .catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
+  }
+
+  render() {
+
+    const data = this.props.data;
+    const newData = this.mapData(data);
+
+    const columns = [
+      {
+        name: 'ID',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Luotu',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Kirjautunut',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Nimi',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Rooli',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Tavoite',
+        options: {
+          filter: false,
+          sort: true
+        }
+      },{
+        name: 'Poista'
+      },{
+        name: 'Muokkaa'
+      }
+    ];
+
+    const options = {
+      filterType: 'multiselect',
+      selectableRows: false,
+      search: false,
+      filter: false,
+      textLabels: {
+        body: {
+          noMatch: 'Ei tuloksia',
+          toolTip: 'Järjestä',
+        },
+        pagination: {
+          next: 'Seuraava sivu',
+          previous: 'Edellinen sivu',
+          rowsPerPage: 'Rivejä / sivu:',
+          displayRows: '-',
+        },
+        toolbar: {
+          search: 'Etsi',
+          downloadCsv: 'Lataa CSV',
+          print: 'Tulosta',
+          viewColumns: 'Sarakkeet',
+          filterTable: 'Suodata',
+        },
+        viewColumns: {
+          title: 'Näytetyt Sarakkeet',
+          titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+        },
+        selectedRows: {
+          text: 'rivejä valittu',
+          delete: 'Poista',
+          deleteAria: 'Poista Valitut Rivit',
+        },
+      }
     
-  );
-};
+    };
 
-export default UserData;
+    return (
+      <div className='UserData'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
+        <div id='table'>
+          <Route path='/admin/users' exact render={() => 
+            <MUIDataTable
+              title={'Käyttäjät'}
+              data={newData}
+              columns={columns}
+              options={options}
+            />
+          } />
+          <Route path='/admin/users/edit/:id' render={() => 
+            <EditUser roleNames={this.props.roleNames} update={this.props.update} />
+          } />
+        </div>  
+      </div>
+      
+    );
+  }
+}
+
+export default withRouter(UserData);

@@ -4,8 +4,6 @@ import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
 
-import {print} from '../../utils/Debug';
-
 class Leaderboards extends Component {
   state = {
     startDate: this.props.leaderDates[0],
@@ -20,31 +18,44 @@ class Leaderboards extends Component {
   onChange = this.onChange.bind(this);
 
   onChange(event) {
-
-    print('Leaderboards', 'onChange');
-
     let value = event.target.value;
     let id = event.target.id;
-    switch(id) {
-    case 'startDate':
-      this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.props.updateDate(this.state.startDate, this.state.endDate);
-      });
-      break;
-    case 'endDate':
-      this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
-        this.props.updateDate(this.state.startDate, this.state.endDate);
-      });
-      break;
-    default:
-      break;
+
+    // eslint-disable-next-line
+    if (!value == '') {    
+      switch(id) {
+      case 'startDate':
+        this.setState({startDate: new Date(value).toISOString().slice(0, 10)}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      case 'endDate':
+        this.setState({endDate: new Date(value).toISOString().slice(0, 10)}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      default:
+        break;
+      }
+    } else {
+      switch(id) {
+      case 'startDate':
+        this.setState({startDate: new Date('Undefined')}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      case 'endDate':
+        this.setState({endDate: new Date('Undefined')}, () => {
+          this.props.updateDate(this.state.startDate, this.state.endDate);
+        });
+        break;
+      default:
+        break;
+      }  
     }
   }
 
   mapData(data) {
-
-    print ('Leaderboards', 'mapData');
-
     if (new Date(this.state.endDate) < new Date(this.state.startDate)) {
       return [];
     }
@@ -54,13 +65,19 @@ class Leaderboards extends Component {
       let rowData = [];
       let fullName = '';
       for (let data in object) {
-        if (data === 'user_first') {
+        switch(data) {
+        case 'user_first': {
           fullName += object[data]+' ';
-        } else if (data === 'user_last') {
+          break;
+        }
+        case 'user_last': {
           fullName += object[data];
           rowData.push(fullName);
-        } else {
+          break;
+        }
+        default: {
           rowData.push(object[data]);
+        }
         }
       }
       return rowData;
@@ -70,9 +87,6 @@ class Leaderboards extends Component {
   }
   
   render() {
-
-    print ('Leaderboards', 'render');
-    console.log(this.state.data);
 
     if (this.state.loading) {
       return (
@@ -95,49 +109,49 @@ class Leaderboards extends Component {
         }
       },
       {
-        name: 'Hit rate %',
+        name: 'Hit rate (%)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Keskim. myynti',
+        name: 'Keskim. myynti (€)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Kokonaismyynti',
+        name: 'Kokonaismyynti (€)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Yhteydenotot',
+        name: 'Yhteydenotot (kpl)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Tapaamiset',
+        name: 'Tapaamiset (kpl)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Tarjoukset',
+        name: 'Tarjoukset (kpl)',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Sopimukset',
+        name: 'Sopimukset (kpl)',
         options: {
           filter: false,
           sort: true,

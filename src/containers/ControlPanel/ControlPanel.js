@@ -12,6 +12,8 @@ import EventData from './EventData/EventData';
 import LeadData from './LeadData/LeadData';
 import UserData from './UserData/UserData';
 
+import MenuItem from '@material-ui/core/MenuItem';
+
 const ControlPanel = (props) => {
 
   const adminLinks = [
@@ -32,13 +34,33 @@ const ControlPanel = (props) => {
     }
   ];
 
+  const mapLeadNames = () => {
+    const leadNames = props.data[1].map(lead => {
+      return <MenuItem key={lead.companyName} value={lead.companyName}>{lead.companyName}</MenuItem>;
+    });
+
+    return leadNames;
+  };
+
+  const mapRoleNames = () => {
+    const roleNames = ['ROLE_ADMIN', 'ROLE_USER'].map(role => {
+      return <MenuItem key={role} value={role}>{role}</MenuItem>;
+    });
+
+    return roleNames;
+  };
+
+  const leadNames = mapLeadNames();
+  const roleNames = mapRoleNames();
+
   return (
     <div className='Events'>
+      {/*<Tabs/> */}
       <Drawer drawerTitle={'Hallinta'} links={adminLinks}>
         <Switch>
-          <Route path='/admin/users' render={() => <UserData data={props.data[0]} />} />
-          <Route path='/admin/leads' render={() => <LeadData data={props.data[1]} />} />
-          <Route path='/admin/events' render={() => <EventData data={props.data[2]} />} />
+          <Route path='/admin/users' render={() => <UserData update={props.update} data={props.data[0]} roleNames={roleNames} user_id={props.user_id} />} />
+          <Route path='/admin/leads' render={() => <LeadData update={props.update} data={props.data[1]} />} />
+          <Route path='/admin/events' render={() => <EventData update={props.update} data={props.data[2]} leadNames={leadNames} />} />
         </Switch>
       </Drawer>
     </div>

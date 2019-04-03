@@ -1,5 +1,4 @@
 export const getDate = (date, value) => {
-  console.log(`getDate(date: ${date}, value: ${value})`);
   let newDate;
   if (value != null) {
     newDate = new Date(value);
