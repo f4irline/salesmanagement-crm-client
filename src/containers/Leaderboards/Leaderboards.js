@@ -205,6 +205,7 @@ class Leaderboards extends Component {
             id='startDate'
             label='Aloitus päivämäärä'
             type='date'
+            placeholder='dd.mm.yyyy'
             defaultValue={this.state.startDate}
             InputLabelProps={{
               shrink: true,
@@ -215,6 +216,7 @@ class Leaderboards extends Component {
             id='endDate'
             label='Lopetus päivämäärä'
             type='date'
+            placeholder='dd.mm.yyyy'
             defaultValue={this.state.endDate}
             InputLabelProps={{
               shrink: true,

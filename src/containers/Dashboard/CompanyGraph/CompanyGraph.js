@@ -81,6 +81,7 @@ class CompanyGraph extends PureComponent {
             id='startDate'
             label='Aloitus päivämäärä'
             type='date'
+            placeholder='dd.mm.yyyy'
             defaultValue={this.state.startDate}
             style={{margin: 0}}
             required
@@ -94,6 +95,7 @@ class CompanyGraph extends PureComponent {
             id='endDate'
             label='Lopetus päivämäärä'
             type='date'
+            placeholder='dd.mm.yyyy'
             defaultValue={this.state.endDate}
             style={{margin: 0}}
             required
