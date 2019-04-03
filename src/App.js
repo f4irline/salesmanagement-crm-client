@@ -36,7 +36,6 @@ class App extends Component {
     loadingAdminData: true,
     loadingLeaderBoards: true,
     loadingUserEvents: true,
-    loadingUser: true,
     loadingUserData: true,
     loadingCompany: true,
     leads: [], 
@@ -68,7 +67,6 @@ class App extends Component {
     this.updateLeaderBoards();
     this.updateUserEvents();
     this.updateUserData();
-    this.updateUser();
     this.updateAdmin();
   }
 
@@ -102,16 +100,20 @@ class App extends Component {
   updateUserEvents() {
     const jwt = localStorage.getItem('accessToken');
 
-    let url_userEvents = `/userEvents/${this.state.user_id}`;
+    let url_userEvents = `/userEvents/${this.state.user_details.userId}`;
     this.setState({loadingUserEvents: true}, () => {
       axios.get(url_userEvents, {
         headers: {
           Authorization: `Bearer ${jwt}`
         }
       })
-        .then(userEvents => this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
-          this.setState({loadingUserEvents: false});
-        }))
+        .then(userEvents => {
+          console.log('userEvents:');
+          console.log(userEvents);
+          this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
+            this.setState({loadingUserEvents: false});
+          });
+        })
         .catch(err => console.log(err));
     });
   }
@@ -126,26 +128,13 @@ class App extends Component {
           Authorization: `Bearer ${jwt}`
         }
       })
-        .then(userData => this.setState({userData: userData.data, modalOpen: false}, () => {
-          this.setState({loadingUserData: false});
-        }))
-        .catch(err => console.log(err));
-    });
-  }
-
-  updateUser() {
-    const jwt = localStorage.getItem('accessToken');
-
-    let url_user = `/users/${this.state.user_details.userId}`;
-    this.setState({loadingUser: true}, () => {
-      axios.get(url_user, {
-        headers: {
-          Authorization: `Bearer ${jwt}`
-        }
-      })
-        .then(user => this.setState({user: user.data}, () => {
-          this.setState({loadingUser: false});
-        }))
+        .then(userData => {
+          console.log('userData:');
+          console.log(userData);
+          this.setState({userData: userData.data, modalOpen: false}, () => {
+            this.setState({loadingUserData: false});
+          });
+        })
         .catch(err => console.log(err));
     });
   }
@@ -255,6 +244,7 @@ class App extends Component {
       }
     })
       .then((res) => {
+        console.log('user_details:');
         console.log(res);
         if (res.data.user === undefined) {
           this.setState({loggedIn: false, user_details: this.anonUserDetails});
@@ -293,7 +283,7 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingCompany
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingCompany
       || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingAdminData) {
       return (
         <div className='App'>
@@ -307,7 +297,7 @@ class App extends Component {
         <Navigation handleLogout = {this.handleLogout.bind(this)} />
         <Switch>
           <Route path='/' render={() => <Dashboard 
-            user={this.state.user} 
+            user={this.state.user_details} 
             userData={this.state.userData} 
             companyData={this.state.companyData}
             companyDates={[this.state.companyStartDate, this.state.companyEndDate]}
