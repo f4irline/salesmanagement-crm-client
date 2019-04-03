@@ -25,9 +25,15 @@ class EditEvent extends Component {
   }
 
   fetchData = () => {
+    const jwt = localStorage.getItem('accessToken');
+
     const { id } = this.props.match.params;
     this.setState({loading: true}, () => {
-      axios.get(`event/${id}`)
+      axios.get(`event/${id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then((res) => { 
           this.setState({data: res.data}, () => {
             this.setState({loading: false, companyName: this.state.data.lead.companyName});
@@ -38,7 +44,15 @@ class EditEvent extends Component {
   }
 
   handleSave = () => {
-    axios.put('/admin/events/edit', this.state.data)
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    axios.put('/admin/events/edit', this.state.data, options)
       .then((res) => {
         console.log(res);
         this.props.update();

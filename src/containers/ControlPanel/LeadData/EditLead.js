@@ -20,9 +20,15 @@ class EditLead extends Component {
   }
 
   fetchData = () => {
+    const jwt = localStorage.getItem('accessToken');
+
     const { id } = this.props.match.params;
     this.setState({loading: true}, () => {
-      axios.get(`leads/${id}`)
+      axios.get(`leads/${id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then((res) => { 
           this.setState({data: res.data, loading: false});
         })
@@ -31,7 +37,15 @@ class EditLead extends Component {
   }
 
   handleSave = () => {
-    axios.put('/admin/leads/edit', this.state.data)
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    axios.put('/admin/leads/edit', this.state.data, options)
       .then((res) => {
         console.log(res);
         this.props.update();

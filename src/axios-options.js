@@ -4,17 +4,23 @@ let instance = null;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   instance = axios.create({
-    baseURL: 'http://localhost:8080/api'
+    withCredentials: true,
+    baseURL: '/api'
   });
 } else {
-  const CSRF_TOKEN = document.cookie.match(new RegExp('XSRF-TOKEN=([^;]+)'))[1];
+  // Remove comments from CSRT_TOKEN variable and the X-XSRF-TOKEN header for production.
+  // Also replace the 'baseURL' value with the correct value for the server backend (e.g. Heroku).
+
+  // const CSRF_TOKEN = document.cookie.match(new RegExp('XSRF-TOKEN=([^;]+)'))[1];
 
   instance = axios.create({
-    baseURL: 'https://vc-system-server.herokuapp.com/api',
+    withCredentials: true,
+    baseURL: 'http://localhost:8080/api',
+    // baseURL: 'https://vc-system-server.herokuapp.com/api',
     headers: { 
-      'X-XSRF-TOKEN': CSRF_TOKEN
-    },
-    withCredentials: true
+      // 'X-XSRF-TOKEN': CSRF_TOKEN,
+      'Access-Control-Allow-Methods': 'PATCH, DELETE, POST, GET, OPTIONS, PUT'
+    }
   });
 }
 

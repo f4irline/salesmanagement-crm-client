@@ -8,21 +8,25 @@ import './Login.css';
 
 import axios from '../../axios-options';
 
-import {print} from '../../utils/Debug';
-
 class Login extends Component {
 
   state = {
-    username: '',
+    userName: '',
     password: '',
     error: false
   }
 
   handleButtonClick() {
-    print('Login', 'handleButtonClick');
-    axios.post(`/login?username=${this.state.username}&password=${this.state.password}`)
+    let user = {
+      userName: this.state.userName,
+      password: this.state.password
+    };
+
+    axios.post('/auth/login', user, {
+      credentials: 'include'
+    })
       .then((res) => {
-        console.log(res);
+        localStorage.setItem('accessToken', res.data.accessToken);
         this.props.onLogin();
       })
       .catch((err) => {
@@ -32,10 +36,9 @@ class Login extends Component {
   }
 
   handleInputChange(event) {
-    print('Login', 'handleInputChange');
     switch (event.target.name) {
-    case 'username':
-      this.setState({username: event.target.value});
+    case 'userName':
+      this.setState({userName: event.target.value});
       break;
     case 'password':
       this.setState({password: event.target.value});
@@ -46,7 +49,6 @@ class Login extends Component {
   }
 
   render() {
-    print('Login', 'render');
     return (
       <div className='Login'>
         <Paper className='MuiPaper-root-1' elevation={5}>
@@ -57,10 +59,10 @@ class Login extends Component {
           <TextField
             className='login-item'
             label='Käyttäjätunnus id'
-            value={this.state.username}
+            value={this.state.userName}
             onChange={this.handleInputChange.bind(this)}
             margin='normal'
-            name='username'
+            name='userName'
             type='text'
           />
           <TextField

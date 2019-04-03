@@ -34,6 +34,7 @@ class UserData extends Component {
         }
       }
 
+      // eslint-disable-next-line
       if(object.userId != this.props.user_id) {
         rowData.push(
           <IconButton aria-label='Delete' onClick={()=>{
@@ -67,8 +68,16 @@ class UserData extends Component {
   }
 
   onClickCloseHandler(name) {
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
     if(name === 'delete') {
-      axios.delete('/users/'+this.state.userId)
+      axios.delete('/users/'+this.state.userId, options)
         .then((res) => {
           this.props.update();
         })

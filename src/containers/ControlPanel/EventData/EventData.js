@@ -75,8 +75,16 @@ class EventData extends Component {
   }
 
   onClickCloseHandler(name) {
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
     if(name === 'delete') {
-      axios.delete('/events/'+this.state.eventId)
+      axios.delete('/events/'+this.state.eventId, options)
         .then((res) => {
           this.props.update();
         })

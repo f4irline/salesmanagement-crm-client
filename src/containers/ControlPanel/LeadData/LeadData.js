@@ -55,8 +55,16 @@ class LeadData extends Component {
   }
 
   onClickCloseHandler(name) {
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
     if(name === 'delete') {
-      axios.delete('/leads/'+this.state.leadId)
+      axios.delete('/leads/'+this.state.leadId, options)
         .then((res) => {
           this.props.update();
         })

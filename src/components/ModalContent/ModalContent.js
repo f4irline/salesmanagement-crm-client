@@ -39,8 +39,16 @@ class ModalContent extends Component {
   }
 
   handleSend = data => event => {
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
     if (data.eventType === 4) {
-      axios.post('/leads/add', data)
+      axios.post('/leads/add', data, options)
         .then((res) => console.log(res))
         .then(() => {
           this.props.updateLeads();
@@ -48,7 +56,7 @@ class ModalContent extends Component {
         });
     } else {
       const leadId = this.findLeadId(data);
-      axios.post(`events/add/${this.props.userId}/${leadId}`, data)
+      axios.post(`events/add/${this.props.userId}/${leadId}`, data, options)
         .then((res) => console.log(res))
         .then(this.updateData.bind(this));
     }

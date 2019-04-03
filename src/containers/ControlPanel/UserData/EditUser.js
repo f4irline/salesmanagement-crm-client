@@ -22,10 +22,16 @@ class EditUser extends Component {
   }
 
   fetchData = () => {
+    const jwt = localStorage.getItem('accessToken');
+
     const { id } = this.props.match.params;
     console.log(id);
     this.setState({loading: true}, () => {
-      axios.get(`users/${id}`)
+      axios.get(`users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then((res) => { 
           this.setState({data: res.data, loading: false});
         })
@@ -40,7 +46,15 @@ class EditUser extends Component {
   }
 
   handleSave = () => {
-    axios.put('/admin/users/edit', this.state.data)
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    axios.put('/admin/users/edit', this.state.data, options)
       .then((res) => {
         console.log(res);
         this.props.update();

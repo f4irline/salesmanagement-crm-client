@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route, withRouter} from 'react-router-dom';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -29,9 +29,9 @@ class App extends Component {
   }
 
   state = {
-    loggedIn: true,
+    loggedIn: false,
     modalOpen: false,
-    user_id: '100001',
+    user_id: '',
     loadingLeads: true,
     loadingAdminData: true,
     loadingLeaderBoards: true,
@@ -55,7 +55,9 @@ class App extends Component {
   validateDate = this.validateDate.bind(this);
 
   componentDidMount() {
-    if (this.state.loggedIn) {
+    const jwt = localStorage.getItem('accessToken');
+
+    if (jwt) {
       this.handleLogin();
     }
   }
@@ -82,9 +84,15 @@ class App extends Component {
       end = endDate;
     }
 
+    const jwt = localStorage.getItem('accessToken');
+
     let url_companyChart = `/companyChart/get/${start}/${end}`;
     this.setState({loadingCompany: true, companyStartDate: start, companyEndDate: end}, () => {
-      axios.get(url_companyChart)
+      axios.get(url_companyChart, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then(res => this.setState({companyData: res.data}, () => {
           this.setState({loadingCompany: false});
         }));
@@ -92,9 +100,15 @@ class App extends Component {
   }
 
   updateUserEvents() {
+    const jwt = localStorage.getItem('accessToken');
+
     let url_userEvents = `/userEvents/${this.state.user_id}`;
     this.setState({loadingUserEvents: true}, () => {
-      axios.get(url_userEvents)
+      axios.get(url_userEvents, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then(userEvents => this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
           this.setState({loadingUserEvents: false});
         }))
@@ -103,9 +117,15 @@ class App extends Component {
   }
 
   updateUserData() {
+    const jwt = localStorage.getItem('accessToken');
+
     let url_userData = `/userData/${this.state.user_details.userId}`;
     this.setState({loadingUserData: true}, () => {
-      axios.get(url_userData)
+      axios.get(url_userData, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then(userData => this.setState({userData: userData.data, modalOpen: false}, () => {
           this.setState({loadingUserData: false});
         }))
@@ -114,9 +134,15 @@ class App extends Component {
   }
 
   updateUser() {
+    const jwt = localStorage.getItem('accessToken');
+
     let url_user = `/users/${this.state.user_details.userId}`;
     this.setState({loadingUser: true}, () => {
-      axios.get(url_user)
+      axios.get(url_user, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then(user => this.setState({user: user.data}, () => {
           this.setState({loadingUser: false});
         }))
@@ -125,8 +151,14 @@ class App extends Component {
   }
 
   updateLeaderBoards() {
+    const jwt = localStorage.getItem('accessToken');
+
     this.setState({loadingLeaderBoards: true}, () => {
-      axios.get('/userData/all')
+      axios.get('/userData/all', {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
           this.setState({loadingLeaderBoards: false});
         }));
@@ -140,19 +172,33 @@ class App extends Component {
   }
 
   validateDate(startDate, endDate) {
+    const jwt = localStorage.getItem('accessToken');
+
     this.setState({loadingLeaderBoards: true}, () => {
       if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
-        axios.get(`/userData/all/${startDate}/${endDate}`)
+        axios.get(`/userData/all/${startDate}/${endDate}`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        })
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
             this.setState({loadingLeaderBoards: false});
           }));
       } else if (startDate.toString() !== 'Invalid Date') {
-        axios.get(`/userData/all/${startDate}/2100-01-01`)
+        axios.get(`/userData/all/${startDate}/2100-01-01`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        })
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
             this.setState({loadingLeaderBoards: false, leaderEndDate: new Date('Undefined')});
           }));
       } else if (endDate.toString() !== 'Invalid Date') {
-        axios.get(`/userData/all/1970-01-01/${endDate}`)
+        axios.get(`/userData/all/1970-01-01/${endDate}`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        })
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
             this.setState({loadingLeaderBoards: false, leaderStartDate: new Date('Undefined')});
           }));
@@ -165,8 +211,13 @@ class App extends Component {
   }
 
   updateLeads() {
+    const jwt = localStorage.getItem('accessToken');
     this.setState({loadingLeads: true}, () => {
-      axios.get('/leads')
+      axios.get('/leads', {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
         .then(res => this.setState({leads: res.data, modalOpen: false}, () => {
           this.setState({loadingLeads: false});
         }));
@@ -174,12 +225,21 @@ class App extends Component {
   }
 
   updateAdmin() {
-    this.setState({loadingAdminData: true}, () => {
-      axios.get('/admin')
-        .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
-          this.setState({loadingAdminData: false});
-        }));
-    });
+    if (this.state.user_details.roles[1] !== undefined) {
+      const jwt = localStorage.getItem('accessToken');
+      this.setState({loadingAdminData: true}, () => {
+        axios.get('/admin', {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        })
+          .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
+            this.setState({loadingAdminData: false});
+          }));
+      });  
+    } else {
+      this.setState({loadingAdminData: false});
+    }
   }
 
   /**
@@ -188,7 +248,12 @@ class App extends Component {
    * @param {String} name 
    */
   handleLogin() {
-    axios.get('/users/details')
+    const jwt = localStorage.getItem('accessToken');
+    axios.get('/users/details', {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    })
       .then((res) => {
         console.log(res);
         if (res.data.user === undefined) {
@@ -206,12 +271,9 @@ class App extends Component {
   }
 
   handleLogout() {
-    axios.post('/logout')
-      .then((res) => {
-        console.log(res);
-        this.setState({loggedIn: false, user_details: this.anonUserDetails});
-      })
-      .catch(err => console.log(err));
+    this.setState({loggedIn: false, user_details: this.anonUserDetails}, () => {
+      localStorage.removeItem('accessToken');
+    });
   }
 
   modalClose() {
@@ -222,15 +284,10 @@ class App extends Component {
     this.setState({modalOpen: true});
   }
 
-  redirect() {
-    this.context.router.push('/');
-  }
-
   render() {
     if (!this.state.loggedIn) {
       return (
         <div>
-          <Redirect to='/' />
           <Login onLogin={this.handleLogin.bind(this)} />
         </div>
       );
@@ -287,4 +344,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
