@@ -196,8 +196,7 @@ class EventData extends Component {
           delete: 'Poista',
           deleteAria: 'Poista Valitut Rivit',
         },
-      }
-    
+      }    
     };
 
     return (
