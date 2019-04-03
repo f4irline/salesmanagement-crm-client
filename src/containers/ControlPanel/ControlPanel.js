@@ -3,6 +3,7 @@ import './ControlPanel.css';
 import {Switch, Route} from 'react-router-dom';
 
 import Drawer from '../../components/Drawer/Drawer.js';
+import Tabs from './Tabs/Tabs';
 
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Person from '@material-ui/icons/Person';
@@ -55,7 +56,7 @@ const ControlPanel = (props) => {
 
   return (
     <div className='Events'>
-      {/*<Tabs/> */}
+      {/* <Tabs/> */}
       <Drawer drawerTitle={'Hallinta'} links={adminLinks}>
         <Switch>
           <Route path='/admin/users' render={() => <UserData update={props.update} data={props.data[0]} roleNames={roleNames} user_id={props.user_id} />} />
