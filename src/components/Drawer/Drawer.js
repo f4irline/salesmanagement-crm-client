@@ -107,7 +107,7 @@ class PersistentDrawerLeft extends React.Component {
       return (
         <ListItem key={link.url} className='navLink'>
           <ListItemIcon>{link.icon}</ListItemIcon>
-          <NavLink exact to={link.url}>
+          <NavLink onClick={this.handleDrawerClose} exact to={link.url}>
             <ListItemText disableTypography primary={link.text} />
           </NavLink>
         </ListItem>
