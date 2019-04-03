@@ -1,10 +1,25 @@
-import React from 'react';
+import { Route, withRouter } from 'react-router-dom';
+import React, {Component} from 'react';
 import MUIDataTable from 'mui-datatables';
 import './EventData.css';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 
-const EventData = (props) => {
+import EditEvent from './EditEvent';
 
-  const mapData = (data) => {
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import axios from '../../../axios-options';
+
+class EventData extends Component {
+
+  state = {
+    showDialog: false,
+    dataToEdit: {},
+    eventId: undefined
+  }
+
+  mapData(data) {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -31,130 +46,175 @@ const EventData = (props) => {
           rowData.push(object[data]);
         }
       }
+      rowData.push(
+        <IconButton aria-label='Delete' onClick={()=>{
+          this.onClickDeleteHandler(object.eventId);
+        }}>
+          <DeleteIcon />
+        </IconButton>
+      );
+      rowData.push(
+        <IconButton aria-label='Create' onClick={() => this.onClickEditHandler(object)}> 
+          <CreateIcon />
+        </IconButton>
+      );
       return rowData;
     });
 
     return newData;
-  };
+  }
   
-  const data = props.data;   
-  const newData = mapData(data);
-
-  const columns = [
-    {
-      name: 'ID',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Luotu',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Yhteyshenkilö',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Puhelin',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Email',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Tyyppi',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Summa',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Paikka',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'Huom',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    }
-  ];
-
-  const options = {
-    filterType: 'multiselect',
-    selectableRows: false,
-    search: false,
-    filter: false,
-    textLabels: {
-      body: {
-        noMatch: 'Ei tuloksia',
-        toolTip: 'Järjestä',
-      },
-      pagination: {
-        next: 'Seuraava sivu',
-        previous: 'Edellinen sivu',
-        rowsPerPage: 'Rivejä / sivu:',
-        displayRows: '-',
-      },
-      toolbar: {
-        search: 'Etsi',
-        downloadCsv: 'Lataa CSV',
-        print: 'Tulosta',
-        viewColumns: 'Sarakkeet',
-        filterTable: 'Suodata',
-      },
-      viewColumns: {
-        title: 'Näytetyt Sarakkeet',
-        titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
-      },
-      selectedRows: {
-        text: 'rivejä valittu',
-        delete: 'Poista',
-        deleteAria: 'Poista Valitut Rivit',
-      },
-    }
+  onClickDeleteHandler(eventId) {
+    this.setState({showDialog: true, eventId: eventId});
+  }
   
-  };
+  onClickEditHandler = (event) => {
+    this.setState({dataToEdit: event}, () => {
+      this.props.history.push('/admin/events/edit/'+event.eventId);
+    });
+  }
 
-  return (
-    <div className='EventData'>
-      <div id='table'>
-        <MUIDataTable
-          title={'Käyttäjät'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
-      </div>  
-    </div>
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
+      axios.delete('/events/'+this.state.eventId)
+        .then((res) => {
+          this.props.update();
+        })
+        .catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
+  }
+
+  render() {
+    const data = this.props.data;   
+    const newData = this.mapData(data);
+
+    const columns = [
+      {
+        name: 'ID',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Luotu',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Yhteyshenkilö',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Puhelin',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Email',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Tyyppi',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Summa',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Paikka',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'Huom',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },{
+        name: 'Poista'
+      },{
+        name: 'Muokkaa'
+      }
+    ];
+
+    const options = {
+      filterType: 'multiselect',
+      selectableRows: false,
+      search: false,
+      filter: false,
+      textLabels: {
+        body: {
+          noMatch: 'Ei tuloksia',
+          toolTip: 'Järjestä',
+        },
+        pagination: {
+          next: 'Seuraava sivu',
+          previous: 'Edellinen sivu',
+          rowsPerPage: 'Rivejä / sivu:',
+          displayRows: '-',
+        },
+        toolbar: {
+          search: 'Etsi',
+          downloadCsv: 'Lataa CSV',
+          print: 'Tulosta',
+          viewColumns: 'Sarakkeet',
+          filterTable: 'Suodata',
+        },
+        viewColumns: {
+          title: 'Näytetyt Sarakkeet',
+          titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+        },
+        selectedRows: {
+          text: 'rivejä valittu',
+          delete: 'Poista',
+          deleteAria: 'Poista Valitut Rivit',
+        },
+      }
     
-  );
-};
+    };
 
-export default EventData;
+    return (
+      <div className='EventData'>
+        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
+        <div id='table'>
+          <Route path='/admin/events' exact render={() => 
+            <MUIDataTable
+              title={'Tapahtumat'}
+              data={newData}
+              columns={columns}
+              options={options}
+            />
+          } />
+          <Route path='/admin/events/edit/:id' render={() => 
+            <EditEvent update={this.props.update} leadNames={this.props.leadNames} data={this.state.dataToEdit}/>
+          } />
+        </div>  
+      </div>
+      
+    );
+  }
+}
+
+export default withRouter(EventData);

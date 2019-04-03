@@ -149,14 +149,18 @@ class App extends Component {
       } else if (startDate.toString() !== 'Invalid Date') {
         axios.get(`/userData/all/${startDate}/2100-01-01`)
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
-            this.setState({loadingLeaderBoards: false});
+            this.setState({loadingLeaderBoards: false, leaderEndDate: new Date('Undefined')});
           }));
       } else if (endDate.toString() !== 'Invalid Date') {
         axios.get(`/userData/all/1970-01-01/${endDate}`)
           .then(res => this.setState({leaderBoards: res.data, modalOpen: false}, () => {
-            this.setState({loadingLeaderBoards: false});
+            this.setState({loadingLeaderBoards: false, leaderStartDate: new Date('Undefined')});
           }));
-      }  
+      } else {
+        this.setState({leaderStartDate: new Date('Undefined'), leaderEndDate: new Date('Undefined')}, () => {
+          this.updateLeaderBoards();
+        });
+      }
     });
   }
 
@@ -173,7 +177,6 @@ class App extends Component {
     this.setState({loadingAdminData: true}, () => {
       axios.get('/admin')
         .then(res => this.setState({adminData: res.data, modalOpen: false}, () => {
-          console.log(this.state.adminData);
           this.setState({loadingAdminData: false});
         }));
     });
@@ -233,7 +236,7 @@ class App extends Component {
       );
     }
 
-    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser 
+    if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingUser || this.state.loadingCompany
       || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingAdminData) {
       return (
         <div className='App'>
@@ -256,7 +259,7 @@ class App extends Component {
           exact />
           <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
-          <Route path='/admin' render={() => <ControlPanel data={this.state.adminData} />} />
+          <Route path='/admin' render={() => <ControlPanel update={this.updateAll.bind(this)} user_id={this.state.user_id} data={this.state.adminData} />} />
           <Route component={Error} />
         </Switch>
         <div className='add-wrapper'>

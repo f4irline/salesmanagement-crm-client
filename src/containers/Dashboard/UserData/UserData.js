@@ -9,8 +9,6 @@ import {withStyles} from '@material-ui/core/styles';
 import { List, ListItemText, ListItem } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
-import {print} from '../../../utils/Debug';
-
 const styles = {
   itemContainer: {
     height: '100%'
@@ -41,12 +39,7 @@ class UserData extends Component {
   }
 
   render() {
-
-    print('UserData', 'render');
-
     const { classes } = this.props;
-
-    print('Userdata', 'render', 'Date: '+new Date(this.state.user.lastLogin).toLocaleString());
 
     const dateOptions = {
       year: 'numeric',
@@ -72,7 +65,7 @@ class UserData extends Component {
                   <ListItemText primary={'Hit Rate %:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.hit_rate}></ListItemText>
+                  <ListItemText primary={this.state.userData.hit_rate + ' %'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -81,7 +74,7 @@ class UserData extends Component {
                   <ListItemText primary={'Keskim. myynti:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.avg_sales}></ListItemText>
+                  <ListItemText primary={this.state.userData.avg_sales + ' €'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -90,7 +83,7 @@ class UserData extends Component {
                   <ListItemText primary={'Kokonaismyynti:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.total_sales}></ListItemText>
+                  <ListItemText primary={this.state.userData.total_sales + ' €'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -99,7 +92,7 @@ class UserData extends Component {
                   <ListItemText primary={'Yhteydenotot:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.contacts_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.contacts_amount + ' kpl'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -108,7 +101,7 @@ class UserData extends Component {
                   <ListItemText primary={'Tapaamiset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.meetings_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.meetings_amount + ' kpl'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -117,7 +110,7 @@ class UserData extends Component {
                   <ListItemText primary={'Tarjoukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.offers_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.offers_amount + ' kpl'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -126,7 +119,7 @@ class UserData extends Component {
                   <ListItemText primary={'Sopimukset:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.sales_amount}></ListItemText>
+                  <ListItemText primary={this.state.userData.sales_amount + ' kpl'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
@@ -135,7 +128,7 @@ class UserData extends Component {
                   <ListItemText primary={'Myynnin tavoite:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.user.goal}></ListItemText>
+                  <ListItemText primary={this.state.user.monthlyGoal + ' €'}></ListItemText>
                 </Grid>
               </ListItem>
             </List>
