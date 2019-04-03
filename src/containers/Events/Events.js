@@ -3,6 +3,8 @@ import './Events.css';
 import { Route } from 'react-router-dom';
 
 import Drawer from '../../components/Drawer/Drawer.js';
+
+//eslint-disable-next-line
 import Tabs from './Tabs/Tabs';
 
 import Contacts from './Contacts/Contacts';
