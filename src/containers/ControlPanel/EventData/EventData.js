@@ -15,7 +15,6 @@ class EventData extends Component {
 
   state = {
     showDialog: false,
-    dataToEdit: {},
     eventId: undefined
   }
 
@@ -47,14 +46,14 @@ class EventData extends Component {
         }
       }
       rowData.push(
-        <IconButton aria-label='Delete' onClick={()=>{
+        <IconButton onClick={()=>{
           this.onClickDeleteHandler(object.eventId);
         }}>
           <DeleteIcon />
         </IconButton>
       );
       rowData.push(
-        <IconButton aria-label='Create' onClick={() => this.onClickEditHandler(object)}> 
+        <IconButton onClick={() => this.onClickEditHandler(object)}> 
           <CreateIcon />
         </IconButton>
       );
@@ -69,9 +68,7 @@ class EventData extends Component {
   }
   
   onClickEditHandler = (event) => {
-    this.setState({dataToEdit: event}, () => {
-      this.props.history.push('/admin/events/edit/'+event.eventId);
-    });
+    this.props.history.push('/admin/events/edit/'+event.eventId);
   }
 
   onClickCloseHandler(name) {
@@ -216,7 +213,7 @@ class EventData extends Component {
             />
           } />
           <Route path='/admin/events/edit/:id' render={() => 
-            <EditEvent update={this.props.update} leadNames={this.props.leadNames} data={this.state.dataToEdit}/>
+            <EditEvent update={this.props.update} leadNames={this.props.leadNames} />
           } />
         </div>  
       </div>

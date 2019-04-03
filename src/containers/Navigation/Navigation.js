@@ -11,7 +11,6 @@ import TableChart from '@material-ui/icons/TableChart';
 import History from '@material-ui/icons/History';
 
 const Navigation = (props) => {
-  console.log(props);
   return (
     <div className='Navigation'>
       <div className='navigation-wrapper'>

@@ -16,6 +16,7 @@ class EditEvent extends Component {
 
   state = {
     data: {},
+    leads: [],
     loading: false,
     companyName: undefined
   }
@@ -35,11 +36,26 @@ class EditEvent extends Component {
         }
       })
         .then((res) => { 
+          this.fetchLeads();
           this.setState({data: res.data}, () => {
-            this.setState({loading: false, companyName: this.state.data.lead.companyName});
+            this.setState({companyName: this.state.data.lead.companyName});
           });
         })
         .catch(err => console.log(err));
+    });
+  }
+
+  fetchLeads = () => {
+    const jwt = localStorage.getItem('accessToken');
+    this.setState({loading: true}, () => {
+      axios.get('/leads', {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
+        .then(res => this.setState({leads: res.data}, () => {
+          this.setState({loading: false});
+        }));
     });
   }
 
@@ -52,13 +68,23 @@ class EditEvent extends Component {
       }
     };
 
-    axios.put('/admin/events/edit', this.state.data, options)
+    const leadId = this.findLeadId();
+
+    axios.put(`/admin/events/edit/${leadId}`, this.state.data, options)
       .then((res) => {
         console.log(res);
         this.props.update();
         this.props.history.push('/admin/events');
       })
       .catch(err => console.log(err));
+  }
+
+  findLeadId() {
+    for (let lead of this.state.leads) {
+      if (lead.companyName === this.state.companyName) {
+        return lead.leadId;
+      }
+    }
   }
 
   handleChange = (e) => {
@@ -68,17 +94,18 @@ class EditEvent extends Component {
   }
   
   handleLeadChange = (e) => {
-    this.setState({
-      companyName: e.target.value
-    });
+    this.setState({companyName: e.target.value});
   }
 
   render() {
+
     if (this.state.loading || this.state.companyName === undefined) {
       return (
         <p>Loading...</p>
       );
     }
+
+    console.log(this.state.leads);
 
     return (
       <Grid container direction='column' alignItems='center'>
@@ -166,7 +193,7 @@ class EditEvent extends Component {
               <Select
                 name='companyName'
                 displayEmpty
-                value={this.state.data.lead.companyName}
+                value={this.state.companyName}
                 onChange={this.handleLeadChange}
                 input={
                   <OutlinedInput

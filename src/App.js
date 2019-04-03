@@ -108,8 +108,6 @@ class App extends Component {
         }
       })
         .then(userEvents => {
-          console.log('userEvents:');
-          console.log(userEvents);
           this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
             this.setState({loadingUserEvents: false});
           });
@@ -129,8 +127,6 @@ class App extends Component {
         }
       })
         .then(userData => {
-          console.log('userData:');
-          console.log(userData);
           this.setState({userData: userData.data, modalOpen: false}, () => {
             this.setState({loadingUserData: false});
           });
@@ -244,8 +240,6 @@ class App extends Component {
       }
     })
       .then((res) => {
-        console.log('user_details:');
-        console.log(res);
         if (res.data.user === undefined) {
           this.setState({loggedIn: false, user_details: this.anonUserDetails});
         } else {
@@ -307,7 +301,7 @@ class App extends Component {
           <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
           {this.state.user_details.roles[1] !== undefined ? 
-            <Route path='/admin' render={() => <ControlPanel update={this.updateAll.bind(this)} user_id={this.state.user_id} data={this.state.adminData} />} />
+            <Route path='/admin' render={() => <ControlPanel leads={this.state.leads} update={this.updateAll.bind(this)} user_id={this.state.user_id} data={this.state.adminData} />} />
             : null}
           <Route component={Error} />
         </Switch>
