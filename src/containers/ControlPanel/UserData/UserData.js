@@ -179,7 +179,7 @@ class UserData extends Component {
     return (
       <div className='UserData'>
         {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table'>
+        <div id='table' style={{position: 'relative', top: '3vh'}}>
           <Route path='/admin/users' exact render={() => 
             <MUIDataTable
               title={'Käyttäjät'}

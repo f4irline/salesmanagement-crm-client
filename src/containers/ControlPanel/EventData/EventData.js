@@ -203,7 +203,7 @@ class EventData extends Component {
     return (
       <div className='EventData'>
         {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table'>
+        <div id='table' style={{position: 'relative', top: '3vh'}}>
           <Route path='/admin/events' exact render={() => 
             <MUIDataTable
               title={'Tapahtumat'}

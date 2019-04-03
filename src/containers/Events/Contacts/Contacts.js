@@ -103,7 +103,7 @@ const Contacts = (props) => {
   };
   return (
     <div className='Contacts'>
-      <div id='table'>
+      <div id='table' style={{position: 'relative', top: '3vh'}}>
         <MUIDataTable
           title={'Yhteydenotot'}
           data={newData}

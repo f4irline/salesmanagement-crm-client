@@ -125,7 +125,7 @@ const Leads = (props) => {
 
   return (
     <div className='Leads'>
-      <div id='table'>
+      <div id='table' style={{position: 'relative', top: '3vh'}}>
         <MUIDataTable
           title={'Liidit'}
           data={newData}
