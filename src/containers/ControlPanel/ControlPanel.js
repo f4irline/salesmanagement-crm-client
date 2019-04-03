@@ -19,15 +19,24 @@ const ControlPanel = (props) => {
     return leadNames;
   };
 
+  const mapRoleNames = () => {
+    const roleNames = ['ROLE_ADMIN', 'ROLE_USER'].map(role => {
+      return <MenuItem key={role} value={role}>{role}</MenuItem>;
+    });
+
+    return roleNames;
+  };
+
   const leadNames = mapLeadNames();
+  const roleNames = mapRoleNames();
 
   return (
     <div className='Events'>
       <Tabs/>
       <Switch>
-        <Route path='/admin/users' render={() => <UserData leadNames={leadNames} user_id={props.user_id} update={props.update} data={props.data[0]} />} />
+        <Route path='/admin/users' render={() => <UserData update={props.update} data={props.data[0]} roleNames={roleNames} user_id={props.user_id} />} />
         <Route path='/admin/leads' render={() => <LeadData update={props.update} data={props.data[1]} />} />
-        <Route path='/admin/events' render={() => <EventData update={props.update} leadNames={leadNames} data={props.data[2]} />} />
+        <Route path='/admin/events' render={() => <EventData update={props.update} data={props.data[2]} leadNames={leadNames} />} />
       </Switch>
     </div>
   );

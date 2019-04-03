@@ -7,25 +7,27 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 class EditUser extends Component {
 
   state = {
-    data: this.props.data,
-    loading: false
+    data: {},
+    loading: false,
+    roleName: undefined,
+    userToSave: {}
   }
 
   componentDidMount() {
-    if (!this.state.data.userId) {
-      this.fetchData();
-    }
+    this.fetchData();
   }
 
   fetchData = () => {
     const jwt = localStorage.getItem('accessToken');
 
     const { id } = this.props.match.params;
-    console.log(id);
     this.setState({loading: true}, () => {
       axios.get(`users/${id}`, {
         headers: {
@@ -33,7 +35,13 @@ class EditUser extends Component {
         }
       })
         .then((res) => { 
-          this.setState({data: res.data, loading: false});
+          this.setState({data: res.data, loading: false}, () => {
+            if (this.state.data.roles[1] !== undefined) {
+              this.setState({roleName: 'ROLE_ADMIN'});
+            } else {
+              this.setState({roleName: 'ROLE_USER'});
+            }
+          });
         })
         .catch(err => console.log(err));
     });
@@ -45,6 +53,10 @@ class EditUser extends Component {
     });
   }
 
+  handleRoleChange = (e) => {
+    this.setState({roleName: e.target.value});
+  }
+
   handleSave = () => {
     const jwt = localStorage.getItem('accessToken');
     const options = {
@@ -54,9 +66,33 @@ class EditUser extends Component {
       }
     };
 
-    axios.put('/admin/users/edit', this.state.data, options)
+    let userToSave = {
+      ...this.state.data
+    };
+    
+    let userRoles = {
+      ...userToSave.roles
+    };
+
+    if (this.state.roleName === 'ROLE_ADMIN') {
+      userRoles = [{
+        id: 2, definition: 'ROLE_USER'
+      }, {
+        id: 1, definition: 'ROLE_ADMIN'
+      }];
+    } else {
+      userRoles = [{
+        id: 2, definition: 'ROLE_USER'
+      }];
+    }
+
+    userToSave = {
+      ...userToSave,
+      roles: userRoles
+    };
+
+    axios.put('/admin/users/edit', userToSave, options)
       .then((res) => {
-        console.log(res);
         this.props.update();
         this.props.history.push('/admin/users');
       })
@@ -64,7 +100,7 @@ class EditUser extends Component {
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.loading || this.state.roleName === undefined) {
       return (
         <p>Loading...</p>
       );
@@ -109,14 +145,21 @@ class EditUser extends Component {
               onChange={this.handleChange}></TextField>
           </Grid>
           <Grid style={{marginTop: '3vh'}} item xs={11}>
-            <TextField
-              fullWidth
-              variant='outlined'
-              name='role'
-              required
-              label='Rooli'
-              defaultValue={this.state.data.role}
-              onChange={this.handleChange}></TextField>
+            <FormControl className='content-item' fullWidth>
+              <Select
+                name='roleName'
+                value={this.state.roleName}
+                onChange={this.handleRoleChange}
+                input={
+                  <OutlinedInput
+                    name='role'
+                    labelWidth={0}
+                  />
+                }
+                required>
+                {this.props.roleNames}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
         <Grid container justify='space-around'>

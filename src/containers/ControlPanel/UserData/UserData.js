@@ -87,7 +87,6 @@ class UserData extends Component {
   }
 
   render() {
-    console.log(this.state.newData);
 
     const data = this.props.data;
     const newData = this.mapData(data);
@@ -190,7 +189,7 @@ class UserData extends Component {
             />
           } />
           <Route path='/admin/users/edit/:id' render={() => 
-            <EditUser update={this.props.update} data={this.state.dataToEdit}/>
+            <EditUser roleNames={this.props.roleNames} update={this.props.update} />
           } />
         </div>  
       </div>

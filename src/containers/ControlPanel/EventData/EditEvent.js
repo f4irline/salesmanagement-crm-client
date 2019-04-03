@@ -105,8 +105,6 @@ class EditEvent extends Component {
       );
     }
 
-    console.log(this.state.leads);
-
     return (
       <Grid container direction='column' alignItems='center'>
         <Grid item xs={12} style={{textAlign: 'center', marginTop: '5vh'}}>
