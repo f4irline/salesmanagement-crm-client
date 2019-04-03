@@ -31,7 +31,6 @@ class App extends Component {
   state = {
     loggedIn: false,
     modalOpen: false,
-    user_id: '',
     loadingLeads: true,
     loadingAdminData: true,
     loadingLeaderBoards: true,
@@ -41,7 +40,6 @@ class App extends Component {
     leads: [], 
     leaderBoards: [],
     userEvents: [],
-    user: {},
     userData: {},
     user_details: this.anonUserDetails,
     companyData: [],
