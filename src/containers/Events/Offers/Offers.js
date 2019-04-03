@@ -9,14 +9,8 @@ const Offers = (props) => {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data === 'date' || data === 'notes' || data === 'sum') {
+        if (data === 'date' || data === 'companyName' || data === 'notes' || data === 'sum') {
           rowData.push(object[data]);
-        } else if(data === 'lead') {
-          if(data.companyName !== undefined) {
-            rowData.push(object[data].companyName);
-          } else {
-            rowData.push('tuntematon');
-          }
         }
       }
       return rowData;
