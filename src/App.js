@@ -301,7 +301,7 @@ class App extends Component {
           <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
           <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
           {this.state.user_details.roles[1] !== undefined ? 
-            <Route path='/admin' render={() => <ControlPanel leads={this.state.leads} update={this.updateAll.bind(this)} user_id={this.state.user_id} data={this.state.adminData} />} />
+            <Route path='/admin' render={() => <ControlPanel leads={this.state.leads} update={this.updateAll.bind(this)} user_id={this.state.user_details.userId} data={this.state.adminData} />} />
             : null}
           <Route component={Error} />
         </Switch>
