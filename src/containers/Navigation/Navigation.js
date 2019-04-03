@@ -16,11 +16,11 @@ const Navigation = (props) => {
       <div className='navigation-wrapper'>
         <NavItem url='/' icon={<Dashboard />}>Oma sivu</NavItem>
         <NavItem url='/leaderboards' icon={<TableChart />}>Tulostaulukko</NavItem>
-        <NavItem url='/events' icon={<History />}>Tapahtumat</NavItem>
+        <NavItem url='/events/leads' icon={<History />}>Tapahtumat</NavItem>
       </div>
       <div className='action-wrapper'>
         {props.roles !== undefined && props.roles[1] !== undefined ? 
-          <NavItem url='/admin' icon={<Settings />}>Hallinta</NavItem>
+          <NavItem url='/admin/users' icon={<Settings />}>Hallinta</NavItem>
           : null
         }
         <ActionItem icon = {<ExitToApp/>} onClick = {props.handleLogout}>Kirjaudu ulos</ActionItem>
