@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from '../../../axios-options';
 import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import Loading from '../../../components/Loading/Loading';
 
 class EditLead extends Component {
 
@@ -64,7 +65,7 @@ class EditLead extends Component {
 
     if (this.state.loading) {
       return (
-        <p>Loading...</p>
+        <Loading />
       );
     }
 

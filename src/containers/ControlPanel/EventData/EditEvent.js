@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 
 import axios from '../../../axios-options';
 
+import Loading from '../../../components/Loading/Loading';
+
 class EditEvent extends Component {
 
   state = {
@@ -101,7 +103,7 @@ class EditEvent extends Component {
 
     if (this.state.loading || this.state.companyName === undefined) {
       return (
-        <p>Loading...</p>
+        <Loading />
       );
     }
 

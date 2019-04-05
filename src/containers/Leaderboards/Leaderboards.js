@@ -3,6 +3,7 @@ import { Component } from 'react';
 import MUIDataTable from 'mui-datatables';
 import TextField from '@material-ui/core/TextField';
 import './Leaderboards.css';
+import Loading from '../../components/Loading/Loading';
 
 class Leaderboards extends Component {
   state = {
@@ -91,7 +92,7 @@ class Leaderboards extends Component {
     if (this.state.loading) {
       return (
         <div className='Leaderboards'>
-          <p>Loading...</p>
+          <Loading />
         </div>
       );
     }

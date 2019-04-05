@@ -13,6 +13,7 @@ import Events from './containers/Events/Events';
 import Navigation from './containers/Navigation/Navigation';
 import Login from './containers/Login/Login';
 import ControlPanel from './containers/ControlPanel/ControlPanel';
+import Loading from './components/Loading/Loading';
 
 import axios from './axios-options';
 
@@ -280,6 +281,7 @@ class App extends Component {
       return (
         <div className='App'>
           <Navigation handleLogout = {this.handleLogout.bind(this)} />
+          <Loading />
         </div>
       );
     }
