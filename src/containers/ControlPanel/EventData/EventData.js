@@ -41,7 +41,8 @@ class EventData extends Component {
             rowData.push(undefined);
             break;
           }
-        } else {
+        } else if(data !== 'email' && data !== 'contactPerson' && data !== 'phoneNumber') {
+          console.log(data);
           rowData.push(object[data]);
         }
       }
@@ -110,21 +111,14 @@ class EventData extends Component {
         }
       },
       {
-        name: 'Yhteyshenkilö',
+        name: 'Luonut',
         options: {
           filter: false,
           sort: true,
         }
       },
       {
-        name: 'Puhelin',
-        options: {
-          filter: false,
-          sort: true,
-        }
-      },
-      {
-        name: 'Email',
+        name: 'Yritys',
         options: {
           filter: false,
           sort: true,
@@ -157,9 +151,11 @@ class EventData extends Component {
           filter: false,
           sort: true,
         }
-      },{
-        name: 'Poista'
-      },{
+      },
+      {
+        name: 'Poista',
+      },
+      {
         name: 'Muokkaa'
       }
     ];
