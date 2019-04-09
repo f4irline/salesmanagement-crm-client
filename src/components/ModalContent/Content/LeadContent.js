@@ -48,7 +48,7 @@ class LeadContent extends Component {
             required
             value={this.state.date}
           />
-          
+
           <TextField
             name='companyName'
             label='Yrityksen nimi'

@@ -93,6 +93,13 @@ class LeadData extends Component {
         }
       },
       {
+        name: 'Luonut',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
         name: 'Nimi',
         options: {
           filter: false,

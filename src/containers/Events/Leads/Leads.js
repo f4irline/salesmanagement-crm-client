@@ -10,7 +10,11 @@ const Leads = (props) => {
       let rowData = [];
       for (let data in object) {
         if (data !== 'leadId') {
-          rowData.push(object[data]);
+          if(data === 'user') {
+            rowData.push(object[data].userName);
+          } else {
+            rowData.push(object[data]);
+          }
         }
       }
       return rowData;
@@ -29,6 +33,13 @@ const Leads = (props) => {
         sort: true,
       }
     },
+    {
+      name: 'tehnyt',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    }, 
     {
       name: 'yritys',
       options: {

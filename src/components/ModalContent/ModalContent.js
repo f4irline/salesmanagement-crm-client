@@ -48,7 +48,7 @@ class ModalContent extends Component {
     };
 
     if (data.eventType === 4) {
-      axios.post('/leads/add', data, options)
+      axios.post(`/leads/add/${this.props.userId}`, data, options)
         .then((res) => console.log(res))
         .then(() => {
           this.props.updateLeads();
