@@ -117,8 +117,8 @@ class CompanyGraph extends PureComponent {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel days={daysBetween(this.state.startDate, this.state.endDate)} index/>} dot={<CustomizedDot color={'#0000FF'} index />} />
-            <Line connectNulls type="monotone" dataKey="goal" stroke="red" dot={<CustomizedDot days={daysBetween(this.state.startDate, this.state.endDate)} color={'#FF0000'} index />} />
+            <Line type="monotone" dataKey="sum" stroke="#8884d8" label={<CustomizedLabel days={daysBetween(this.state.startDate, this.state.endDate)} index/>} dot={<CustomizedDot days={daysBetween(this.state.startDate, this.state.endDate)} color={'#0000FF'} index />} />
+            <Line connectNulls type="monotone" dataKey="goal" stroke="red" label={<CustomizedLabel days={daysBetween(this.state.startDate, this.state.endDate)} index/>} dot={<CustomizedDot days={daysBetween(this.state.startDate, this.state.endDate)} color={'#FF0000'} index />} />
           </LineChart>
         </div>
       </Grid>
@@ -131,7 +131,7 @@ class CustomizedDot extends PureComponent {
     const {
       cx, cy, color,
     } = this.props;
-    let amount = Math.floor(this.props.days / 8);
+    let amount = Math.floor(this.props.days / 4);
     if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days) {
       return (
         <circle r="3" stroke={color} strokeWidth="1" fill="#fff" width="543.2" height="147.1" className="recharts-dot recharts-line-dot" cx={cx} cy={cy}></circle>
@@ -147,9 +147,9 @@ class CustomizedLabel extends PureComponent {
     const {
       x, y, stroke, value,
     } = this.props;
-    let amount = Math.floor(this.props.days / 8);
-    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days) {
-      return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
+    let amount = Math.floor(this.props.days / 4);
+    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days && this.props.index >= amount) || this.props.index === this.props.days) {
+      return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value.toFixed(2)} €</text>;
     }
 
     return null;
@@ -161,7 +161,7 @@ class CustomizedAxisTick extends PureComponent {
     const {
       x, y, payload,
     } = this.props;
-    let amount = Math.floor(this.props.days / 8);
+    let amount = Math.floor(this.props.days / 4);
     if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days)  {
       return (
         <g transform={`translate(${x},${y})`}>
