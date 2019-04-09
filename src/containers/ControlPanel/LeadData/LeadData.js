@@ -192,7 +192,7 @@ class LeadData extends Component {
 
     return (
       <div className='LeadData'>
-        {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
+        {this.state.showDialog ? <AlertDialog title='Poista liidi' description = 'Haluatko varmasti poistaa liidin?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table' style={{position: 'relative', top: '3vh'}}>
           <Route path='/admin/leads' exact render={() =>
             <MUIDataTable
