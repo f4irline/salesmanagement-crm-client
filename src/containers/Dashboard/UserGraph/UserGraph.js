@@ -96,7 +96,7 @@ class UserGraph extends PureComponent {
                     textAnchor={x > cx ? 'start' : 'end'}
                     dominantBaseline="central"
                   >
-                    {value}€
+                    {value.toFixed(2)}€
                   </text>
                 );
               }}>
