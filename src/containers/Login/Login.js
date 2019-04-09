@@ -16,6 +16,12 @@ class Login extends Component {
     error: false
   }
 
+  handleKeyPress = event => {
+    if(event.key === 'Enter') {
+      this.handleButtonClick();
+    }
+  }
+
   handleButtonClick() {
     let user = {
       userName: this.state.userName,
@@ -61,6 +67,7 @@ class Login extends Component {
             label='Käyttäjätunnus id'
             value={this.state.userName}
             onChange={this.handleInputChange.bind(this)}
+            onKeyPress={this.handleKeyPress.bind(this)}
             margin='normal'
             name='userName'
             type='text'
@@ -70,6 +77,7 @@ class Login extends Component {
             label='Salasana'
             value={this.state.password}
             onChange={this.handleInputChange.bind(this)}
+            onKeyPress={this.handleKeyPress.bind(this)}
             name='password'
             margin='normal'
             type='password'
