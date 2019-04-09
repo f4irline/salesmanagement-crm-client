@@ -148,7 +148,7 @@ class CustomizedLabel extends PureComponent {
       x, y, stroke, value,
     } = this.props;
     let amount = Math.floor(this.props.days / 4);
-    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days) || this.props.index === this.props.days) {
+    if ((this.props.index % amount === 0 && this.props.index + amount <= this.props.days && this.props.index >= amount) || this.props.index === this.props.days) {
       return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value.toFixed(2)} €</text>;
     }
 
