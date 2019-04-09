@@ -13,7 +13,8 @@ class Login extends Component {
   state = {
     userName: '',
     password: '',
-    error: false
+    error: false,
+    errorBlocked: false
   }
 
   handleButtonClick() {
@@ -28,10 +29,14 @@ class Login extends Component {
       .then((res) => {
         localStorage.setItem('accessToken', res.data.accessToken);
         this.props.onLogin();
+        this.setState({error: false});
       })
       .catch((err) => {
-        console.log(err);
-        this.setState({error: true});
+        if(err.request.status === 403) {
+          this.setState({errorBlocked: true, error: false});
+        } else {
+          this.setState({error: true, errorBlocked:false});
+        }
       });
   }
 
@@ -82,6 +87,8 @@ class Login extends Component {
             variant='contained'>
             Submit
           </Button>
+          {this.state.error ? <Typography className='Error'>Virheellinen Käyttäjätunnus tai salasana</Typography> : null}
+          {this.state.errorBlocked ? <Typography className='Error'>Käyttäjä lukittu, yritä uudelleen 15min kuluttua</Typography> : null}
         </Paper>      
       </div>
     );

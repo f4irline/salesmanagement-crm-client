@@ -13,3 +13,8 @@
   width: 300px;
   padding: 5vmin;
 }
+
+.Error {
+  color: red;
+  margin-top: 3vh;
+}
