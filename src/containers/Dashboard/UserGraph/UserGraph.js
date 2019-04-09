@@ -43,15 +43,17 @@ class UserGraph extends PureComponent {
 
     const data = [];
 
+    let percent = Math.round(100*this.props.sales / this.props.goal);
+
     if (toGoal > 0) {
       data.push({ name: 'Group A', value: this.props.sales });
       data.push({ name: 'Group B', value: toGoal });
     } else {
-      let rpm = Math.floor(this.props.sales / this.props.goal);
+      //let rpm = Math.floor(this.props.sales / this.props.goal);
       toGoal = 0;
       padding = 0;
       data.push({ name: 'Group A', value: this.props.sales });
-      data.push({ name: 'Group B', value: rpm });
+      //data.push({ name: 'Group B', value: rpm });
     }
 
     const COLORS = ['#D72322', '#222C35'];
@@ -61,6 +63,9 @@ class UserGraph extends PureComponent {
         <div className='chart-header'>
           <Typography variant='h2' style={{fontWeight: 800}}>
             TAVOITTEESI
+          </Typography>
+          <Typography variant='h5'>
+            {percent} %
           </Typography>
         </div>
         <div className='chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
@@ -96,7 +101,7 @@ class UserGraph extends PureComponent {
                     textAnchor={x > cx ? 'start' : 'end'}
                     dominantBaseline="central"
                   >
-                    {value.toFixed(2)}€
+                    {value.toFixed(2)} €
                   </text>
                 );
               }}>
