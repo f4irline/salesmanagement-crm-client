@@ -1,6 +1,5 @@
 .ControlPanel {
-  min-height: 94.9vh;
-  position: relative;
+  height: 100%;
 }
 
 #table-drawer {
@@ -29,11 +28,6 @@
 #table-drawer button:hover,
 #table-drawer th:hover {
   color: #D72322;
-}
-
-.drawer {
-  min-height: 94.9vh;
-  position: relative;
 }
 
 @media only screen and (min-width: 960px) {

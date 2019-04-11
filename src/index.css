@@ -1,6 +1,8 @@
 html {
   height: 100%;
   overflow-y: overlay;
+  background: rgb(204,215,216);
+  background: linear-gradient(90deg, rgba(204,215,216,1) 0%, rgba(255,255,255,1) 19%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 81%, rgba(204,215,216,1) 100%);
 }
 
 body {
