@@ -9,7 +9,9 @@ import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import axios from '../../../axios-options';
 
+import CreateUser from './CreateUser/CreateUser';
 import EditUser from './EditUser';
+import { Button } from '@material-ui/core';
 
 class UserData extends Component {
 
@@ -17,6 +19,14 @@ class UserData extends Component {
     showDialog: false,
     dataToEdit: {}
   }
+
+  dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  };
 
   mapData(data) {
     let newData = [];
@@ -29,6 +39,8 @@ class UserData extends Component {
         } else if (data === 'userLast') {
           fullName += object[data];
           rowData.push(fullName);
+        } else if (data === 'lastLogin') {
+          rowData.push(new Date(object[data]).toLocaleString('fi-FI', this.dateOptions));
         } else {
           rowData.push(object[data]);
         }
@@ -84,6 +96,10 @@ class UserData extends Component {
         .catch(err => console.log(err));
     }
     this.setState({showDialog: false});
+  }
+
+  handleButtonClick = () => {
+    this.props.history.push('/admin/users/new');
   }
 
   render() {
@@ -182,12 +198,20 @@ class UserData extends Component {
         {this.state.showDialog ? <AlertDialog title='Poista käyttäjä' description = 'Haluatko varmasti poistaa käyttäjän?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <div id='table-drawer'>
           <Route path='/admin/users' exact render={() => 
-            <MUIDataTable
-              title={'Käyttäjät'}
-              data={newData}
-              columns={columns}
-              options={options}
-            />
+            <React.Fragment>
+              <MUIDataTable
+                title={'Käyttäjät'}
+                data={newData}
+                columns={columns}
+                options={options}
+              />
+              <Button style={{marginTop: '1vh', color: '#fff'}} variant='contained' color='primary' onClick={this.handleButtonClick}>
+                Create new user!
+              </Button>
+            </React.Fragment>
+          } />
+          <Route path='/admin/users/new' render={() => 
+            <CreateUser update={this.props.update} />
           } />
           <Route path='/admin/users/edit/:id' render={() => 
             <EditUser roleNames={this.props.roleNames} update={this.props.update} />
