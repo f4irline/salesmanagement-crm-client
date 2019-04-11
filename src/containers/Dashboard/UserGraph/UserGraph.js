@@ -61,7 +61,7 @@ class UserGraph extends PureComponent {
     return (
       <Grid item xs={12} lg={5} className='UserGraph' style={{minHeight: '46vh'}}>
         <div className='chart-header'>
-          <Typography variant='h2' style={{fontWeight: 800}}>
+          <Typography variant='h3' style={{fontWeight: 800}}>
             TAVOITTEESI
           </Typography>
           <Typography variant='h5'>

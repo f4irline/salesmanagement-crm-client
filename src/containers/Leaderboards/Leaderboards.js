@@ -163,6 +163,7 @@ class Leaderboards extends Component {
       filterType: 'multiselect',
       selectableRows: false,
       search: false,
+      responsive: 'scroll',
       textLabels: {
         body: {
           noMatch: 'Ei tuloksia',
@@ -225,7 +226,7 @@ class Leaderboards extends Component {
             onChange={this.onChange}
           />
         </form>
-        <div id='table'>
+        <div id='table-leaderboards'>
           <MUIDataTable
             title={'Sijoitukset'}
             data={newData}

@@ -145,6 +145,7 @@ class UserData extends Component {
       selectableRows: false,
       search: false,
       filter: false,
+      responsive: 'scroll',
       textLabels: {
         body: {
           noMatch: 'Ei tuloksia',
@@ -179,7 +180,7 @@ class UserData extends Component {
     return (
       <div className='UserData'>
         {this.state.showDialog ? <AlertDialog title='Poista käyttäjä' description = 'Haluatko varmasti poistaa käyttäjän?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table' style={{position: 'relative', top: '3vh'}}>
+        <div id='table-drawer'>
           <Route path='/admin/users' exact render={() => 
             <MUIDataTable
               title={'Käyttäjät'}

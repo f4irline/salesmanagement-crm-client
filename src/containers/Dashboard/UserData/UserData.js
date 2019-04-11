@@ -51,7 +51,7 @@ class UserData extends Component {
 
     return (
       <Grid item xs={12} lg={5} className='UserData' style={{minHeight: '46vh'}}>
-        <Typography variant='h2' classes={{root: classes.header}}>
+        <Typography variant='h3' classes={{root: classes.header}}>
           Hei, {this.state.user.userFirst}
         </Typography>
         <Typography variant="h5" classes={{root: classes.login}}>

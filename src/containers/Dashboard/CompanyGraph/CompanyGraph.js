@@ -72,7 +72,7 @@ class CompanyGraph extends PureComponent {
     return (
       <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
         <div className='company-chart-header'>
-          <Typography variant='h2' style={{fontWeight: 800}}>
+          <Typography variant='h3' style={{fontWeight: 800}}>
             YRITYKSEN TAVOITE
           </Typography>
         </div>

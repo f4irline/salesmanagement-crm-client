@@ -166,6 +166,7 @@ class LeadData extends Component {
       selectableRows: false,
       search: false,
       filter: false,
+      responsive: 'scroll',
       textLabels: {
         body: {
           noMatch: 'Ei tuloksia',
@@ -200,7 +201,7 @@ class LeadData extends Component {
     return (
       <div className='LeadData'>
         {this.state.showDialog ? <AlertDialog title='Poista liidi' description = 'Haluatko varmasti poistaa liidin?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table' style={{position: 'relative', top: '3vh'}}>
+        <div id='table-drawer'>
           <Route path='/admin/leads' exact render={() =>
             <MUIDataTable
               title={'Liidit'}

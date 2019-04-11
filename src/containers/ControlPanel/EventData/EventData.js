@@ -165,6 +165,7 @@ class EventData extends Component {
       selectableRows: false,
       search: false,
       filter: false,
+      responsive: 'scroll',
       textLabels: {
         body: {
           noMatch: 'Ei tuloksia',
@@ -198,7 +199,7 @@ class EventData extends Component {
     return (
       <div className='EventData'>
         {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table' style={{position: 'relative', top: '3vh'}}>
+        <div id='table-drawer'>
           <Route path='/admin/events' exact render={() => 
             <MUIDataTable
               title={'Tapahtumat'}

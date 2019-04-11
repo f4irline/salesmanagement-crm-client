@@ -57,7 +57,7 @@ const ControlPanel = (props) => {
   const roleNames = mapRoleNames();
 
   return (
-    <div className='Events'>
+    <div className='ControlPanel'>
       {/* <Tabs/> */}
       <Drawer drawerTitle={'Hallinta'} links={adminLinks}>
         <Switch>

@@ -115,7 +115,7 @@ class PersistentDrawerLeft extends React.Component {
     });
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} style={{overflowX: 'hidden'}}>
         <CssBaseline />
         <AppBar
           className={classNames(classes.appBar, {

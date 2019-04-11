@@ -103,6 +103,7 @@ const Leads = (props) => {
     selectableRows: false,
     search: false,
     filter: false,
+    responsive: 'scroll',
     textLabels: {
       body: {
         noMatch: 'Ei tuloksia',
@@ -136,7 +137,7 @@ const Leads = (props) => {
 
   return (
     <div className='Leads'>
-      <div id='table' style={{position: 'relative', top: '3vh'}}>
+      <div id='table-drawer'>
         <MUIDataTable
           title={'Liidit'}
           data={newData}

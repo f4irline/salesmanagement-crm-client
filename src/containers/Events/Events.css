@@ -2,3 +2,44 @@
   min-height: 94.9vh;
   position: relative;
 }
+
+#table-drawer {
+  margin-right: 5%;;
+  margin-left: 5%;
+  margin-bottom: 5vh;
+  box-sizing: border-box;
+  max-width: 90vw;
+}
+
+#table-drawer button {
+  color: #222C35;
+}
+
+#table-drawer h6 {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #222C35;
+}
+
+#table-drawer th {
+  text-transform: uppercase;
+  transition: 0.2s ease;
+}
+
+#table-drawer button:hover,
+#table-drawer th:hover {
+  color: #D72322;
+}
+
+.drawer {
+  min-height: 94.9vh;
+  position: relative;
+}
+
+@media only screen and (min-width: 960px) {
+  #table-drawer th,
+  #table-drawer td {
+    padding-left:10px;
+    padding-right: 10px;
+  }
+}
