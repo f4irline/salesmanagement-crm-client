@@ -75,6 +75,8 @@ class Leaderboards extends Component {
           fullName += object[data];
           rowData.push(fullName);
           break;
+        } case 'monthly_sales': {
+          break;
         }
         default: {
           rowData.push(object[data]);
