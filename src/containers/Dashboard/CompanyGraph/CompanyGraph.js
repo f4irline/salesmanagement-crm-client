@@ -112,7 +112,7 @@ class CompanyGraph extends PureComponent {
             height={this.state.height}
             data={this.state.data}
             margin={{
-              top: 0, right: this.state.width / 100 * 10, left: this.state.width / 100 * 10, bottom: this.state.height / 100 * 5,
+              top: this.state.height / 100 * 5, right: this.state.width / 100 * 10, left: this.state.width / 100 * 10, bottom: this.state.height / 100 * 5,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
