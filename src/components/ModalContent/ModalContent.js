@@ -36,6 +36,7 @@ class ModalContent extends Component {
     this.props.updateLeaderBoards();
     this.props.updateCompanyGraph();
     this.props.updateUserEvents();
+    this.props.updateAdminData();
   }
 
   handleSend = data => event => {
@@ -53,6 +54,7 @@ class ModalContent extends Component {
         .then(() => {
           this.props.updateLeads();
           this.props.updateUserEvents();
+          this.props.updateAdminData();
         });
     } else {
       const leadId = this.findLeadId(data);
