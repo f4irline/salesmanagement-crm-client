@@ -5,10 +5,37 @@ import './LeadData.css';
 import EditLead from './EditLead.js';
 import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 
+import { withStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import axios from '../../../axios-options';
+
+import classNames from 'classnames';
+
+const customStyles = {
+  NewLead: {
+    '& td': {backgroundColor: '#FFF'}
+  },
+  ContactedLead: {
+    '& td': {
+      backgroundColor: 'rgba(247, 130, 15, 0.8)',
+      color: '#FFF'
+    }
+  },
+  SoldLead: {
+    '& td': {
+      backgroundColor: 'rgba(41, 150, 0, 0.8)',
+      color: '#FFF'
+    }
+  },
+  ClosedLead: {
+    '& td': {
+      backgroundColor: 'rgba(240, 13, 13, 0.8)',
+      color: '#FFF'
+    }
+  }
+};
 
 class LeadData extends Component {
   
@@ -23,7 +50,9 @@ class LeadData extends Component {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        rowData.push(object[data]);
+        if (data !== 'stage') {
+          rowData.push(object[data]);
+        }
       }
       rowData.push(
         <IconButton aria-label='Delete' onClick={()=>{
@@ -161,12 +190,34 @@ class LeadData extends Component {
       }
     ];
 
+    let rowIndex = -1;
+
     const options = {
       filterType: 'multiselect',
       selectableRows: false,
       search: false,
       filter: false,
       responsive: 'scroll',
+      setRowProps: (row) => {
+        rowIndex++;
+        console.log(data[rowIndex]);
+        return {
+          className: classNames(
+            {
+              [this.props.classes.NewLead]: data[rowIndex].stage === 'NEW'
+            },
+            {
+              [this.props.classes.ContactedLead]: data[rowIndex].stage === 'CONTACTED'
+            },
+            {
+              [this.props.classes.SoldLead]: data[rowIndex].stage === 'SOLD'
+            },
+            {
+              [this.props.classes.ClosedLead]: data[rowIndex].stage === 'CLOSED'
+            }
+          ),
+        };
+      },
       textLabels: {
         body: {
           noMatch: 'Ei tuloksia',
@@ -219,4 +270,4 @@ class LeadData extends Component {
   }
 }
 
-export default withRouter(LeadData);
+export default withRouter(withStyles(customStyles)(LeadData));
