@@ -1,6 +1,33 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
+import {withStyles} from '@material-ui/core/styles';
 import './Leads.css';
+
+import classNames from 'classnames';
+
+const customStyles = {
+  NewLead: {
+    '& td': {backgroundColor: '#FFF'}
+  },
+  ContactedLead: {
+    '& td': {
+      backgroundColor: 'rgba(247, 130, 15, 0.8)',
+      color: '#FFF'
+    }
+  },
+  SoldLead: {
+    '& td': {
+      backgroundColor: 'rgba(41, 150, 0, 0.8)',
+      color: '#FFF'
+    }
+  },
+  ClosedLead: {
+    '& td': {
+      backgroundColor: 'rgba(240, 13, 13, 0.8)',
+      color: '#FFF'
+    }
+  }
+};
 
 const Leads = (props) => {
 
@@ -9,7 +36,7 @@ const Leads = (props) => {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data !== 'leadId') {
+        if (data !== 'leadId' && data !== 'stage') {
           if(data === 'user') {
             rowData.push(object[data].userName);
           } else {
@@ -98,12 +125,34 @@ const Leads = (props) => {
     }
   ];
 
+  let rowIndex = -1;
+
   const options = {
     filterType: 'multiselect',
     selectableRows: false,
     search: false,
     filter: false,
     responsive: 'scroll',
+    setRowProps: (row) => {
+      rowIndex++;
+      console.log(data[rowIndex]);
+      return {
+        className: classNames(
+          {
+            [props.classes.NewLead]: data[rowIndex].stage === 'NEW'
+          },
+          {
+            [props.classes.ContactedLead]: data[rowIndex].stage === 'CONTACTED'
+          },
+          {
+            [props.classes.SoldLead]: data[rowIndex].stage === 'SOLD'
+          },
+          {
+            [props.classes.ClosedLead]: data[rowIndex].stage === 'CLOSED'
+          }
+        ),
+      };
+    },
     textLabels: {
       body: {
         noMatch: 'Ei tuloksia',
@@ -150,4 +199,4 @@ const Leads = (props) => {
   );
 };
 
-export default Leads;
+export default withStyles(customStyles)(Leads);
