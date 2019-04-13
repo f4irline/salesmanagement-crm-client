@@ -36,7 +36,7 @@ class Dashboard extends Component {
       <Grid container justify='space-between' direction='row' className='Dashboard'>
         <Grid container justify='space-around' item className='user-wrapper'>
           <UserData user={this.state.user} userData={this.state.userData}/>
-          <UserGraph sales={this.state.userData.total_sales} goal={this.state.user.monthlyGoal}/>
+          <UserGraph sales={this.state.userData.monthly_sales} goal={this.state.user.monthlyGoal}/>
         </Grid>
         <Divider variant='middle' />
         <Grid container justify='space-around' item className='company-wrapper'>

@@ -83,7 +83,7 @@ class UserData extends Component {
                   <ListItemText primary={'Kokonaismyynti:'}></ListItemText>
                 </Grid>
                 <Grid item xs={6}>
-                  <ListItemText primary={this.state.userData.total_sales + ' €'}></ListItemText>
+                  <ListItemText primary={this.state.userData.monthly_sales + ' €'}></ListItemText>
                 </Grid>
               </ListItem>
               <Divider variant='middle'/>
