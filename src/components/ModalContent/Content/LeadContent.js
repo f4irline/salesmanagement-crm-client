@@ -229,27 +229,27 @@ class LeadContent extends Component {
               onChange={this.handleChange}
             >
               <FormControlLabel
-                value='prospektointi'
+                value='Prospektointi'
                 control={<Radio color='primary' />}
                 label='Prospektointi'
               />
               <FormControlLabel
-                value='messut'
+                value='Messut'
                 control={<Radio color='primary' />}
                 label='Messut'
               />
               <FormControlLabel
-                value='suositus'
+                value='Suositus'
                 control={<Radio color='primary' />}
                 label='Suositus'
               />
               <FormControlLabel
-                value='seminaarit'
+                value='Seminaarit'
                 control={<Radio color='primary' />}
                 label='Seminaarit'
               />
               <FormControlLabel
-                value='proakatemia'
+                value='Proakatemia'
                 control={<Radio color='primary' />}
                 label='Proakatemia'
               />

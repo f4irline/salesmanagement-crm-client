@@ -251,7 +251,7 @@ class App extends Component {
       })
       .catch((err) => { 
         this.setState({loggedIn: false, user_details: this.anonUserDetails});
-        console.err(err);
+        console.error(err);
       });
   }
 

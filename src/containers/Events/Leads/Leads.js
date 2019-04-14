@@ -148,8 +148,8 @@ const Leads = (props) => {
     search: false,
     filter: false,
     responsive: 'scroll',
-    setRowProps: (row, rowIndex = -1) => {
-      rowIndex++;
+    setRowProps: (row, rowIndex = 1) => {
+      rowIndex = rowIndex - 1 + 1;
       return {
         className: classNames(
           {

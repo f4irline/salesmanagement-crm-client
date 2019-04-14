@@ -195,8 +195,8 @@ class LeadData extends Component {
       search: false,
       filter: false,
       responsive: 'scroll',
-      setRowProps: (row, rowIndex = -1) => {
-        rowIndex++;
+      setRowProps: (row, rowIndex) => {
+        rowIndex = rowIndex - 1 + 1;
         return {
           className: classNames(
             {
