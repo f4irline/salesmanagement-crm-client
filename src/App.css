@@ -9,12 +9,6 @@
   z-index: 1001;
 }
 
-.modal-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .add-icon {
   background-color: #222C35 !important; 
 }

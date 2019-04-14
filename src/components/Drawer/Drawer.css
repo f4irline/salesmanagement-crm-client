@@ -7,3 +7,15 @@
 .navLink > a.active {
   color: #D72322;
 }
+
+.top-bar {
+  height: 5vh;
+  top: 5vh !important;
+}
+
+@media (max-height: 650px) {
+  .top-bar {
+    height: 7vh;
+    top: 7vh !important;
+  }  
+}

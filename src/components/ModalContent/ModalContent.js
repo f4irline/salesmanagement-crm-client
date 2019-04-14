@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Typography from '@material-ui/core/Typography';
 import './ModalContent.css';
-import Paper from '@material-ui/core/Paper';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import LeadContent from './Content/LeadContent';
@@ -12,6 +11,9 @@ import SalesContent from './Content/SalesContent';
 import OfferContent from './Content/OfferContent';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from '../../axios-options';
+import CloseLead from './Content/CloseLead';
+import Close from '@material-ui/icons/Close';
+import { IconButton } from '@material-ui/core';
 
 class ModalContent extends Component {
 
@@ -40,7 +42,7 @@ class ModalContent extends Component {
   }
 
   handleSend = data => event => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -49,17 +51,50 @@ class ModalContent extends Component {
     };
 
     if (data.eventType === 4) {
+      let dataToSend = {};
+      for (const key in data) {
+        if (key === 'typedContactRole') {
+          continue;
+        }
+
+        if (key !== 'contactRole') {
+          if (key !== 'labelWidth') {
+            dataToSend[key] = data[key];
+          }  
+        } else {
+          if (data[key] === 'Muu') {
+            dataToSend[key] = data['typedContactRole'];
+          } else {
+            dataToSend[key] = data[key];
+          }
+        }
+      }
+
       axios.post(`/leads/add/${this.props.userId}`, data, options)
-        .then((res) => console.log(res))
+        .then(() => {})
         .then(() => {
           this.props.updateLeads();
           this.props.updateUserEvents();
           this.props.updateAdminData();
         });
+    } else if (data.eventType === 5) {
+      const leadId = this.findLeadId(data);
+      axios.put(`leads/close/${leadId}`, {}, options)
+        .then(() => {})
+        .then(this.updateData.bind(this));
     } else {
       const leadId = this.findLeadId(data);
-      axios.post(`events/add/${this.props.userId}/${leadId}`, data, options)
-        .then((res) => console.log(res))
+
+      let sentData = {};
+
+      for (const key in data) {
+        if (key !== 'labelWidth') {
+          sentData[key] = data[key];
+        }
+      }  
+
+      axios.post(`events/add/${this.props.userId}/${leadId}`, sentData, options)
+        .then(() => {})
         .then(this.updateData.bind(this));
     }
   }
@@ -90,32 +125,38 @@ class ModalContent extends Component {
       content = <SalesContent handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
     else if (this.state.selectedValue === 'offer')
       content = <OfferContent handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
+    else if (this.state.selectedValue === 'close') 
+      content = <CloseLead handleSend={this.handleSend.bind(this)} leadNames={this.state.leadNames}/>;
 
     return (
       <div className='ModalContent' tabIndex={-1}>
-        <Paper>
-          <Typography variant='h4' gutterBottom className='controls-header'>
-            Lisää:
-          </Typography>
-          <div>
-            <RadioGroup row
-              name='radioGroup'
-              value={this.state.value}
-              onChange={this.handleChange.bind(this)}
-              className='controls-wrapper'
-            >
-              <FormControlLabel value='lead' control={<Radio />} label='Liidi' />
-              <FormControlLabel value='contact' control={<Radio />} label='Yhteydenotto' />
-              <FormControlLabel value='meeting' control={<Radio />} label='Tapaaminen' />
-              <FormControlLabel value='offer' control={<Radio />} label='Tarjous' />
-              <FormControlLabel value='sales' control={<Radio />} label='Myynti' />
-            </RadioGroup>
-          </div>
-
-          <div className='content-wrapper'>
-            {content}
-          </div>
-        </Paper>
+        <Typography variant='h4' gutterBottom className='controls-header'>
+          Lisää:
+        </Typography>
+        <div className='close-wrapper'>
+          <IconButton onClick={this.props.closeModal} color='secondary'> 
+            <Close />
+          </IconButton>
+        </div>
+        <div>
+          <RadioGroup 
+            row
+            name='radioGroup'
+            value={this.state.value}
+            onChange={this.handleChange.bind(this)}
+            className='controls-wrapper'
+          >
+            <FormControlLabel value='lead' control={<Radio />} label='Liidi' />
+            <FormControlLabel value='contact' control={<Radio />} label='Yhteydenotto' />
+            <FormControlLabel value='meeting' control={<Radio />} label='Tapaaminen' />
+            <FormControlLabel value='offer' control={<Radio />} label='Tarjous' />
+            <FormControlLabel value='sales' control={<Radio />} label='Myynti' />
+            <FormControlLabel value='close' control={<Radio />} label='Sulje' />
+          </RadioGroup>
+        </div>
+        <div className='content-wrapper'>
+          {content}
+        </div>
       </div>
     );
   }

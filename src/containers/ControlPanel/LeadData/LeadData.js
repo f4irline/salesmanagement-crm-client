@@ -50,7 +50,7 @@ class LeadData extends Component {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data !== 'stage') {
+        if (data !== 'stage' && data !== 'discussion' && data !== 'meeted') {
           rowData.push(object[data]);
         }
       }
@@ -78,13 +78,12 @@ class LeadData extends Component {
   
   onClickEditHandler = event => {
     this.setState({dataToEdit: event}, () => {
-      console.log(event);
       this.props.history.push('/admin/leads/edit/' + event.leadId);
     });
   }
 
   onClickCloseHandler(name) {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -97,7 +96,7 @@ class LeadData extends Component {
         .then((res) => {
           this.props.update();
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
     this.setState({showDialog: false});
   }
@@ -150,7 +149,7 @@ class LeadData extends Component {
         }
       },
       {
-        name: 'Rooli',
+        name: 'Toimenkuva',
         options: {
           filter: false,
           sort: true,
@@ -171,7 +170,7 @@ class LeadData extends Component {
         }
       },
       {
-        name: 'WWW',
+        name: 'Potentiaali',
         options: {
           filter: false,
           sort: true,
@@ -190,30 +189,27 @@ class LeadData extends Component {
       }
     ];
 
-    let rowIndex = -1;
-
     const options = {
       filterType: 'multiselect',
       selectableRows: false,
       search: false,
       filter: false,
       responsive: 'scroll',
-      setRowProps: (row) => {
+      setRowProps: (row, rowIndex = -1) => {
         rowIndex++;
-        console.log(data[rowIndex]);
         return {
           className: classNames(
             {
-              [this.props.classes.NewLead]: data[rowIndex].stage === 'NEW'
+              [this.props.classes.NewLead]: data[rowIndex] && data[rowIndex].stage === 'NEW'
             },
             {
-              [this.props.classes.ContactedLead]: data[rowIndex].stage === 'CONTACTED'
+              [this.props.classes.ContactedLead]: data[rowIndex] && data[rowIndex].stage === 'CONTACTED'
             },
             {
-              [this.props.classes.SoldLead]: data[rowIndex].stage === 'SOLD'
+              [this.props.classes.SoldLead]: data[rowIndex] && data[rowIndex].stage === 'SOLD'
             },
             {
-              [this.props.classes.ClosedLead]: data[rowIndex].stage === 'CLOSED'
+              [this.props.classes.ClosedLead]: data[rowIndex] && data[rowIndex].stage === 'CLOSED'
             }
           ),
         };
@@ -252,7 +248,7 @@ class LeadData extends Component {
     return (
       <div className='LeadData'>
         {this.state.showDialog ? <AlertDialog title='Poista liidi' description = 'Haluatko varmasti poistaa liidin?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table-drawer'>
+        <div id='table-control-panel'>
           <Route path='/admin/leads' exact render={() =>
             <MUIDataTable
               title={'Liidit'}

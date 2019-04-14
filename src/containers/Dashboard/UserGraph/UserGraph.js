@@ -5,8 +5,6 @@ import Typography from '@material-ui/core/Typography';
 
 import './UserGraph.css';
 
-import {print} from '../../../utils/Debug';
-
 import {
   PieChart, Pie, Cell,
 } from 'recharts';
@@ -33,7 +31,7 @@ class UserGraph extends PureComponent {
         this.setState({height: height, width: width});
       }
     } catch (err) {
-      print('UserGraph', 'checkWindowSize', 'Reloading Div');
+      return;
     }
   }
 
@@ -59,13 +57,10 @@ class UserGraph extends PureComponent {
     const COLORS = ['#D72322', '#222C35'];
 
     return (
-      <Grid item xs={12} lg={5} className='UserGraph' style={{minHeight: '46vh'}}>
+      <Grid item xs={12} lg={5} className='UserGraph' style={{minHeight: '44vh'}}>
         <div className='chart-header'>
           <Typography variant='h3' style={{fontWeight: 800}}>
             TAVOITTEESI
-          </Typography>
-          <Typography variant='h5'>
-            {percent} %
           </Typography>
         </div>
         <div className='chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
@@ -109,6 +104,9 @@ class UserGraph extends PureComponent {
                 data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
               }
             </Pie>
+            <text x={this.state.width / 2} y={this.state.height / 2} textAnchor="middle" dominantBaseline="middle">
+              {percent} %
+            </text>
           </PieChart>
         </div>
       </Grid>

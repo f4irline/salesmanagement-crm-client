@@ -18,7 +18,6 @@ const styles = {
   },
   paper: {
     margin: '1vw',
-    padding: '0.5vw'
   },
   header: {
     margin: '1vh 0.5vw 0 0.5vw',
@@ -50,7 +49,7 @@ class UserData extends Component {
     };
 
     return (
-      <Grid item xs={12} lg={5} className='UserData' style={{minHeight: '46vh'}}>
+      <Grid item xs={12} lg={5} className='UserData' style={{minHeight: '44vh'}}>
         <Typography variant='h3' classes={{root: classes.header}}>
           Hei, {this.state.user.userFirst}
         </Typography>

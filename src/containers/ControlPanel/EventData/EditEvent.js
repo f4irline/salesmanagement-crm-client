@@ -28,7 +28,7 @@ class EditEvent extends Component {
   }
 
   fetchData = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     const { id } = this.props.match.params;
     this.setState({loading: true}, () => {
@@ -43,12 +43,12 @@ class EditEvent extends Component {
             this.setState({companyName: this.state.data.lead.companyName});
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     });
   }
 
   fetchLeads = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     this.setState({loading: true}, () => {
       axios.get('/leads', {
         headers: {
@@ -62,7 +62,7 @@ class EditEvent extends Component {
   }
 
   handleSave = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -74,11 +74,10 @@ class EditEvent extends Component {
 
     axios.put(`/admin/events/edit/${leadId}`, this.state.data, options)
       .then((res) => {
-        console.log(res);
         this.props.update();
         this.props.history.push('/admin/events');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   findLeadId() {

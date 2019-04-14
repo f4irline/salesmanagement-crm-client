@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 import {daysBetween} from '../../../utils/Date';
-import {print} from '../../../utils/Debug';
 
 /* eslint-disable react/no-multi-comp */
 import {
@@ -45,7 +44,7 @@ class CompanyGraph extends PureComponent {
         this.setState({height: height, width: width});
       }
     } catch (err) {
-      print('CompanyGraph', 'checkWindowSize', 'Reloading Div');
+      return;
     }  
   }
   
@@ -70,7 +69,7 @@ class CompanyGraph extends PureComponent {
 
   render() {
     return (
-      <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '46vh'}}>
+      <Grid item xs={12} lg={11} className='CompanyGraph' style={{minHeight: '44vh'}}>
         <div className='company-chart-header'>
           <Typography variant='h3' style={{fontWeight: 800}}>
             YRITYKSEN TAVOITE

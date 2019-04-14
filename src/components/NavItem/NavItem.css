@@ -1,5 +1,5 @@
 .NavItem {
-  margin: 0 5vw;
+  margin: 0 4vw;
   padding: 0;
 }
 
@@ -38,7 +38,7 @@
 }
 
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1000px) {
   .NavItem > a > p {
     display: inline-block;
   }

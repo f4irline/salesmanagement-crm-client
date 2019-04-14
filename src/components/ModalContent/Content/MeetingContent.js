@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
@@ -12,12 +15,19 @@ class MeetingContent extends Component {
     companyName: '',
     place: '',
     notes: '',
-    eventType: 1
+    eventType: 1,
+    labelWidth: 0,
   };
 
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+    });
   }
 
   handleChange = event => {
@@ -46,20 +56,30 @@ class MeetingContent extends Component {
             value={this.state.date}
           />
 
-          <Select
-            name='companyName'
-            value={this.state.companyName}
-            onChange={this.handleChange}
-            className='content-item'
-            input={
-              <OutlinedInput
-                name="company"
-                labelWidth={0}
-              />
-            }
-            required>
-            {this.props.leadNames}
-          </Select>
+          <FormControl className='content-item' variant='outlined'>
+            <InputLabel
+              ref={ref => {
+                this.InputLabelRef = ref;
+              }}
+              htmlFor='outlined-industry'
+            >
+            Yritys
+            </InputLabel>
+            <Select
+              name='companyName'
+              value={this.state.companyName}
+              onChange={this.handleChange}
+              className='content-item'
+              input={
+                <OutlinedInput
+                  name="company"
+                  labelWidth={this.state.labelWidth}
+                />
+              }
+              required>
+              {this.props.leadNames}
+            </Select>
+          </FormControl>
 
           <TextField
             name='place'

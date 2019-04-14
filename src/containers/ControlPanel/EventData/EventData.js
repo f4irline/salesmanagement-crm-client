@@ -42,7 +42,6 @@ class EventData extends Component {
             break;
           }
         } else if(data !== 'email' && data !== 'contactPerson' && data !== 'phoneNumber') {
-          console.log(data);
           rowData.push(object[data]);
         }
       }
@@ -73,7 +72,7 @@ class EventData extends Component {
   }
 
   onClickCloseHandler(name) {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -86,7 +85,7 @@ class EventData extends Component {
         .then((res) => {
           this.props.update();
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
     this.setState({showDialog: false});
   }
@@ -199,7 +198,7 @@ class EventData extends Component {
     return (
       <div className='EventData'>
         {this.state.showDialog ? <AlertDialog title='Poista tapahtuma' description = 'Haluatko varmasti poistaa tapahtuman?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table-drawer'>
+        <div id='table-control-panel'>
           <Route path='/admin/events' exact render={() => 
             <MUIDataTable
               title={'Tapahtumat'}

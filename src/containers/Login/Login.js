@@ -33,7 +33,7 @@ class Login extends Component {
       credentials: 'include'
     })
       .then((res) => {
-        localStorage.setItem('accessToken', res.data.accessToken);
+        sessionStorage.setItem('accessToken', res.data.accessToken);
         this.props.onLogin();
         this.setState({error: false});
       })

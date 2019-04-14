@@ -21,7 +21,7 @@ class EditLead extends Component {
   }
 
   fetchData = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     const { id } = this.props.match.params;
     this.setState({loading: true}, () => {
@@ -33,12 +33,12 @@ class EditLead extends Component {
         .then((res) => { 
           this.setState({data: res.data, loading: false});
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     });
   }
 
   handleSave = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -46,13 +46,30 @@ class EditLead extends Component {
       }
     };
 
-    axios.put('/admin/leads/edit', this.state.data, options)
+    const sentData = {};
+
+    for (const key in this.state.data) {
+      if (key !== 'discussion') {
+        sentData[key] = this.state.data[key];
+      } else {
+        if (Array.isArray(this.state.data[key])) {
+          if (Array.isArray(this.state.data[key][0])) {
+            sentData[key] = this.state.data[key][0];
+          } else {
+            sentData[key] = this.state.data[key];
+          }
+        } else {
+          sentData[key] = this.state.data[key].split(',');
+        }
+      }
+    }
+
+    axios.put('/admin/leads/edit', sentData, options)
       .then((res) => {
-        console.log(res);
         this.props.update();
         this.props.history.push('/admin/leads');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   handleChange = (e) => {
@@ -77,7 +94,7 @@ class EditLead extends Component {
           </Typography>
         </Grid>
         <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -85,7 +102,7 @@ class EditLead extends Component {
               label='Liidi ID'
               value={this.state.data.leadId}></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               label='Luotu'
               fullWidth
@@ -95,9 +112,7 @@ class EditLead extends Component {
               value={this.state.data.date}
               onChange={this.handleChange}></TextField>
           </Grid>
-        </Grid>
-        <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -106,7 +121,9 @@ class EditLead extends Component {
               value={this.state.data.companyName}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -115,9 +132,27 @@ class EditLead extends Component {
               value={this.state.data.industry}
               onChange={this.handleChange}></TextField>
           </Grid>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
+            <TextField
+              fullWidth
+              variant='outlined'
+              name='meeted'
+              label='Tavattu'
+              value={this.state.data.meeted}
+              onChange={this.handleChange}></TextField>
+          </Grid>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
+            <TextField
+              fullWidth
+              variant='outlined'
+              name='discussion'
+              label='Keskustelun aihe'
+              value={this.state.data.discussion ? this.state.data.discussion.toString() : undefined}
+              onChange={this.handleChange}></TextField>
+          </Grid>
         </Grid>
         <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -126,7 +161,7 @@ class EditLead extends Component {
               value={this.state.data.contactPerson}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -135,9 +170,7 @@ class EditLead extends Component {
               value={this.state.data.contactRole}
               onChange={this.handleChange}></TextField>
           </Grid>
-        </Grid>
-        <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -146,7 +179,9 @@ class EditLead extends Component {
               value={this.state.data.phoneNumber}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+        </Grid>
+        <Grid container justify='space-around'>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
@@ -155,18 +190,16 @@ class EditLead extends Component {
               value={this.state.data.email}
               onChange={this.handleChange}></TextField>
           </Grid>
-        </Grid>
-        <Grid container justify='space-around'>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'
-              name='website'
-              label='WWW'
-              value={this.state.data.website}
+              name='potential'
+              label='Potentiaali'
+              value={this.state.data.potential}
               onChange={this.handleChange}></TextField>
           </Grid>
-          <Grid style={{marginTop: '3vh'}} item xs={12} md={5}>
+          <Grid style={{marginTop: '3vh'}} item xs={12} md={3}>
             <TextField
               fullWidth
               variant='outlined'

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 class ContactContent extends Component {
@@ -15,12 +17,19 @@ class ContactContent extends Component {
     phoneNumber: '',
     email: '',
     notes: '',
-    eventType: 0
+    eventType: 0,
+    labelWidth: 0
   };
 
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+    });
   }
 
   handleChange = event => {
@@ -50,7 +59,15 @@ class ContactContent extends Component {
             value={this.state.date}
           />
 
-          <FormControl className='content-item'>
+          <FormControl className='content-item' variant='outlined'>
+            <InputLabel
+              ref={ref => {
+                this.InputLabelRef = ref;
+              }}
+              htmlFor='outlined-industry'
+            >
+            Yritys
+            </InputLabel>
             <Select
               name='companyName'
               displayEmpty
@@ -59,7 +76,7 @@ class ContactContent extends Component {
               input={
                 <OutlinedInput
                   name="company"
-                  labelWidth={0}
+                  labelWidth={this.state.labelWidth}
                 />
               }
               required>

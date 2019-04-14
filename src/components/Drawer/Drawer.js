@@ -22,14 +22,13 @@ import {NavLink} from 'react-router-dom';
 
 const drawerWidth = 240;
 
-const styles = theme => ({
+let styles = theme => ({
   root: {
     display: 'flex',
   },
   appBar: {
-    top: '5vh',
+    position: 'absolute',
     backgroundColor: '#3f505f',
-    height: '5vh',
     justifyContent: 'center',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -118,7 +117,7 @@ class PersistentDrawerLeft extends React.Component {
         <AppBar
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
-          })}
+          }, 'top-bar')}
         >
           <Toolbar disableGutters={!open}>
             <IconButton

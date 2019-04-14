@@ -16,12 +16,18 @@
   display: flex;
   justify-content: flex-start; /** Content automatically sticks to the left side of the container */
   align-items: center; /** Align items vertically to center so they appear in the middle of the navigation bar */
-  width: 50%;
+  width: 70%;
 }
 
 .action-wrapper {
   display: flex;
   justify-content: flex-end; /** Content automatically sticks to the right side of the container */
   align-items: center; /** Align items vertically to center so they appear in the middle of the navigation bar */
-  width: 50%;
+  width: 30%;
+}
+
+@media (max-height: 650px) {
+  .Navigation {
+    height: 7vh;
+  }
 }

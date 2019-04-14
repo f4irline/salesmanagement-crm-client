@@ -39,6 +39,8 @@ const Leads = (props) => {
         if (data !== 'leadId' && data !== 'stage') {
           if(data === 'user') {
             rowData.push(object[data].userName);
+          } else if (data === 'discussion') {
+            rowData.push(object[data].join(', '));
           } else {
             rowData.push(object[data]);
           }
@@ -52,6 +54,7 @@ const Leads = (props) => {
 
   const data = props.data;   
   const newData = mapData(data);
+
   const columns = [
     {
       name: 'päivämäärä',
@@ -110,7 +113,21 @@ const Leads = (props) => {
       }
     },
     {
-      name: 'nettisivu',
+      name: 'tavattu',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'keskustelun aihe',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'potentiaali',
       options: {
         filter: false,
         sort: true,
@@ -125,33 +142,30 @@ const Leads = (props) => {
     }
   ];
 
-  let rowIndex = -1;
-
   const options = {
     filterType: 'multiselect',
     selectableRows: false,
     search: false,
     filter: false,
     responsive: 'scroll',
-    setRowProps: (row) => {
+    setRowProps: (row, rowIndex = -1) => {
       rowIndex++;
-      console.log(data[rowIndex]);
       return {
         className: classNames(
           {
-            [props.classes.NewLead]: data[rowIndex].stage === 'NEW'
+            [props.classes.NewLead]: data[rowIndex] && data[rowIndex].stage === 'NEW'
           },
           {
-            [props.classes.ContactedLead]: data[rowIndex].stage === 'CONTACTED'
+            [props.classes.ContactedLead]: data[rowIndex] && data[rowIndex].stage === 'CONTACTED'
           },
           {
-            [props.classes.SoldLead]: data[rowIndex].stage === 'SOLD'
+            [props.classes.SoldLead]: data[rowIndex] && data[rowIndex].stage === 'SOLD'
           },
           {
-            [props.classes.ClosedLead]: data[rowIndex].stage === 'CLOSED'
+            [props.classes.ClosedLead]: data[rowIndex] && data[rowIndex].stage === 'CLOSED'
           }
         ),
-      };
+      };  
     },
     textLabels: {
       body: {

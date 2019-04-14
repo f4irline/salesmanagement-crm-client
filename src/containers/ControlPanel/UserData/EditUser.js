@@ -26,7 +26,7 @@ class EditUser extends Component {
   }
 
   fetchData = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     const { id } = this.props.match.params;
     this.setState({loading: true}, () => {
@@ -44,7 +44,7 @@ class EditUser extends Component {
             }
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     });
   }
 
@@ -59,7 +59,7 @@ class EditUser extends Component {
   }
 
   handleSave = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -97,7 +97,7 @@ class EditUser extends Component {
         this.props.update();
         this.props.history.push('/admin/users');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   render() {

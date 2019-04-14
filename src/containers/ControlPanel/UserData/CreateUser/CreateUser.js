@@ -19,7 +19,7 @@ class CreateUser extends Component {
   }
 
   handleCreate = () => {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {

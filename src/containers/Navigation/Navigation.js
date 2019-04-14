@@ -23,7 +23,7 @@ const Navigation = (props) => {
           <NavItem url='/admin/users' icon={<Settings />}>Hallinta</NavItem>
           : null
         }
-        <ActionItem icon = {<ExitToApp/>} onClick = {props.handleLogout}>Kirjaudu ulos</ActionItem>
+        <ActionItem icon={<ExitToApp/>} onClick={props.handleLogout}>Kirjaudu ulos</ActionItem>
       </div>
     </div>
   );

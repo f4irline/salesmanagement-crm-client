@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ModalContent from './components/ModalContent/ModalContent';
-import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import Dashboard from './containers/Dashboard/Dashboard';
 import Error from './containers/Error/Error';
@@ -31,7 +33,7 @@ class App extends Component {
 
   state = {
     loggedIn: false,
-    modalOpen: false,
+    modalOpen: true,
     loadingLeads: true,
     loadingAdminData: true,
     loadingLeaderBoards: true,
@@ -53,7 +55,7 @@ class App extends Component {
   validateDate = this.validateDate.bind(this);
 
   componentDidMount() {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     if (jwt) {
       this.handleLogin();
@@ -81,7 +83,7 @@ class App extends Component {
       end = endDate;
     }
 
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     let url_companyChart = `/companyChart/get/${start}/${end}`;
     this.setState({loadingCompany: true, companyStartDate: start, companyEndDate: end}, () => {
@@ -97,7 +99,7 @@ class App extends Component {
   }
 
   updateUserEvents() {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     let url_userEvents = `/userEvents/${this.state.user_details.userId}`;
     this.setState({loadingUserEvents: true}, () => {
@@ -111,12 +113,12 @@ class App extends Component {
             this.setState({loadingUserEvents: false});
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     });
   }
 
   updateUserData() {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     let url_userData = `/userData/${this.state.user_details.userId}`;
     this.setState({loadingUserData: true}, () => {
@@ -130,12 +132,12 @@ class App extends Component {
             this.setState({loadingUserData: false});
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     });
   }
 
   updateLeaderBoards() {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     this.setState({loadingLeaderBoards: true}, () => {
       axios.get('/userData/all', {
@@ -156,7 +158,7 @@ class App extends Component {
   }
 
   validateDate(startDate, endDate) {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
 
     this.setState({loadingLeaderBoards: true}, () => {
       if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
@@ -195,7 +197,7 @@ class App extends Component {
   }
 
   updateLeads() {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     this.setState({loadingLeads: true}, () => {
       axios.get('/leads', {
         headers: {
@@ -210,7 +212,7 @@ class App extends Component {
 
   updateAdmin() {
     if (this.state.user_details.roles[1] !== undefined) {
-      const jwt = localStorage.getItem('accessToken');
+      const jwt = sessionStorage.getItem('accessToken');
       this.setState({loadingAdminData: true}, () => {
         axios.get('/admin', {
           headers: {
@@ -232,7 +234,7 @@ class App extends Component {
    * @param {String} name 
    */
   handleLogin() {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     axios.get('/users/details', {
       headers: {
         Authorization: `Bearer ${jwt}`
@@ -249,13 +251,13 @@ class App extends Component {
       })
       .catch((err) => { 
         this.setState({loggedIn: false, user_details: this.anonUserDetails});
-        console.log(err);
+        console.err(err);
       });
   }
 
   handleLogout() {
     this.setState({loggedIn: false, user_details: this.anonUserDetails}, () => {
-      localStorage.removeItem('accessToken');
+      sessionStorage.removeItem('accessToken');
     });
   }
 
@@ -286,6 +288,8 @@ class App extends Component {
       );
     }
     
+    const { fullScreen } = this.props;
+
     return (
       <div className='App'>
         <Navigation roles={this.state.user_details.roles} handleLogout={this.handleLogout.bind(this)} />
@@ -310,25 +314,29 @@ class App extends Component {
             <AddIcon />
           </Fab>
         </div>
-        <Modal 
+        <Dialog 
+          fullWidth
+          fullScreen={fullScreen}
           open={this.state.modalOpen} 
+          maxWidth={'md'}
           onClose={this.modalClose.bind(this)}
-          className='modal-wrapper'
           onEscapeKeyDown={this.modalClose.bind(this)}>
-          <ModalContent
-            updateUserData={this.updateUserData.bind(this)}
-            updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
-            updateUserEvents={this.updateUserEvents.bind(this)}
-            updateLeads={this.updateLeads.bind(this)} 
-            updateCompanyGraph={this.updateCompanyData.bind(this)}
-            updateAdminData={this.updateAdmin.bind(this)}
-            userId={this.state.user_details.userId} 
-            closeModal={this.modalClose.bind(this)} 
-            leads={this.state.leads}/>
-        </Modal>
+          <DialogContent>
+            <ModalContent
+              updateUserData={this.updateUserData.bind(this)}
+              updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
+              updateUserEvents={this.updateUserEvents.bind(this)}
+              updateLeads={this.updateLeads.bind(this)} 
+              updateCompanyGraph={this.updateCompanyData.bind(this)}
+              updateAdminData={this.updateAdmin.bind(this)}
+              userId={this.state.user_details.userId} 
+              closeModal={this.modalClose.bind(this)} 
+              leads={this.state.leads}/>
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }
 }
 
-export default withRouter(App);
+export default withMobileDialog({breakpoint: 'sm'})(App);

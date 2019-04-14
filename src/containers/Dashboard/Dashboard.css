@@ -1,7 +1,6 @@
 .Dashboard {
     display: flex;
     flex-direction: column;
-    min-height: 94.9vh;
     width: 90vw;
     position: relative;
 }  

@@ -80,7 +80,7 @@ class UserData extends Component {
   }
 
   onClickCloseHandler(name) {
-    const jwt = localStorage.getItem('accessToken');
+    const jwt = sessionStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
       headers: {
@@ -93,7 +93,7 @@ class UserData extends Component {
         .then((res) => {
           this.props.update();
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
     this.setState({showDialog: false});
   }
@@ -196,7 +196,7 @@ class UserData extends Component {
     return (
       <div className='UserData'>
         {this.state.showDialog ? <AlertDialog title='Poista käyttäjä' description = 'Haluatko varmasti poistaa käyttäjän?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
-        <div id='table-drawer'>
+        <div id='table-control-panel'>
           <Route path='/admin/users' exact render={() => 
             <React.Fragment>
               <MUIDataTable
@@ -206,7 +206,7 @@ class UserData extends Component {
                 options={options}
               />
               <Button style={{marginTop: '1vh', color: '#fff'}} variant='contained' color='primary' onClick={this.handleButtonClick}>
-                Create new user!
+                Lisää uusi käyttäjä!
               </Button>
             </React.Fragment>
           } />

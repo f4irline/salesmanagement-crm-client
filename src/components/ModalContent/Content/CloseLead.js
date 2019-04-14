@@ -8,14 +8,14 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
-class SalesContent extends Component {
+class CloseLead extends Component {
 
   state = {
     date: new Date().toISOString().split('T')[0],
     companyName: '',
     sum: 0,
     notes: '',
-    eventType: 3,
+    eventType: 5,
     labelWidth: 0
   };
 
@@ -39,7 +39,7 @@ class SalesContent extends Component {
     return(
       <div className='content-all'>
         <Typography variant='h5' className='event-header'>
-            Myynti
+            Sulje Liidi
         </Typography>
 
         <div className='secondary-content-fields'>
@@ -81,16 +81,6 @@ class SalesContent extends Component {
               {this.props.leadNames}
             </Select>
           </FormControl>
-          
-          <TextField
-            name='sum'
-            label='Summa'
-            onChange={this.handleChange}
-            className='content-item'
-            variant='outlined'
-            type='number'
-            required
-          />
         </div>
 
         <Typography variant='h5' className='event-header'>
@@ -121,4 +111,4 @@ class SalesContent extends Component {
 
 }
 
-export default SalesContent;
+export default CloseLead;

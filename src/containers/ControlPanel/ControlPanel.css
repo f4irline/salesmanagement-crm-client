@@ -2,7 +2,7 @@
   height: 100%;
 }
 
-#table-drawer {
+#table-control-panel {
   margin-right: 5%;;
   margin-left: 5%;
   margin-bottom: 5vh;
@@ -10,29 +10,29 @@
   max-width: 90vw;
 }
 
-#table-drawer button {
+#table-control-panel button {
   color: #222C35;
 }
 
-#table-drawer h6 {
+#table-control-panel h6 {
   font-weight: 700;
   text-transform: uppercase;
   color: #222C35;
 }
 
-#table-drawer th {
+#table-control-panel th {
   text-transform: uppercase;
   transition: 0.2s ease;
 }
 
-#table-drawer button:hover,
-#table-drawer th:hover {
+#table-control-panel button:hover,
+#table-control-panel th:hover {
   color: #D72322;
 }
 
 @media only screen and (min-width: 960px) {
-  #table-drawer th,
-  #table-drawer td {
+  #table-control-panel th,
+  #table-control-panel td {
     padding-left:10px;
     padding-right: 10px;
   }

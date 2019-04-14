@@ -4,7 +4,6 @@ import './Button.css';
 const Button = (props) => {
 
   let classes = 'Button ' + props.type;
-  console.log(classes);
 
   return (
     <div className={classes}>

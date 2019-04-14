@@ -1,5 +1,5 @@
 .ActionItem {
-  margin: 0 5vw;
+  margin: 0 4vw;
   display: flex;
   align-items: center;
   transition: 0.2s ease;
@@ -15,7 +15,7 @@
   color: #D72322;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1000px) {
   .ActionItem > p {
     display: block;
   }

@@ -3,7 +3,7 @@
 }
 
 #table-drawer {
-  margin-right: 5%;;
+  margin-right: 5% ;
   margin-left: 5%;
   margin-bottom: 5vh;
   box-sizing: border-box;
@@ -31,9 +31,12 @@
 }
 
 @media only screen and (min-width: 960px) {
-  #table-drawer th,
-  #table-drawer td {
-    padding-left:10px;
-    padding-right: 10px;
+  #table-drawer table td {
+    padding-left: 10px;
+    padding-right: 0px;
+  }
+
+  #table-drawer table th {
+    padding-left: 10px;
   }
 }
