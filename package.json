@@ -8,6 +8,7 @@
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "disable-react-devtools": "^1.0.0",
     "material-ui-pickers": "^2.2.4",
     "mui-datatables": "^2.0.0-beta-54",
     "react": "^16.7.0",

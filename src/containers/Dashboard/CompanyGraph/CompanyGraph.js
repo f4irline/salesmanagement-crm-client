@@ -77,7 +77,11 @@ class CompanyGraph extends PureComponent {
         </div>
         <div className='company-chart-wrapper' ref={(chartWrapper) => this.chartWrapper = chartWrapper}>
           <Typography variant='h5'>
-            Myynti: {this.state.data[this.state.data.length-1].sum.toFixed(2)} € (Tavoite: {this.state.data[this.state.data.length-1].goal.toFixed(2)} €)
+              Myynti: {this.state.data.length > 0 
+              ? this.state.data[this.state.data.length-1].sum.toFixed(2)
+              : 0.00.toFixed(2)} € (Tavoite: {this.state.data.length > 0 
+              ? this.state.data[this.state.data.length-1].goal.toFixed(2)
+              : 0.00.toFixed(2)} €)
           </Typography>
           <TextField className='date'
             id='startDate'

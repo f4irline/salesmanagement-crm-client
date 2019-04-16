@@ -4,9 +4,6 @@ import { Route } from 'react-router-dom';
 
 import Drawer from '../../components/Drawer/Drawer.js';
 
-//eslint-disable-next-line
-import Tabs from './Tabs/Tabs';
-
 import Contacts from './Contacts/Contacts';
 import Leads from './Leads/Leads';
 import Meetings from './Meetings/Meetings';
@@ -51,7 +48,6 @@ const Events = (props) => {
 
   return (
     <div className='Events'>
-      { /*<Tabs /> */ }
       <Drawer drawerTitle={'Tapahtumat'} links={eventLinks}>
         <Route path='/events/contacts' render={() => <Contacts data={props.data[0]} />} />
         <Route path='/events/meetings' render={() => <Meetings data={props.data[1]} />} />
