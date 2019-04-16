@@ -83,7 +83,7 @@ class Leaderboards extends Component {
         }
         }
       }
-      return rowData;
+      return rowData;  
     });
 
     return newData;
