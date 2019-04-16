@@ -25,7 +25,12 @@ class CreateGoal extends Component {
       }
     };
 
-    axios.post('/companyGoals', this.state, options)
+    const newGoal = {
+      yearMonth: this.state.yearMonth,
+      monthlyGoal: this.state.monthlyGoal
+    };
+
+    axios.post('/companyGoals', newGoal, options)
       .then((res) => {
         this.props.update();
         this.props.history.push('/admin/goals');
