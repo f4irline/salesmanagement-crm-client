@@ -77,11 +77,6 @@ class ModalContent extends Component {
           this.props.updateUserEvents();
           this.props.updateAdminData();
         });
-    } else if (data.eventType === 5) {
-      const leadId = this.findLeadId(data);
-      axios.put(`leads/close/${leadId}`, {}, options)
-        .then(() => {})
-        .then(this.updateData.bind(this));
     } else {
       const leadId = this.findLeadId(data);
 
@@ -91,7 +86,9 @@ class ModalContent extends Component {
         if (key !== 'labelWidth') {
           sentData[key] = data[key];
         }
-      }  
+      }
+
+      console.log(sentData);
 
       axios.post(`events/add/${this.props.userId}/${leadId}`, sentData, options)
         .then(() => {})

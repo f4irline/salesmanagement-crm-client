@@ -9,12 +9,14 @@ import Leads from './Leads/Leads';
 import Meetings from './Meetings/Meetings';
 import Offers from './Offers/Offers';
 import Sales from './Sales/Sales';
+import Closed from './Closed/Closed';
 
 import Description from '@material-ui/icons/Description';
 import EuroSymbol from '@material-ui/icons/EuroSymbol';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Person from '@material-ui/icons/Person';
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
+import Clear from '@material-ui/icons/Clear';
 
 const Events = (props) => {
 
@@ -43,6 +45,11 @@ const Events = (props) => {
       url: '/events/sales',
       text: 'Myynnit',
       icon: <EuroSymbol />
+    },
+    {
+      url: '/events/closed',
+      text: 'Suljetut',
+      icon: <Clear />
     }
   ];
 
@@ -54,6 +61,7 @@ const Events = (props) => {
         <Route path='/events/offers' render={() => <Offers data={props.data[2]} />} />
         <Route path='/events/sales' render={() => <Sales data={props.data[3]} />} />
         <Route path='/events/leads' render={() => <Leads data={props.data[4]} />} />
+        <Route path='/events/closed' render={() => <Closed data={props.data[5]} />} />
       </Drawer>
     </div>
     
