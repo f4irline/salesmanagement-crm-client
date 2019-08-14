@@ -11,6 +11,8 @@ const Sales = (props) => {
       for (let data in object) {
         if (data === 'date' || data === 'companyName' || data === 'notes' || data === 'sum') {
           rowData.push(object[data]);
+        } else if (data === 'user') {
+          rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
         }
       }
       return rowData;
@@ -24,6 +26,13 @@ const Sales = (props) => {
   const columns = [
     {
       name: 'Päivämäärä',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Tehnyt',
       options: {
         filter: false,
         sort: true,

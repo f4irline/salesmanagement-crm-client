@@ -37,7 +37,7 @@ class ModalContent extends Component {
     this.props.updateUserData();
     this.props.updateLeaderBoards();
     this.props.updateCompanyGraph();
-    this.props.updateUserEvents();
+    this.props.updateAllEvents();
     this.props.updateAdminData();
   }
 
@@ -74,7 +74,7 @@ class ModalContent extends Component {
         .then(() => {})
         .then(() => {
           this.props.updateLeads();
-          this.props.updateUserEvents();
+          this.props.updateAllEvents();
           this.props.updateAdminData();
         });
     } else {

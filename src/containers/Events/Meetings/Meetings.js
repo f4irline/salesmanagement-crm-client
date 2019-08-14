@@ -11,7 +11,9 @@ const Meetings = (props) => {
       for (let data in object) {
         if (data === 'date' || data === 'companyName' || data === 'place' || data === 'notes') {
           rowData.push(object[data]);
-        } 
+        } else if (data === 'user') {
+          rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
+        }
       }
       return rowData;
     });
@@ -24,6 +26,13 @@ const Meetings = (props) => {
   const columns = [
     {
       name: 'Päivämäärä',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Tehnyt',
       options: {
         filter: false,
         sort: true,

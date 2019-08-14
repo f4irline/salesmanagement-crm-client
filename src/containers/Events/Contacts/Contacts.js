@@ -11,6 +11,8 @@ const Contacts = (props) => {
       for (let data in object) {
         if (data !== 'eventId' && data !== 'eventType' && data !== 'user' && data !== 'sum' && data !== 'place' && data !== 'lead') {
           rowData.push(object[data]);          
+        } else if (data === 'user') {
+          rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
         }
       }
       return rowData;
@@ -24,6 +26,13 @@ const Contacts = (props) => {
   const columns = [
     {
       name: 'päivämäärä',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'Tehnyt',
       options: {
         filter: false,
         sort: true,

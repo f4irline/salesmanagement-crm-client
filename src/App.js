@@ -37,7 +37,7 @@ class App extends Component {
     loadingLeads: true,
     loadingAdminData: true,
     loadingLeaderBoards: true,
-    loadingUserEvents: true,
+    loadingAllEvents: true,
     loadingUserData: true,
     loadingCompany: true,
     leads: [], 
@@ -66,7 +66,7 @@ class App extends Component {
     this.updateCompanyData(this.state.companyStartDate, this.state.companyEndDate);
     this.updateLeads();
     this.updateLeaderBoards();
-    this.updateUserEvents();
+    this.updateAllEvents();
     this.updateUserData();
     this.updateAdmin();
   }
@@ -98,19 +98,19 @@ class App extends Component {
     });
   }
 
-  updateUserEvents() {
+  updateAllEvents() {
     const jwt = sessionStorage.getItem('accessToken');
 
-    let url_userEvents = `/userEvents/${this.state.user_details.userId}`;
-    this.setState({loadingUserEvents: true}, () => {
-      axios.get(url_userEvents, {
+    let url_allEvents = '/events/all';
+    this.setState({loadingAllEvents: true}, () => {
+      axios.get(url_allEvents, {
         headers: {
           Authorization: `Bearer ${jwt}`
         }
       })
         .then(userEvents => {
           this.setState({userEvents: userEvents.data, modalOpen: false}, () => {
-            this.setState({loadingUserEvents: false});
+            this.setState({loadingAllEvents: false});
           });
         })
         .catch(err => console.error(err));
@@ -279,7 +279,7 @@ class App extends Component {
     }
 
     if (this.state.loadingLeads || this.state.loadingLeaderBoards || this.state.loadingCompany
-      || this.state.loadingUserData || this.state.loadingUserEvents || this.state.loadingAdminData) {
+      || this.state.loadingUserData || this.state.loadingAllEvents || this.state.loadingAdminData) {
       return (
         <div className='App'>
           <Navigation handleLogout = {this.handleLogout.bind(this)} />
@@ -325,7 +325,7 @@ class App extends Component {
             <ModalContent
               updateUserData={this.updateUserData.bind(this)}
               updateLeaderBoards={this.updateLeaderBoards.bind(this)} 
-              updateUserEvents={this.updateUserEvents.bind(this)}
+              updateAllEvents={this.updateAllEvents.bind(this)}
               updateLeads={this.updateLeads.bind(this)} 
               updateCompanyGraph={this.updateCompanyData.bind(this)}
               updateAdminData={this.updateAdmin.bind(this)}

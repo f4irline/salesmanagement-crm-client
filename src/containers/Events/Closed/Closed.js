@@ -2,7 +2,7 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import './Closed.css';
 
-const Contacts = (props) => {
+const Closed = (props) => {
 
   const mapData = (data) => {
     let newData = [];
@@ -11,6 +11,8 @@ const Contacts = (props) => {
       for (let data in object) {
         if (data === 'notes' || data === 'date' || data === 'companyName') {
           rowData.push(object[data]);          
+        } else if (data === 'user') {
+          rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
         }
       }
       return rowData;
@@ -24,6 +26,13 @@ const Contacts = (props) => {
   const columns = [
     {
       name: 'päivämäärä',
+      options: {
+        filter: false,
+        sort: true,
+      }
+    },
+    {
+      name: 'tehnyt',
       options: {
         filter: false,
         sort: true,
@@ -96,4 +105,4 @@ const Contacts = (props) => {
   );
 };
 
-export default Contacts;
+export default Closed;
