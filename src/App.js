@@ -299,13 +299,17 @@ class App extends Component {
             userData={this.state.userData} 
             companyData={this.state.companyData}
             companyDates={[this.state.companyStartDate, this.state.companyEndDate]}
-            updateCompany={this.updateCompanyData.bind(this)} 
-            user_id={this.state.user_details.userId}/>} 
+            updateCompany={this.updateCompanyData.bind(this)}/>} 
           exact />
-          <Route path='/leaderboards' render={() => <Leaderboards leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} updateDate={this.updateLeaderBoardsByDate.bind(this)} data={this.state.leaderBoards} />} />
-          <Route path='/events' render={() => <Events data={this.state.userEvents} />} />
+          <Route path='/leaderboards' render={() => 
+            <Leaderboards 
+              userId={this.state.user_details.id}
+              leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} 
+              updateDate={this.updateLeaderBoardsByDate.bind(this)} 
+              data={this.state.leaderBoards} />} />
+          <Route path='/events' render={() => <Events data={this.state.userEvents} userId={this.state.user_details.userId} />} />
           {this.state.user_details.roles[1] !== undefined ? 
-            <Route path='/admin' render={() => <ControlPanel leads={this.state.leads} update={this.updateAll.bind(this)} user_id={this.state.user_details.userId} data={this.state.adminData} />} />
+            <Route path='/admin' render={() => <ControlPanel leads={this.state.leads} update={this.updateAll.bind(this)} userId={this.state.user_details.userId} data={this.state.adminData} />} />
             : null}
           <Route component={Error} />
         </Switch>

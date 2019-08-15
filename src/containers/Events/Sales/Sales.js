@@ -1,6 +1,8 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import './Sales.css';
+import { IconButton } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
 
 const Sales = (props) => {
 
@@ -15,6 +17,13 @@ const Sales = (props) => {
           rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
         }
       }
+      object.user.userId === props.userId
+        ? rowData.push(
+          <IconButton onClick={() => this.onClickEditHandler(object)}> 
+            <CreateIcon />
+          </IconButton>
+        ): rowData.push('');
+
       return rowData;
     });
 
@@ -57,6 +66,13 @@ const Sales = (props) => {
       options: {
         filter: false,
         sort: true,
+      }
+    },
+    {
+      name: 'Muokkaa',
+      options: {
+        filter: false,
+        sort: false,
       }
     }
   ];

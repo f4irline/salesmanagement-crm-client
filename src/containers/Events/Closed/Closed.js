@@ -1,6 +1,8 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import './Closed.css';
+import { IconButton } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
 
 const Closed = (props) => {
 
@@ -15,7 +17,15 @@ const Closed = (props) => {
           rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
         }
       }
+      object.user.userId === props.userId
+        ? rowData.push(
+          <IconButton onClick={() => this.onClickEditHandler(object)}> 
+            <CreateIcon />
+          </IconButton>
+        ): rowData.push('');
+
       return rowData;
+
     });
     return newData;
   };
@@ -50,6 +60,13 @@ const Closed = (props) => {
       options: {
         filter: false,
         sort: true,
+      }
+    },
+    {
+      name: 'muokkaa',
+      options: {
+        filter: false,
+        sort: false,
       }
     }
   ];

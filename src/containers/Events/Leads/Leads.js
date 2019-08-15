@@ -4,6 +4,8 @@ import {withStyles} from '@material-ui/core/styles';
 import './Leads.css';
 
 import classNames from 'classnames';
+import { IconButton } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
 
 const customStyles = {
   NewLead: {
@@ -36,8 +38,8 @@ const Leads = (props) => {
     newData = data.map((object) => {
       let rowData = [];
       for (let data in object) {
-        if (data !== 'leadId' && data !== 'stage') {
-          if(data === 'user') {
+        if (data !== 'leadId' && data !== 'stage' && data !== 'userName') {
+          if (data === 'user') {
             rowData.push(object[data].userName);
           } else if (data === 'discussion') {
             rowData.push(object[data].join(', '));
@@ -46,6 +48,13 @@ const Leads = (props) => {
           }
         }
       }
+      object.user.userId === props.userId
+        ? rowData.push(
+          <IconButton onClick={() => this.onClickEditHandler(object)}> 
+            <CreateIcon />
+          </IconButton>
+        ): rowData.push('');
+
       return rowData;
     });
 
@@ -138,6 +147,13 @@ const Leads = (props) => {
       options: {
         filter: false,
         sort: true,
+      }
+    },
+    {
+      name: 'muokkaa',
+      options: {
+        filter: false,
+        sort: false,
       }
     }
   ];

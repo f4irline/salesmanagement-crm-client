@@ -56,12 +56,12 @@ const Events = (props) => {
   return (
     <div className='Events'>
       <Drawer drawerTitle={'Tapahtumat'} links={eventLinks}>
-        <Route path='/events/contacts' render={() => <Contacts data={props.data[0]} />} />
-        <Route path='/events/meetings' render={() => <Meetings data={props.data[1]} />} />
-        <Route path='/events/offers' render={() => <Offers data={props.data[2]} />} />
-        <Route path='/events/sales' render={() => <Sales data={props.data[3]} />} />
-        <Route path='/events/leads' render={() => <Leads data={props.data[4]} />} />
-        <Route path='/events/closed' render={() => <Closed data={props.data[5]} />} />
+        <Route path='/events/contacts' render={() => <Contacts userId={props.userId} data={props.data[0]} />} />
+        <Route path='/events/meetings' render={() => <Meetings userId={props.userId} data={props.data[1]} />} />
+        <Route path='/events/offers' render={() => <Offers userId={props.userId} data={props.data[2]} />} />
+        <Route path='/events/sales' render={() => <Sales userId={props.userId} data={props.data[3]} />} />
+        <Route path='/events/leads' render={() => <Leads userId={props.userId} data={props.data[4]} />} />
+        <Route path='/events/closed' render={() => <Closed userId={props.userId} data={props.data[5]} />} />
       </Drawer>
     </div>
     

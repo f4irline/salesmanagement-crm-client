@@ -2,6 +2,9 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import './Contacts.css';
 
+import { IconButton } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
+
 const Contacts = (props) => {
 
   const mapData = (data) => {
@@ -15,6 +18,13 @@ const Contacts = (props) => {
           rowData.push(`${object[data].userFirst} ${object[data].userLast}`);
         }
       }
+      object.user.userId === props.userId
+        ? rowData.push(
+          <IconButton onClick={() => this.onClickEditHandler(object)}> 
+            <CreateIcon />
+          </IconButton>
+        ): rowData.push('');
+
       return rowData;
     });
     return newData;
@@ -71,6 +81,13 @@ const Contacts = (props) => {
       options: {
         filter: false,
         sort: true,
+      }
+    },
+    {
+      name: 'muokkaa',
+      options: {
+        filter: false,
+        sort: false,
       }
     }
   ];
