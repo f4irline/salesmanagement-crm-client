@@ -37,6 +37,9 @@ class EventData extends Component {
           case 3:
             rowData.push('Myynti');
             break;
+          case 5:
+            rowData.push('Sulku');
+            break;
           default:
             rowData.push(undefined);
             break;
