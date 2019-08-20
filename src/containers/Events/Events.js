@@ -72,7 +72,7 @@ const Events = (props) => {
         <Route path='/events/meetings' render={() => <Meetings userId={props.userId} data={props.data[1]} />} />
         <Route path='/events/offers' render={() => <Offers userId={props.userId} data={props.data[2]} />} />
         <Route path='/events/sales' render={() => <Sales userId={props.userId} data={props.data[3]} />} />
-        <Route path='/events/leads' render={() => <Leads userId={props.userId} data={props.data[4]} />} />
+        <Route path='/events/leads' render={() => <Leads update={props.update} userId={props.userId} data={props.data[4]} />} />
         <Route path='/events/closed' render={() => <Closed userId={props.userId} data={props.data[5]} />} />
         <Route path='/events/edit/:id' render={() => 
           <EditEvent admin={false} update={props.update} leadNames={leadNames} />

@@ -15,12 +15,24 @@ class EditLead extends Component {
   }
 
   componentDidMount() {
-    if(!this.state.data.leadId) {
-      this.fetchData();
+    if (this.props.admin) {
+      this.setState({
+        endPoint: '/admin/leads/edit/',
+        returnPath: '/admin/leads'
+      }, () => this.fetchData());
+    } else {
+      this.setState({
+        endPoint: '/leads/edit/',
+        returnPath: '/events/leads'
+      }, () => this.fetchData());
     }
   }
 
   fetchData = () => {
+    if (this.state.data.leadId) {
+      return;
+    }
+
     const jwt = sessionStorage.getItem('accessToken');
 
     const { id } = this.props.match.params;
@@ -64,10 +76,10 @@ class EditLead extends Component {
       }
     }
 
-    axios.put('/admin/leads/edit', sentData, options)
+    axios.put(this.state.endPoint, sentData, options)
       .then((res) => {
         this.props.update();
-        this.props.history.push('/admin/leads');
+        this.props.history.push(this.state.returnPath);
       })
       .catch(err => console.error(err));
   }

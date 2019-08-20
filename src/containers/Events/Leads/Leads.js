@@ -1,11 +1,13 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import {withStyles} from '@material-ui/core/styles';
+import { Route, withRouter } from 'react-router-dom';
 import './Leads.css';
 
 import classNames from 'classnames';
 import { IconButton } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
+import EditLead from '../../ControlPanel/LeadData/EditLead';
 
 const customStyles = {
   NewLead: {
@@ -31,9 +33,13 @@ const customStyles = {
   }
 };
 
-const Leads = (props) => {
+class Leads extends React.Component {
 
-  const mapData = (data) => {
+  state = {
+    dataToEdit: {}
+  }
+
+  mapData = (data) => {
     let newData = [];
     newData = data.map((object) => {
       let rowData = [];
@@ -48,7 +54,7 @@ const Leads = (props) => {
           }
         }
       }
-      object.user.userId === props.userId
+      object.user.userId === this.props.userId
         ? rowData.push(
           <IconButton onClick={() => this.onClickEditHandler(object)}> 
             <CreateIcon />
@@ -61,172 +67,186 @@ const Leads = (props) => {
     return newData;
   };
 
-  const data = props.data;   
-  const newData = mapData(data);
-
-  const columns = [
-    {
-      name: 'päivämäärä',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'tehnyt',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    }, 
-    {
-      name: 'yritys',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'toimiala',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'yhteyshenkilö',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'toimenkuva',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'puhelinnumero',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'sähköposti',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'tavattu',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'keskustelun aihe',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'potentiaali',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'lisätiedot',
-      options: {
-        filter: false,
-        sort: true,
-      }
-    },
-    {
-      name: 'muokkaa',
-      options: {
-        filter: false,
-        sort: false,
-      }
-    }
-  ];
-
-  const options = {
-    filterType: 'multiselect',
-    selectableRows: false,
-    search: false,
-    filter: false,
-    responsive: 'scroll',
-    setRowProps: (row, rowIndex = 1) => {
-      rowIndex = rowIndex - 1 + 1;
-      return {
-        className: classNames(
-          {
-            [props.classes.NewLead]: data[rowIndex] && data[rowIndex].stage === 'NEW'
-          },
-          {
-            [props.classes.ContactedLead]: data[rowIndex] && data[rowIndex].stage === 'CONTACTED'
-          },
-          {
-            [props.classes.SoldLead]: data[rowIndex] && data[rowIndex].stage === 'SOLD'
-          },
-          {
-            [props.classes.ClosedLead]: data[rowIndex] && data[rowIndex].stage === 'CLOSED'
-          }
-        ),
-      };  
-    },
-    textLabels: {
-      body: {
-        noMatch: 'Ei tuloksia',
-        toolTip: 'Järjestä',
-      },
-      pagination: {
-        next: 'Seuraava sivu',
-        previous: 'Edellinen sivu',
-        rowsPerPage: 'Rivejä / sivu:',
-        displayRows: '-',
-      },
-      toolbar: {
-        search: 'Etsi',
-        downloadCsv: 'Lataa CSV',
-        print: 'Tulosta',
-        viewColumns: 'Sarakkeet',
-        filterTable: 'Suodata',
-      },
-      viewColumns: {
-        title: 'Näytetyt Sarakkeet',
-        titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
-      },
-      selectedRows: {
-        text: 'rivejä valittu',
-        delete: 'Poista',
-        deleteAria: 'Poista Valitut Rivit',
-      },
-    }
-  
+  onClickEditHandler = (lead) => {
+    this.setState({dataToEdit: lead}, () => {
+      this.props.history.push('/events/leads/edit/'+lead.leadId);
+    });
   };
 
-  return (
-    <div className='Leads'>
-      <div id='table-drawer'>
-        <MUIDataTable
-          title={'Liidit'}
-          data={newData}
-          columns={columns}
-          options={options}
-        />
-      </div>  
-    </div>
-    
-  );
-};
+  render() {
 
-export default withStyles(customStyles)(Leads);
+    const data = this.props.data;   
+    const newData = this.mapData(data);
+
+    const columns = [
+      {
+        name: 'päivämäärä',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'tehnyt',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      }, 
+      {
+        name: 'yritys',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'toimiala',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'yhteyshenkilö',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'toimenkuva',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'puhelinnumero',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'sähköposti',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'tavattu',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'keskustelun aihe',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'potentiaali',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'lisätiedot',
+        options: {
+          filter: false,
+          sort: true,
+        }
+      },
+      {
+        name: 'muokkaa',
+        options: {
+          filter: false,
+          sort: false,
+        }
+      }
+    ];
+
+    const options = {
+      filterType: 'multiselect',
+      selectableRows: false,
+      search: false,
+      filter: false,
+      responsive: 'scroll',
+      setRowProps: (row, rowIndex = 1) => {
+        rowIndex = rowIndex - 1 + 1;
+        return {
+          className: classNames(
+            {
+              [this.props.classes.NewLead]: data[rowIndex] && data[rowIndex].stage === 'NEW'
+            },
+            {
+              [this.props.classes.ContactedLead]: data[rowIndex] && data[rowIndex].stage === 'CONTACTED'
+            },
+            {
+              [this.props.classes.SoldLead]: data[rowIndex] && data[rowIndex].stage === 'SOLD'
+            },
+            {
+              [this.props.classes.ClosedLead]: data[rowIndex] && data[rowIndex].stage === 'CLOSED'
+            }
+          ),
+        };  
+      },
+      textLabels: {
+        body: {
+          noMatch: 'Ei tuloksia',
+          toolTip: 'Järjestä',
+        },
+        pagination: {
+          next: 'Seuraava sivu',
+          previous: 'Edellinen sivu',
+          rowsPerPage: 'Rivejä / sivu:',
+          displayRows: '-',
+        },
+        toolbar: {
+          search: 'Etsi',
+          downloadCsv: 'Lataa CSV',
+          print: 'Tulosta',
+          viewColumns: 'Sarakkeet',
+          filterTable: 'Suodata',
+        },
+        viewColumns: {
+          title: 'Näytetyt Sarakkeet',
+          titleAria: 'Näytä/Piilota Taulukon Sarakkeet',
+        },
+        selectedRows: {
+          text: 'rivejä valittu',
+          delete: 'Poista',
+          deleteAria: 'Poista Valitut Rivit',
+        },
+      }
+    
+    };
+
+    return (
+      <div className='Leads'>
+        <div id='table-drawer'>
+          <Route path='/events/leads' exact render={() =>
+            <MUIDataTable
+              title={'Liidit'}
+              data={newData}
+              columns={columns}
+              options={options}
+            />        
+          } />
+          <Route path='/events/leads/edit/:id' render={() => 
+            <EditLead admin={false} update={this.props.update} data={this.state.dataToEdit} />
+          } />
+        </div>  
+      </div>
+      
+    );
+  }
+}
+
+export default withRouter(withStyles(customStyles)(Leads));
