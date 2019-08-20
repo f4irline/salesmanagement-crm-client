@@ -21,11 +21,23 @@ class EditEvent extends Component {
     data: {},
     leads: [],
     loading: false,
-    companyName: undefined
+    companyName: undefined,
+    endPoint: '',
+    returnPath: '',
   }
 
   componentDidMount() {
-    this.fetchData();
+    if (this.props.admin) {
+      this.setState({
+        endPoint: '/admin/events/edit/',
+        returnPath: '/admin/events'
+      }, () => this.fetchData());
+    } else {
+      this.setState({
+        endPoint: '/events/edit/',
+        returnPath: '/events/leads'
+      }, () => this.fetchData());
+    }
   }
 
   fetchData = () => {
@@ -73,10 +85,10 @@ class EditEvent extends Component {
 
     const leadId = this.findLeadId();
 
-    axios.put(`/admin/events/edit/${leadId}`, this.state.data, options)
+    axios.put(`${this.state.endPoint}${leadId}`, this.state.data, options)
       .then((res) => {
         this.props.update();
-        this.props.history.push('/admin/events');
+        this.props.history.push(this.state.returnPath);
       })
       .catch(err => console.error(err));
   }
@@ -100,7 +112,6 @@ class EditEvent extends Component {
   }
 
   render() {
-
     if (this.state.loading || this.state.companyName === undefined) {
       return (
         <Loading />

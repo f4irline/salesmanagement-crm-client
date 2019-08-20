@@ -75,7 +75,7 @@ const Events = (props) => {
         <Route path='/events/leads' render={() => <Leads userId={props.userId} data={props.data[4]} />} />
         <Route path='/events/closed' render={() => <Closed userId={props.userId} data={props.data[5]} />} />
         <Route path='/events/edit/:id' render={() => 
-          <EditEvent update={props.update} leadNames={leadNames} />
+          <EditEvent admin={false} update={props.update} leadNames={leadNames} />
         } />
       </Drawer>
     </div>
