@@ -65,11 +65,9 @@ class LeadContent extends Component {
   }
 
   mapIndustries = (industries) => {
-    industries = industries.map(industry => {
+    return industries.map(industry => {
       return <MenuItem key={industry} value={industry}>{industry}</MenuItem>;
     });
-
-    return industries;
   }
 
   render() {
@@ -257,7 +255,7 @@ class LeadContent extends Component {
           </FormControl>
         </Grid>
         <Grid item container xs={12} style={{margin: '2vh 0'}}>
-          <FormControl row component='fieldset' style={{margin: '0 1vw'}}>
+          <FormControl row="true" component='fieldset' style={{margin: '0 1vw'}}>
             <FormLabel component='legend'>Mistä juteltu</FormLabel>
             <FormGroup 
               row
