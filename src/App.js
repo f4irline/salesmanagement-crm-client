@@ -307,7 +307,7 @@ class App extends Component {
               leaderDates={[this.state.leaderStartDate, this.state.leaderEndDate]} 
               updateDate={this.updateLeaderBoardsByDate.bind(this)} 
               data={this.state.leaderBoards} />} />
-          <Route path='/events' render={() => <Events data={this.state.userEvents} userId={this.state.user_details.userId} />} />
+          <Route path='/events' render={() => <Events leads={this.state.leads} update={this.updateAll.bind(this)} data={this.state.userEvents} userId={this.state.user_details.userId} />} />
           {this.state.user_details.roles[1] !== undefined ? 
             <Route path='/admin' render={() => <ControlPanel leads={this.state.leads} update={this.updateAll.bind(this)} userId={this.state.user_details.userId} data={this.state.adminData} />} />
             : null}

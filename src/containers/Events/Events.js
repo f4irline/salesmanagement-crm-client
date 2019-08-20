@@ -17,6 +17,8 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import Person from '@material-ui/icons/Person';
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
 import Clear from '@material-ui/icons/Clear';
+import EditEvent from '../ControlPanel/EventData/EditEvent';
+import { MenuItem } from '@material-ui/core';
 
 const Events = (props) => {
 
@@ -53,6 +55,16 @@ const Events = (props) => {
     }
   ];
 
+  const mapLeadNames = () => {
+    const leadNames = props.leads.map(lead => {
+      return <MenuItem key={lead.companyName} value={lead.companyName}>{lead.companyName}</MenuItem>;
+    });
+
+    return leadNames;
+  };
+
+  const leadNames = mapLeadNames();
+
   return (
     <div className='Events'>
       <Drawer drawerTitle={'Tapahtumat'} links={eventLinks}>
@@ -62,6 +74,9 @@ const Events = (props) => {
         <Route path='/events/sales' render={() => <Sales userId={props.userId} data={props.data[3]} />} />
         <Route path='/events/leads' render={() => <Leads userId={props.userId} data={props.data[4]} />} />
         <Route path='/events/closed' render={() => <Closed userId={props.userId} data={props.data[5]} />} />
+        <Route path='/events/edit/:id' render={() => 
+          <EditEvent update={props.update} leadNames={leadNames} />
+        } />
       </Drawer>
     </div>
     

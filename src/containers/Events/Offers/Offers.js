@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import MUIDataTable from 'mui-datatables';
 import './Offers.css';
 import { IconButton } from '@material-ui/core';
@@ -19,7 +20,7 @@ const Offers = (props) => {
       }
       object.user.userId === props.userId
         ? rowData.push(
-          <IconButton onClick={() => this.onClickEditHandler(object)}> 
+          <IconButton onClick={() => onClickEditHandler(object)}> 
             <CreateIcon />
           </IconButton>
         ): rowData.push('');
@@ -28,6 +29,10 @@ const Offers = (props) => {
     });
 
     return newData;
+  };
+
+  const onClickEditHandler = (event) => {
+    props.history.push('/admin/events/edit/'+event.eventId);
   };
 
   const data = props.data;   
@@ -129,4 +134,4 @@ const Offers = (props) => {
   );
 };
 
-export default Offers;
+export default withRouter(Offers);
