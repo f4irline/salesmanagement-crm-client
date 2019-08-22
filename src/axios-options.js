@@ -16,6 +16,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     // baseURL: 'http://localhost:8080/api',
     baseURL: 'https://206.81.27.39/api',
     headers: { 
+      'X-XSRF-TOKEN': 'AASSSDDDFFFFGGG',
       'Access-Control-Allow-Methods': 'PATCH, DELETE, POST, GET, OPTIONS, PUT'
     }
   });
