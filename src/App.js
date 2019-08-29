@@ -235,7 +235,7 @@ class App extends Component {
    */
   handleLogin() {
     const jwt = sessionStorage.getItem('accessToken');
-    axios.get('/users/details', {
+    axios.get('/users/details/', {
       headers: {
         Authorization: `Bearer ${jwt}`
       }
