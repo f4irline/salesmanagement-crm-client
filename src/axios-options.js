@@ -13,7 +13,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
   // const CSRF_TOKEN = document.cookie.match(new RegExp('XSRF-TOKEN=([^;]+)'))[1];
   
-  axios.get('/api/auth/csrf-token').then(res => console.log(res));
+  axios.get('https://206.81.27.39/api/auth/csrf-token').then(res => console.log(res));
 
   instance = axios.create({
     withCredentials: true,
