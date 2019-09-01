@@ -12,6 +12,8 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   // Also replace the 'baseURL' value with the correct value for the server backend (e.g. Heroku).
 
   // const CSRF_TOKEN = document.cookie.match(new RegExp('XSRF-TOKEN=([^;]+)'))[1];
+  
+  axios.get('/api/auth/csrf-token').then(res => console.log(res));
 
   instance = axios.create({
     withCredentials: true,
