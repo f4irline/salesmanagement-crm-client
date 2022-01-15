@@ -1,22 +1,38 @@
-## Available Scripts
+# Salesmanagement/CRM System
 
-In the project directory, you can run:
+A full-stack blog application made as a school project for an actual client. **The backend can be found from [here](https://github.com/f4irline/salesmanagement-crm-server).**
 
-### `npm start`
+<div style="display: flex;">
+  <img src="./doc/salesmanagement_crm.png" alt="Image of the frontpage" width="768" />
+</div>
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+- Authentication with JWT
+- Admins can create, modify and remove users
+- Users can add events like leads, contacts, meetings, offers and deals
+  - Leads are visible to all other users as well
+- Users can view all the events other users have done
+- Users can view leaderboards sort of table
+- Users can see their progress and sales summaries from a dashboard
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Technologies
+### Frontend
+- React.js
+- [Axios](https://www.npmjs.com/package/axios)
+  - HTTP client
+- [Material UI](https://www.npmjs.com/package/@material-ui/core)
+  - UI components
+- [markdown-to-jsx](https://www.npmjs.com/package/markdown-to-jsx)
+  - Parses markdown to JSX elements
+- [react-mde](https://www.npmjs.com/package/react-mde)
+  - Markdown editing capabilities for the blog
+- [recharts](https://recharts.org/en-US/)
+  - Charts to visualize data
 
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Backend
+- Java (1.8)
+- Spring Boot
+- PostgreSQL
+- Hibernate
+  - ORM for database
+- Authentication made with JWT
